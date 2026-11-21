@@ -33,17 +33,18 @@ def ellipse(cx, cy, rx, ry, rot_deg, n=10):
 
 
 def bee():
-    # Biene im Profil, Blick nach rechts:
-    # 1 Pink   – hinterer, großer Flügel (nach hinten oben geneigt)
-    # 2 Orange – vorderer, kleinerer Flügel (steiler)
-    # 3 Bernstein – Körper (liegende Ellipse) mit Stachel als Teilstrich
-    # 4 Gold   – zwei Streifen auf dem Körper (ein Pfad, zwei Teilstriche)
-    # Punkt    – Kopf vorne rechts: Fokus des Signets
-    back_wing = ellipse(200, 116, 70, 40, 30)
-    front_wing = ellipse(284, 122, 60, 34, 65)
-    body = ellipse(262, 226, 80, 54, 0, n=12) + 'M176 226L152 226'   # body + sting (same stroke)
-    stripes = 'M242 200L242 252M286 200L286 252'
-    return [back_wing, front_wing, body, stripes], (366, 220, 28)   # head sits on the body's front
+    # Biene frontal und symmetrisch (Achse x = 270, rechts der Mitte nach ODSV-Regel):
+    # 1 Pink      – beide Flügel (hinten, groß): Schlaufen seitlich am Körper, ohne Kreuzung
+    # 2 Orange    – Hinterleib: rund oben, läuft unten in eine Spitze (Stachel) aus
+    # 3 Bernstein – zwei Streifen quer über den Hinterleib
+    # 4 Gold      – zwei Fühler (vorne, klein)
+    # Punkt       – Kopf: Fokus des Signets
+    wings = ('M212 184C170 146 122 166 134 206C144 238 196 234 214 212'
+             'M328 184C370 146 418 166 406 206C396 238 344 234 326 212')
+    body = 'M270 164C338 164 342 232 296 268L270 312L244 268C198 232 202 164 270 164Z'
+    stripes = 'M226 210L314 210M242 250L298 250'
+    antennae = 'M246 82L234 66M294 82L306 66'
+    return [wings, body, stripes, antennae], (270, 118, 26)
 
 
 def svg(paths, dot, background=None, view='0 0 400 400', size=400):
@@ -99,5 +100,5 @@ if __name__ == '__main__':
     out.mkdir(parents=True, exist_ok=True)
     (out / 'the-swarm-signet.svg').write_text(svg(paths, dot))
     # Square icon: motif centred (view shifted right), black ground.
-    (out / 'the-swarm-signet-dark.svg').write_text(svg(paths, dot, background='#000000', view='95 15 330 330', size=1024))
+    (out / 'the-swarm-signet-dark.svg').write_text(svg(paths, dot, background='#000000', view='105 24 330 330', size=1024))
     sys.exit(1 if errs else 0)

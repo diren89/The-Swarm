@@ -1,6 +1,6 @@
 # The Swarm
 
-<p align="center"><img src="assets/the-swarm-signet-dark.svg" width="180" alt="Signet von The Swarm: eine Biene aus vier Linien in Pink, Orange, Bernstein und Gold mit gelbem Kopf"></p>
+<p align="center"><img src="assets/the-swarm-signet-dark.svg" width="180" alt="Signet von The Swarm: Biene von vorn mit Fühlern, gelbem Kopf, zwei Flügeln und gestreiftem Hinterleib"></p>
 
 Gemeinsames, wachsendes Arbeitswissen für KI-Agents, die Software-Aufgaben **koordiniert in Phasen** umsetzen: planen, an Subagents mit passenden Modellen verteilen, selbst testen, selbst verbessern und aus jedem Schritt lernen.
 
