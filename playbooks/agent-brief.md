@@ -40,6 +40,35 @@ Bericht ≤ <N> Zeilen: Änderungen je Datei, Kriterien erfüllt/offen, UNGEPRÜ
 - [ ] Startet der Agent aus einem Arbeitsverzeichnis im Repo (für Worktree-Isolation)?
 - [ ] Sind die Fallstricke aus den letzten Runden enthalten?
 
+## Vorlage: Expertin / Experte (MANIFEST §5.1.1)
+
+Für Fachaufgaben wie 3D-Modellierung, Video- und Audiobearbeitung, Grafik, anspruchsvolle Algorithmen. Modell: das größte, leistungsfähigste verfügbare.
+
+~~~text
+Fachaufgabe: <z. B. "parametrisches 3D-Gehäuse für Gerät X" / "Trailer 30 s aus Material Y">.
+Rolle: Du bist Expertin für <Fach>. Du arbeitest autark, der Koordinator integriert und prüft dein Ergebnis.
+Kontext: <Projekt in 2 Sätzen>, lies <Dateien/Material>.
+
+Werkzeuge (vorhanden, per Kommandozeile): <z. B. 3D-Suite im Hintergrundmodus, Video-Encoder, Bild-CLI> – Versionen: <…>.
+Kein Werkzeug installieren; fehlt etwas, abbrechen und melden.
+Material und Rechte: nur <eigenes / frei lizenziertes> Material; Quelle jedes Assets im Bericht nennen.
+
+Abnahmekriterien (messbar):
+- <Maße ± Toleranz / Polygonzahl / Wandstärke>
+- <Format, Auflösung, Bildrate, Bitrate, Dauer, Lautheit, Farbraum>
+- <weitere fachliche Kriterien>
+
+Vorgehen: erst eine Probe (kleine Auflösung / kurzer Ausschnitt), Laufzeit hochrechnen; Grenze: <N> Minuten Rechenzeit gesamt.
+Abgabe in <Ordner>:
+- Quelle reproduzierbar (Skript, parametrische Datei, Schnittliste, Befehle)
+- Ergebnisdatei(en)
+- Vorschau: <Renderings aus festen Kameras / Kontaktabzug aus Frames / Wellenform> als PNG
+- Messprotokoll: Ausgabe der Analysewerkzeuge, die die Abnahmekriterien belegen
+
+Commit im eigenen Worktree, Nachricht endet mit `<Attributionszeile>`.
+Bericht ≤ <N> Zeilen: Ergebnis je Kriterium (erfüllt / offen / UNGEPRÜFT), Rechenzeit, Assets mit Quelle, fachliche Annahmen. Keine Dumps.
+~~~
+
 ## Vorlage: Prüfer (read-only)
 
 ```text
