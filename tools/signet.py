@@ -33,18 +33,17 @@ def ellipse(cx, cy, rx, ry, rot_deg, n=10):
 
 
 def bee():
-    # Biene frontal und symmetrisch (Achse x = 270, rechts der Mitte nach ODSV-Regel):
-    # 1 Pink      – beide Flügel (hinten, groß): Schlaufen seitlich am Körper, ohne Kreuzung
-    # 2 Orange    – Hinterleib: rund oben, läuft unten in eine Spitze (Stachel) aus
-    # 3 Bernstein – zwei Streifen quer über den Hinterleib
-    # 4 Gold      – zwei Fühler (vorne, klein)
+    # Abstrahierte, futuristische Biene: frontal, symmetrisch um x = 270, nur gerade Linien.
+    # 1 Pink      – Flügel: kantige, offene Flächen, am Körper angesetzt
+    # 2 Orange    – Hinterleib: längliche Sechseck-Wabe mit Spitze (Schwarm, Wabe, Stachel)
+    # 3 Bernstein – zwei Streifen
+    # 4 Gold      – Fühler, abgewinkelt wie Leiterbahnen
     # Punkt       – Kopf: Fokus des Signets
-    wings = ('M212 184C170 146 122 166 134 206C144 238 196 234 214 212'
-             'M328 184C370 146 418 166 406 206C396 238 344 234 326 212')
-    body = 'M270 164C338 164 342 232 296 268L270 312L244 268C198 232 202 164 270 164Z'
-    stripes = 'M226 210L314 210M242 250L298 250'
-    antennae = 'M246 82L234 66M294 82L306 66'
-    return [wings, body, stripes, antennae], (270, 118, 26)
+    wings = 'M214 196L140 158L160 230L214 222M326 196L400 158L380 230L326 222'
+    body = 'M270 164L322 194L322 246L270 306L218 246L218 194Z'
+    stripes = 'M250 220L290 220M258 262L282 262'
+    antennae = 'M250 90L240 70L224 70M290 90L300 70L316 70'
+    return [wings, body, stripes, antennae], (270, 122, 24)
 
 
 def svg(paths, dot, background=None, view='0 0 400 400', size=400):

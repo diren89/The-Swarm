@@ -2,7 +2,7 @@
 
 ## 1.2.2 · 2026-11-21
 
-- Neu: Signet von The Swarm, eine Biene im ODSV-Stil, frontal und symmetrisch. Vier Striche: Flügel, Hinterleib mit Spitze, Streifen, Fühler; der gelbe Punkt ist der Kopf.
+- Neu: Signet von The Swarm, eine abstrahierte, futuristische Biene im ODSV-Stil, frontal und nur aus geraden Linien. Vier Striche: kantige Flügel, Hinterleib als Sechseck-Wabe mit Spitze, Streifen, abgewinkelte Fühler; der gelbe Punkt ist der Kopf.
   - Erzeugt nach der ODSV-Signet-Grammatik mit `tools/signet.py`, inklusive Prüfung der Grammatik.
   - Dateien in `assets/`: transparent, quadratisch auf Schwarz, PNG 1024 px.
 - Signet in der README eingebunden.
