@@ -1,6 +1,6 @@
 # The Swarm · Manifest: Koordinierte Agentenarbeit
 
-Version 1.1.1 · Stand 21.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
+Version 1.2.0 · Stand 21.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Dieses Manifest beschreibt, wie ein **koordinierender Agent** Software-Aufgaben in Phasen plant, an **Subagents** mit passenden Modellen verteilt, die Ergebnisse **selbst prüft und verbessert** und dabei **bei jedem Schritt dazulernt**. Es ist für Sprachmodelle geschrieben, die es zu Beginn einer Aufgabe einlesen, und für Menschen, die nachvollziehen wollen, wie gearbeitet wird.
 
@@ -104,12 +104,41 @@ Der Plan ist ein Werkzeug, kein Vertrag: Ändert sich die Lage (Blocker, neue Fa
 
 | Rolle | Aufgabe | Modellklasse |
 | --- | --- | --- |
-| Koordinator | Plan, Schnitt der Pakete, Review, Integration, Umgebungsprobleme, Gestaltungsurteil | stärkstes verfügbares Modell |
+| Koordinator | Plan, Schnitt der Pakete, Review, Integration, Umgebungsprobleme, Gestaltungsurteil | starkes Modell mit gutem Überblick (meist das stärkste im Alltag) |
+| Expertin / Experte | Fachaufgabe mit tiefem Spezialwissen und oft eigenen Werkzeugen, z. B. 3D-Modellierung, Video- und Audiobearbeitung, Bild- und Grafikproduktion, anspruchsvolle Algorithmen, Kryptografie, Datenanalyse | **größtes, leistungsfähigstes verfügbares Modell** |
 | Umsetzer | klar spezifiziertes Paket: Code, Tests, Build | mittleres, schnelles Modell |
 | Fleißarbeiter | mechanisch, regelgeleitet (Übersetzungen, Umbenennungen, Kataloge) | kleinstes ausreichendes Modell |
 | Prüfer | read-only Review aus einer Rolle (z. B. Endnutzer, Barrierefreiheit, Sicherheit) | mittleres Modell, nie der Autor |
 
-Faustregel: **Je eindeutiger die Spezifikation, desto kleiner das Modell.** Urteil, Integration und Fehlersuche in fremder Umgebung bleiben beim Koordinator.
+Faustregel: **Je eindeutiger die Spezifikation, desto kleiner das Modell, und je tiefer das nötige Fachwissen, desto größer.** Urteil, Integration und Fehlersuche in fremder Umgebung bleiben beim Koordinator, echte Expertenarbeit geht an die Expertenrolle.
+
+### 5.1.1 Die Expertenrolle
+
+**Wann einsetzen:** Eine Aufgabe braucht Fachwissen oder Werkzeugbeherrschung, die über allgemeines Programmieren hinausgeht, und Fehler wären teuer oder schwer zu erkennen. Beispiele:
+- 3D-Modelle für Gehäuse oder Assets
+- Video schneiden und encodieren
+- Audio mastern, Bilder retuschieren
+- Shader schreiben
+- numerische Verfahren, Sicherheitsarchitektur
+
+Nicht für Aufgaben, die ein Umsetzer mit klarer Spezifikation lösen kann.
+
+**Modell:** Das größte und leistungsfähigste Modell, das die Plattform anbietet, auch wenn es teurer oder langsamer ist. Ist der Koordinator bereits dieses Modell, bekommt die Expertin trotzdem einen eigenen Agent. Ihr frischer, fachlich fokussierter Kontext ist der eigentliche Gewinn.
+
+**Vorher klären (Koordinator):**
+1. **Werkzeuge:** Sind die nötigen Programme vorhanden, lizenziert und skriptbar, z. B. eine 3D-Suite mit Kommandozeile, ein Video-Encoder, Bildbearbeitung per CLI? Die Umgebungsprobe (§8) erweitern. Fehlt etwas, fragt der Koordinator die Nutzerin, bevor installiert wird.
+2. **Rechenleistung:** Rendern und Encodieren sind teuer. Erst eine Probe mit kleiner Auflösung oder kurzem Ausschnitt machen, die Laufzeit hochrechnen und nichts parallel dazu bauen.
+3. **Material und Rechte:** Woher kommen Assets, Footage, Schriften, Musik? Nur eigenes oder frei lizenziertes Material verwenden und die Quelle notieren.
+4. **Abnahmekriterien messbar machen:** Maße und Toleranzen, Polygonzahl, Dateiformat, Auflösung, Bildrate, Bitrate, Dauer, Lautheit, Farbraum. Dazu sichtbare Vorschauen: Renderings aus festen Kameras, Kontaktabzug aus Video-Frames, Wellenform.
+
+**Brief:** wie für Umsetzer (§5.2), zusätzlich mit Werkzeugaufrufen, Zielformaten, messbaren Abnahmekriterien, Vorschau-Pflicht und einer Rechenzeitgrenze. Vorlage in [playbooks/agent-brief.md](playbooks/agent-brief.md).
+
+**Prüfen:** Der Koordinator nimmt Expertenarbeit nicht auf Treu und Glauben ab. Geprüft werden …
+- **Messbares maschinell**, z. B. Metadaten mit einem Analysewerkzeug auslesen, Maße und Polygonzahl per Skript ermitteln, Dateien validieren.
+- **Sichtbares** über die Vorschauen (§7.1, Schicht 5).
+- **Fachlich Strittiges** über einen zweiten Experten-Agent als Prüfer (Schicht 4), wenn die Tragweite es rechtfertigt.
+
+**Ergebnis ablegen:** reproduzierbar, als Quelldatei oder Skript plus Ergebnis plus Vorschau. Beispiele: eine parametrische Modelldatei oder ein Generierungsskript statt nur des fertigen Exports, eine Schnittliste oder ein Encoding-Befehl statt nur des fertigen Videos.
 
 ### 5.2 Der Auftrag (Brief)
 
