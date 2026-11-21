@@ -1,0 +1,313 @@
+# Beehive · Anleitung zu Installation und Nutzung
+
+Beehive ist ein Manifest für KI-Agents, die an Code arbeiten. Ein **koordinierender Agent** plant, verteilt Arbeitspakete an **Subagents** mit passenden Modellen, prüft und verbessert deren Ergebnisse selbst und lernt bei jedem Schritt dazu. Was eine Instanz lernt, fließt per Pull Request zurück, und die nächste Instanz liest es mit ein.
+
+Diese Anleitung erklärt, wie du Beehive einrichtest (global, pro Projekt, für verschiedene Werkzeuge), wie die Arbeit damit abläuft und wie du Learnings zurückgibst.
+
+---
+
+## Inhalt
+
+1. [Was du bekommst](#1-was-du-bekommst)
+2. [Voraussetzungen](#2-voraussetzungen)
+3. [Installation](#3-installation)
+4. [Prüfen, ob Beehive aktiv ist](#4-prüfen-ob-beehive-aktiv-ist)
+5. [Nutzung im Alltag](#5-nutzung-im-alltag)
+6. [Vorlagen und Werkzeuge](#6-vorlagen-und-werkzeuge)
+7. [Learnings zurückgeben](#7-learnings-zurückgeben)
+8. [Versionen, Aktualisieren, Festpinnen](#8-versionen-aktualisieren-festpinnen)
+9. [Fehlerbehebung](#9-fehlerbehebung)
+10. [Deinstallation](#10-deinstallation)
+11. [Häufige Fragen](#11-häufige-fragen)
+
+---
+
+## 1. Was du bekommst
+
+| Datei | Wofür |
+| --- | --- |
+| `MANIFEST.md` | Die Arbeitsweise: Geltungsbereich und Stufen S/M/L, Planung, Phasen, Effizienz, Subagents und Modellwahl, Qualität und Tokens, fünf Prüfschichten, Hardware-Anpassung, Lernschleife |
+| `LEARNINGS.md` | Erfahrungen aus realen Aufgaben mit Status `neu`, `übernommen §x` oder `verworfen` |
+| `playbooks/agent-brief.md` | Vorlage für Aufträge an Subagents (Umsetzer und Prüfer) |
+| `playbooks/phase-retro.md` | Vorlage für die Retrospektive nach jeder Phase |
+| `tools/probe-env.sh` | Untersucht die Maschine und schreibt ein lokales Profil, ändert nichts |
+| `CONTRIBUTING.md` | Regeln für Beiträge |
+
+**Wichtig:** Beehive ist Arbeitswissen, keine Befugnis. Projektregeln und deine Anweisungen gehen immer vor. Kein Agent darf wegen Beehive etwas tun, das du nicht verlangt hast.
+
+---
+
+## 2. Voraussetzungen
+
+- Ein KI-Werkzeug, das Projekt- oder Benutzeranweisungen aus Dateien liest, z. B. Claude Code, Codex CLI, Gemini CLI, Cursor oder GitHub Copilot. Andere gehen über einen System-Prompt (Abschnitt 3.5).
+- Für das volle Arbeiten in Stufe L: ein Werkzeug mit **Subagents** und **Git-Worktrees**. Ohne Subagents arbeitet der Koordinator die Pakete nacheinander selbst ab, siehe MANIFEST §0.
+- Für die lokale Variante und für Beiträge: `git`, für Pull Requests am bequemsten die GitHub-CLI `gh`.
+
+---
+
+## 3. Installation
+
+Du hast zwei Wege, die sich kombinieren lassen:
+
+- **Online-Verweis:** Die Anweisungsdatei nennt die GitHub-URL, und der Agent liest das Manifest bei Bedarf. Das braucht kein Klonen und ist immer aktuell, setzt aber einen Agent mit Webzugriff voraus.
+- **Lokaler Klon mit Import:** Das Manifest liegt auf der Platte und wird direkt in den Kontext geladen. Das funktioniert offline, ist schnell und zuverlässig, und du aktualisierst mit `git pull`.
+
+**Empfehlung:** global mit lokalem Klon (3.1 B), damit Beehive in jedem Projekt geladen wird, ohne dass der Agent erst etwas abrufen muss.
+
+### 3.1 Claude Code
+
+**A · Global per Online-Verweis**
+
+Datei `~/.claude/CLAUDE.md` anlegen oder ergänzen:
+
+```markdown
+## Arbeitsweise (Default für alle Code-Projekte)
+Bei jeder Arbeit an Code gilt https://github.com/diren89/Beehive
+(MANIFEST.md, neueste Einträge in LEARNINGS.md), skaliert nach MANIFEST §0.1.
+Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Request zurückgeben.
+```
+
+**B · Global mit lokalem Klon (empfohlen)**
+
+```bash
+git clone https://github.com/diren89/Beehive.git ~/.beehive
+```
+
+Dann in `~/.claude/CLAUDE.md` (Claude Code lädt Dateien, die mit `@` importiert werden, automatisch mit):
+
+```markdown
+## Arbeitsweise (Default für alle Code-Projekte)
+Es gilt das Beehive-Manifest, skaliert nach §0.1. Projektregeln und meine Anweisungen haben Vorrang.
+@~/.beehive/MANIFEST.md
+Neueste Erfahrungen: ~/.beehive/LEARNINGS.md (bei Stufe M/L lesen).
+Learnings anonym per Pull Request an https://github.com/diren89/Beehive zurückgeben.
+```
+
+`LEARNINGS.md` wird bewusst nicht importiert, damit kleine Aufgaben schlank bleiben. Der Agent liest die Datei ab Stufe M.
+
+**C · Nur für ein Projekt**
+
+Denselben Absatz in die `CLAUDE.md` im Projektordner schreiben. Projektregeln darunter, denn sie haben Vorrang.
+
+### 3.2 Codex CLI (OpenAI)
+
+- Global: `~/.codex/AGENTS.md`
+- Projekt: `AGENTS.md` im Repository-Wurzelverzeichnis
+
+Inhalt wie in 3.1 A. Mit lokalem Klon schreibst du statt der URL den Pfad (`~/.beehive/MANIFEST.md`) und ergänzt „lies diese Datei zu Beginn“.
+
+### 3.3 Gemini CLI
+
+- Global: `~/.gemini/GEMINI.md`
+- Projekt: `GEMINI.md` im Projekt
+
+Inhalt wie in 3.1 A.
+
+### 3.4 Cursor und GitHub Copilot
+
+- **Cursor:** Projektregel als Datei unter `.cursor/rules/` (z. B. `beehive.mdc`) mit dem Absatz aus 3.1 A. Für alle Projekte trägst du ihn in den Benutzerregeln in den Einstellungen ein.
+- **GitHub Copilot:** `.github/copilot-instructions.md` im Repository mit dem Absatz aus 3.1 A.
+
+Die Pfade können sich je nach Version ändern. Maßgeblich ist die Doku des jeweiligen Werkzeugs.
+
+### 3.5 Andere Modelle und eigene Agents (API)
+
+Lade `MANIFEST.md` und die neuesten Einträge aus `LEARNINGS.md` und stelle sie in den System-Prompt:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/diren89/Beehive/main/MANIFEST.md -o MANIFEST.md
+curl -fsSL https://raw.githubusercontent.com/diren89/Beehive/main/LEARNINGS.md -o LEARNINGS.md
+```
+
+```text
+System: Du arbeitest nach dem folgenden Manifest. Anweisungen der Nutzerin und Projektregeln haben Vorrang.
+<MANIFEST.md>
+Neueste Learnings:
+<die obersten Einträge aus LEARNINGS.md>
+```
+
+Für maschinelles Auffinden gibt es zusätzlich `llms.txt` im Repo.
+
+---
+
+## 4. Prüfen, ob Beehive aktiv ist
+
+Starte eine neue Sitzung (Anweisungsdateien werden beim Start geladen) und frage:
+
+```text
+Nach welcher Arbeitsweise arbeitest du, und welche Stufe hätte die Aufgabe „Füge Dark Mode hinzu“?
+```
+
+Erwartet: Der Agent nennt Beehive, ordnet die Aufgabe einer Stufe zu (meist M) und skizziert Plan und Prüfschichten. In Claude Code zeigt außerdem der Befehl `/memory`, welche Anweisungsdateien geladen sind.
+
+---
+
+## 5. Nutzung im Alltag
+
+Du musst nichts Besonderes tun. Formuliere deine Aufgabe wie gewohnt, der Agent wählt die Stufe selbst. Du kannst sie aber steuern.
+
+### 5.1 Die drei Stufen
+
+| Stufe | Wann | Was du siehst |
+| --- | --- | --- |
+| **S · klein** | Bugfix, wenige Zeilen, eine Frage | direkte Umsetzung, danach Build und Test sowie ein kurzer, ehrlicher Bericht |
+| **M · mittel** | ein Feature, mehrere Dateien | Aufgabenliste, Umsetzung, Review des eigenen Diffs, Integrationslauf, Sichtprüfung; eventuell 1–2 Subagents |
+| **L · groß** | mehrere Features, neues Projekt, mehrere Sitzungen | Umgebungsprüfung, Phasenplan als Datei, parallele Subagents in Worktrees, alle fünf Prüfschichten, Retrospektive je Phase |
+
+Stufe selbst vorgeben:
+
+```text
+Das ist Stufe S: Korrigiere den Tippfehler im Login-Button.
+```
+```text
+Stufe L: Plane die Umsetzung des Backlogs in Phasen und koordiniere Subagents.
+```
+
+### 5.2 Ablauf einer großen Aufgabe (Stufe L)
+
+1. **Phase 0, Umgebung:** Der Agent prüft Werkzeuge, Versionen, Geräte und Last, z. B. mit `tools/probe-env.sh`. Fehlt etwas, sagt er dir genau, was zu tun ist. Befehle mit Passwort führst du selbst aus.
+2. **Plan:** Er legt im Projekt einen Phasenplan an (z. B. `docs/PLAN.md`), mit Paketen, Dateibesitz, Modellen, Definition of Done und Risiken.
+3. **Weichen:** Er fragt dich nur bei echten Entscheidungen, gebündelt und mit Empfehlung (Downloads, Veröffentlichen, Zielgerät, Gestaltung).
+4. **Umsetzung:** Subagents arbeiten parallel in eigenen Worktrees. Die Zahl richtet sich nach der Leistung deiner Maschine.
+5. **Prüfung in fünf Schichten:**
+   1. Selbstprüfung der Agents
+   2. Review der Diffs durch den Koordinator
+   3. Integrationslauf
+   4. unabhängiger Rollen-Review
+   5. Sichtprüfung
+6. **Verbessern:** Kleine Befunde behebt der Koordinator sofort, größere bekommen ein neues Paket.
+7. **Abschluss je Phase:** Merge, Build, Tests, Backlog aktualisieren, kurze Retrospektive.
+8. **Ende:** ehrlicher Bericht mit dem, was steht, dem, was ungeprüft ist, und dem, was du tun musst. Dazu Learnings als Pull-Request-Vorschlag.
+
+### 5.3 Nützliche Formulierungen
+
+| Ziel | Formulierung |
+| --- | --- |
+| Sparsamer arbeiten | „Achte besonders auf Tokenverbrauch, keine Subagents.“ |
+| Mehr Parallelität | „Nutze bis zu drei Subagents parallel, die Maschine hat Reserven.“ |
+| Mehr Prüfung | „Lass am Ende einen unabhängigen Review aus Sicht von <Rolle> laufen.“ |
+| Nur planen | „Plane nur, setze noch nichts um.“ |
+| Learnings anstoßen | „Mach eine Retrospektive und schlage Learnings für Beehive vor.“ |
+
+---
+
+## 6. Vorlagen und Werkzeuge
+
+### 6.1 Auftrag an einen Subagent
+
+`playbooks/agent-brief.md` enthält eine ausfüllbare Vorlage und eine Checkliste. Kernpunkte:
+
+- welche Dateien der Agent besitzt und welche tabu sind
+- prüfbare Must-haves
+- exakte Prüfbefehle mit Warnungsfilter
+- Definition of Done
+- Bericht mit Zeilenlimit und dem Feld „ungeprüft“
+
+Außerdem gibt es eine Vorlage für read-only Prüfer mit Rollen und Szenarien.
+
+### 6.2 Retrospektive
+
+`playbooks/phase-retro.md`: höchstens zehn Zeilen nach jeder Phase. Aus „Brief-Delta“ und „Regelvorschlag“ werden bessere Aufträge und neue Learnings.
+
+### 6.3 Umgebungsprobe und lokales Hardware-Profil
+
+```bash
+~/.beehive/tools/probe-env.sh > ~/.beehive/hardware/$(hostname -s).local.md
+```
+
+Das Profil enthält Betriebssystem, Architektur, Kerne, RAM, Grafik, Werkzeuge, Laufzeiten, Geräte und Last. Darunter stehen von Hand gepflegte **bewährte Grenzen**, zum Beispiel wie viele parallele Builds die Maschine verträgt, welcher Sichtprüfweg funktioniert und welche Umgehungen es gibt.
+
+`*.local.md` ist per `.gitignore` ausgeschlossen. Hardware-Details werden nie veröffentlicht, nur allgemeine Regeln.
+
+---
+
+## 7. Learnings zurückgeben
+
+Beehive wächst nur, wenn Erfahrungen zurückfließen. Ablauf (Details in `CONTRIBUTING.md`):
+
+```bash
+cd ~/.beehive && git pull
+git switch -c learnings/$(date +%Y-%m-%d)-<thema>
+# LEARNINGS.md oben ergänzen:
+#   ## JJJJ-MM-TT · <anonymer Kontext>
+#   ### L-<nächste Nummer> · <Titel>
+#   - **Beobachtung:** …
+#   - **Regel:** …
+#   - **Status:** neu
+git commit -am "Learnings: <thema>"
+git push -u origin HEAD
+gh pr create --fill
+```
+
+Du kannst das auch dem Agent überlassen: „Erstelle einen Pull Request mit den Learnings dieser Sitzung für Beehive.“
+
+**Regeln für Beiträge:**
+
+- Anonym und allgemein: keine Namen, Projekte, Pfade, Gerätekennungen, Hardware-Beispiele oder Geheimnisse.
+- Ein Mensch prüft und merged. Modelle mergen nicht selbst in `main`.
+- Wird ein Learning zum zweiten Mal bestätigt, wird es eine Regel im Manifest. Dann steigt die Version, und der Changelog bekommt einen Eintrag.
+
+---
+
+## 8. Versionen, Aktualisieren, Festpinnen
+
+- **Versionen:** semantisch, siehe `CHANGELOG.md`.
+  - neue Regel → Minor
+  - geänderte oder gestrichene Regel → Major
+  - Klarstellung → Patch
+- **Aktualisieren** beim lokalen Klon:
+  ```bash
+  git -C ~/.beehive pull
+  ```
+  Beim Online-Verweis ist automatisch `main` aktuell.
+- **Festpinnen,** wenn ein Team eine feste Fassung will:
+  ```bash
+  git -C ~/.beehive checkout v1.1.1
+  ```
+  Online pinnst du über die Tag-URL:
+  ```text
+  https://raw.githubusercontent.com/diren89/Beehive/v1.1.1/MANIFEST.md
+  ```
+
+---
+
+## 9. Fehlerbehebung
+
+| Problem | Ursache | Lösung |
+| --- | --- | --- |
+| Agent kennt Beehive nicht | Anweisungsdatei nicht geladen oder Sitzung lief schon vorher | Neue Sitzung starten; Pfad prüfen (Abschnitt 3); in Claude Code mit `/memory` nachsehen |
+| Agent kann die URL nicht abrufen | kein Webzugriff oder Netz gesperrt | lokalen Klon mit Import nutzen (3.1 B) oder Inhalt in den System-Prompt stellen (3.5) |
+| Zu viel Aufwand bei Kleinigkeiten | Stufe zu hoch gewählt | Stufe S vorgeben; der Agent sollte sonst §0.1 beachten |
+| Projektregel widerspricht dem Manifest | gewollt | Projektregel gilt, der Rest des Manifests bleibt aktiv |
+| Subagents scheitern mit Worktree-Fehler | Arbeitsverzeichnis liegt nicht im Git-Repo | Agent aus dem Repo heraus starten; Worktree-Ordner in `.gitignore` (LEARNINGS L-008) |
+| Maschine überlastet | zu viele parallele Builds | Parallelität senken und das Limit im lokalen Hardware-Profil notieren (L-004) |
+| Agent meldet „erledigt“, aber es funktioniert nicht | Exit-Code statt Wirkung geprüft | auf §6.2 verweisen: Wirkung prüfen und als ungeprüft markieren, was nicht geprüft wurde |
+
+---
+
+## 10. Deinstallation
+
+1. Den Beehive-Absatz aus `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, `~/.gemini/GEMINI.md` oder den Projektdateien entfernen.
+2. Optional den lokalen Klon löschen: `rm -rf ~/.beehive`. Dabei gehen auch deine lokalen Hardware-Profile verloren, also vorher sichern, falls du sie brauchst.
+
+---
+
+## 11. Häufige Fragen
+
+**Muss ich Beehive in jedem Projekt erwähnen?**
+Nein. Global eingetragen gilt es überall (MANIFEST §0.2). Projektdateien brauchst du nur für Abweichungen.
+
+**Funktioniert Beehive ohne Subagents?**
+Ja. Der Koordinator arbeitet die Pakete dann nacheinander ab. Planung, Prüfschichten, Ehrlichkeit und Lernschleife bleiben.
+
+**Welche Modelle soll ich für Subagents nehmen?**
+Je eindeutiger der Auftrag, desto kleiner das Modell (MANIFEST §5.1). Urteil, Integration und Fehlersuche bleiben beim stärksten Modell.
+
+**Gelangen meine Projektdaten nach GitHub?**
+Nur, wenn du einen Pull Request mit solchen Daten mergst. Die Beitragsregeln verbieten Namen, Projektdetails und Hardware-Beispiele, und vor dem Merge prüft ein Mensch.
+
+**Darf ein Agent die globale Konfiguration selbst ändern?**
+Nur auf deinen ausdrücklichen Wunsch (MANIFEST §0.2).
+
+**Wie trage ich bei, wenn ich keinen Schreibzugriff habe?**
+Repo forken, Änderung im Fork machen und einen Pull Request an `diren89/Beehive` stellen.
