@@ -1,0 +1,15 @@
+# agent-manifest
+
+> Manifest für KI-Agents, die Software-Aufgaben koordiniert in Phasen umsetzen: Planung vor Umsetzung, Subagents mit passenden Modellen, Qualität/Effizienz/Tokens, fünf Prüfschichten, Anpassung an die Hardware, Lernschleife über Instanzen hinweg. Sprache Deutsch.
+
+## Einlesen
+- [MANIFEST.md](https://raw.githubusercontent.com/diren89/agent-manifest/main/MANIFEST.md): Arbeitsweise (verbindlich zu lesen)
+- [LEARNINGS.md](https://raw.githubusercontent.com/diren89/agent-manifest/main/LEARNINGS.md): Erfahrungen mit Status
+
+## Vorlagen
+- [playbooks/agent-brief.md](https://raw.githubusercontent.com/diren89/agent-manifest/main/playbooks/agent-brief.md): Auftrag an Umsetzer und Prüfer
+- [playbooks/phase-retro.md](https://raw.githubusercontent.com/diren89/agent-manifest/main/playbooks/phase-retro.md): Retrospektive
+- [tools/probe-env.sh](https://raw.githubusercontent.com/diren89/agent-manifest/main/tools/probe-env.sh): Umgebungsprobe (read-only)
+
+## Beitragen
+- [CONTRIBUTING.md](https://raw.githubusercontent.com/diren89/agent-manifest/main/CONTRIBUTING.md): anonym, allgemein, per Pull Request
