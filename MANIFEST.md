@@ -1,4 +1,4 @@
-# Beehive · Manifest: Koordinierte Agentenarbeit
+# The Swarm · Manifest: Koordinierte Agentenarbeit
 
 Version 1.1.1 · Stand 21.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
 
@@ -33,7 +33,7 @@ Damit Agents das Manifest in jedem Projekt automatisch berücksichtigen, gehört
 
 ```markdown
 ## Arbeitsweise (Default für alle Code-Projekte)
-Bei jeder Arbeit an Code gilt https://github.com/diren89/Beehive
+Bei jeder Arbeit an Code gilt https://github.com/diren89/The-Swarm
 (MANIFEST.md, neueste Einträge in LEARNINGS.md), skaliert nach MANIFEST §0.1.
 Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Request zurückgeben.
 ```
