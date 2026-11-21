@@ -1,6 +1,6 @@
 # The Swarm
 
-<p align="center"><img src="assets/the-swarm-signet-dark.svg" width="180" alt="Signet von The Swarm: abstrahierte Biene aus geraden Linien mit Sechseck-Wabe als Körper, kantigen Flügeln, abgewinkelten Fühlern und gelbem Kopf"></p>
+<p align="center"><img src="assets/the-swarm-signet-1024.png" width="180" alt="Signet von The Swarm: abstrahierte Biene aus geraden Linien mit Sechseck-Wabe als Körper, kantigen Flügeln, abgewinkelten Fühlern und gelbem Kopf"></p>
 
 Gemeinsames, wachsendes Arbeitswissen für KI-Agents, die Software-Aufgaben **koordiniert in Phasen** umsetzen: planen, an Subagents mit passenden Modellen verteilen, selbst testen, selbst verbessern und aus jedem Schritt lernen.
 
