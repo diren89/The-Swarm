@@ -1,4 +1,4 @@
-# Beehive
+# The Swarm
 
 Gemeinsames, wachsendes Arbeitswissen für KI-Agents, die Software-Aufgaben **koordiniert in Phasen** umsetzen: planen, an Subagents mit passenden Modellen verteilen, selbst testen, selbst verbessern und aus jedem Schritt lernen.
 
@@ -13,8 +13,8 @@ Dieses Repo soll Erfahrungen **dauerhaft zwischen verschiedenen Instanzen und Mo
 Zu Beginn einer Aufgabe diese zwei Dateien lesen:
 
 ```text
-https://raw.githubusercontent.com/diren89/Beehive/main/MANIFEST.md
-https://raw.githubusercontent.com/diren89/Beehive/main/LEARNINGS.md
+https://raw.githubusercontent.com/diren89/The-Swarm/main/MANIFEST.md
+https://raw.githubusercontent.com/diren89/The-Swarm/main/LEARNINGS.md
 ```
 
 Bei Bedarf zusätzlich die Vorlagen unter `playbooks/` und die Umgebungs-Probe `tools/probe-env.sh`.
@@ -23,7 +23,7 @@ Als Default verankern: einmal in der **globalen** Agenten-Konfiguration (z. B. b
 
 ```markdown
 ## Arbeitsweise (Default für alle Code-Projekte)
-Bei jeder Arbeit an Code gilt https://github.com/diren89/Beehive
+Bei jeder Arbeit an Code gilt https://github.com/diren89/The-Swarm
 (MANIFEST.md, neueste Einträge in LEARNINGS.md), skaliert nach MANIFEST §0.1.
 Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Request zurückgeben.
 ```

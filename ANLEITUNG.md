@@ -1,8 +1,8 @@
-# Beehive · Anleitung zu Installation und Nutzung
+# The Swarm · Anleitung zu Installation und Nutzung
 
-Beehive ist ein Manifest für KI-Agents, die an Code arbeiten. Ein **koordinierender Agent** plant, verteilt Arbeitspakete an **Subagents** mit passenden Modellen, prüft und verbessert deren Ergebnisse selbst und lernt bei jedem Schritt dazu. Was eine Instanz lernt, fließt per Pull Request zurück, und die nächste Instanz liest es mit ein.
+The Swarm ist ein Manifest für KI-Agents, die an Code arbeiten. Ein **koordinierender Agent** plant, verteilt Arbeitspakete an **Subagents** mit passenden Modellen, prüft und verbessert deren Ergebnisse selbst und lernt bei jedem Schritt dazu. Was eine Instanz lernt, fließt per Pull Request zurück, und die nächste Instanz liest es mit ein.
 
-Diese Anleitung erklärt, wie du Beehive einrichtest (global, pro Projekt, für verschiedene Werkzeuge), wie die Arbeit damit abläuft und wie du Learnings zurückgibst.
+Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, für verschiedene Werkzeuge), wie die Arbeit damit abläuft und wie du Learnings zurückgibst.
 
 ---
 
@@ -11,7 +11,7 @@ Diese Anleitung erklärt, wie du Beehive einrichtest (global, pro Projekt, für 
 1. [Was du bekommst](#1-was-du-bekommst)
 2. [Voraussetzungen](#2-voraussetzungen)
 3. [Installation](#3-installation)
-4. [Prüfen, ob Beehive aktiv ist](#4-prüfen-ob-beehive-aktiv-ist)
+4. [Prüfen, ob The Swarm aktiv ist](#4-prüfen-ob-the-swarm-aktiv-ist)
 5. [Nutzung im Alltag](#5-nutzung-im-alltag)
 6. [Vorlagen und Werkzeuge](#6-vorlagen-und-werkzeuge)
 7. [Learnings zurückgeben](#7-learnings-zurückgeben)
@@ -33,7 +33,7 @@ Diese Anleitung erklärt, wie du Beehive einrichtest (global, pro Projekt, für 
 | `tools/probe-env.sh` | Untersucht die Maschine und schreibt ein lokales Profil, ändert nichts |
 | `CONTRIBUTING.md` | Regeln für Beiträge |
 
-**Wichtig:** Beehive ist Arbeitswissen, keine Befugnis. Projektregeln und deine Anweisungen gehen immer vor. Kein Agent darf wegen Beehive etwas tun, das du nicht verlangt hast.
+**Wichtig:** The Swarm ist Arbeitswissen, keine Befugnis. Projektregeln und deine Anweisungen gehen immer vor. Kein Agent darf wegen The Swarm etwas tun, das du nicht verlangt hast.
 
 ---
 
@@ -52,7 +52,7 @@ Du hast zwei Wege, die sich kombinieren lassen:
 - **Online-Verweis:** Die Anweisungsdatei nennt die GitHub-URL, und der Agent liest das Manifest bei Bedarf. Das braucht kein Klonen und ist immer aktuell, setzt aber einen Agent mit Webzugriff voraus.
 - **Lokaler Klon mit Import:** Das Manifest liegt auf der Platte und wird direkt in den Kontext geladen. Das funktioniert offline, ist schnell und zuverlässig, und du aktualisierst mit `git pull`.
 
-**Empfehlung:** global mit lokalem Klon (3.1 B), damit Beehive in jedem Projekt geladen wird, ohne dass der Agent erst etwas abrufen muss.
+**Empfehlung:** global mit lokalem Klon (3.1 B), damit The Swarm in jedem Projekt geladen wird, ohne dass der Agent erst etwas abrufen muss.
 
 ### 3.1 Claude Code
 
@@ -62,7 +62,7 @@ Datei `~/.claude/CLAUDE.md` anlegen oder ergänzen:
 
 ```markdown
 ## Arbeitsweise (Default für alle Code-Projekte)
-Bei jeder Arbeit an Code gilt https://github.com/diren89/Beehive
+Bei jeder Arbeit an Code gilt https://github.com/diren89/The-Swarm
 (MANIFEST.md, neueste Einträge in LEARNINGS.md), skaliert nach MANIFEST §0.1.
 Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Request zurückgeben.
 ```
@@ -70,17 +70,17 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 **B · Global mit lokalem Klon (empfohlen)**
 
 ```bash
-git clone https://github.com/diren89/Beehive.git ~/.beehive
+git clone https://github.com/diren89/The-Swarm.git ~/.the-swarm
 ```
 
 Dann in `~/.claude/CLAUDE.md` (Claude Code lädt Dateien, die mit `@` importiert werden, automatisch mit):
 
 ```markdown
 ## Arbeitsweise (Default für alle Code-Projekte)
-Es gilt das Beehive-Manifest, skaliert nach §0.1. Projektregeln und meine Anweisungen haben Vorrang.
-@~/.beehive/MANIFEST.md
-Neueste Erfahrungen: ~/.beehive/LEARNINGS.md (bei Stufe M/L lesen).
-Learnings anonym per Pull Request an https://github.com/diren89/Beehive zurückgeben.
+Es gilt das Manifest „The Swarm“, skaliert nach §0.1. Projektregeln und meine Anweisungen haben Vorrang.
+@~/.the-swarm/MANIFEST.md
+Neueste Erfahrungen: ~/.the-swarm/LEARNINGS.md (bei Stufe M/L lesen).
+Learnings anonym per Pull Request an https://github.com/diren89/The-Swarm zurückgeben.
 ```
 
 `LEARNINGS.md` wird bewusst nicht importiert, damit kleine Aufgaben schlank bleiben. Der Agent liest die Datei ab Stufe M.
@@ -94,7 +94,7 @@ Denselben Absatz in die `CLAUDE.md` im Projektordner schreiben. Projektregeln da
 - Global: `~/.codex/AGENTS.md`
 - Projekt: `AGENTS.md` im Repository-Wurzelverzeichnis
 
-Inhalt wie in 3.1 A. Mit lokalem Klon schreibst du statt der URL den Pfad (`~/.beehive/MANIFEST.md`) und ergänzt „lies diese Datei zu Beginn“.
+Inhalt wie in 3.1 A. Mit lokalem Klon schreibst du statt der URL den Pfad (`~/.the-swarm/MANIFEST.md`) und ergänzt „lies diese Datei zu Beginn“.
 
 ### 3.3 Gemini CLI
 
@@ -105,7 +105,7 @@ Inhalt wie in 3.1 A.
 
 ### 3.4 Cursor und GitHub Copilot
 
-- **Cursor:** Projektregel als Datei unter `.cursor/rules/` (z. B. `beehive.mdc`) mit dem Absatz aus 3.1 A. Für alle Projekte trägst du ihn in den Benutzerregeln in den Einstellungen ein.
+- **Cursor:** Projektregel als Datei unter `.cursor/rules/` (z. B. `the-swarm.mdc`) mit dem Absatz aus 3.1 A. Für alle Projekte trägst du ihn in den Benutzerregeln in den Einstellungen ein.
 - **GitHub Copilot:** `.github/copilot-instructions.md` im Repository mit dem Absatz aus 3.1 A.
 
 Die Pfade können sich je nach Version ändern. Maßgeblich ist die Doku des jeweiligen Werkzeugs.
@@ -115,8 +115,8 @@ Die Pfade können sich je nach Version ändern. Maßgeblich ist die Doku des jew
 Lade `MANIFEST.md` und die neuesten Einträge aus `LEARNINGS.md` und stelle sie in den System-Prompt:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/diren89/Beehive/main/MANIFEST.md -o MANIFEST.md
-curl -fsSL https://raw.githubusercontent.com/diren89/Beehive/main/LEARNINGS.md -o LEARNINGS.md
+curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/main/MANIFEST.md -o MANIFEST.md
+curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/main/LEARNINGS.md -o LEARNINGS.md
 ```
 
 ```text
@@ -130,7 +130,7 @@ Für maschinelles Auffinden gibt es zusätzlich `llms.txt` im Repo.
 
 ---
 
-## 4. Prüfen, ob Beehive aktiv ist
+## 4. Prüfen, ob The Swarm aktiv ist
 
 Starte eine neue Sitzung (Anweisungsdateien werden beim Start geladen) und frage:
 
@@ -138,7 +138,7 @@ Starte eine neue Sitzung (Anweisungsdateien werden beim Start geladen) und frage
 Nach welcher Arbeitsweise arbeitest du, und welche Stufe hätte die Aufgabe „Füge Dark Mode hinzu“?
 ```
 
-Erwartet: Der Agent nennt Beehive, ordnet die Aufgabe einer Stufe zu (meist M) und skizziert Plan und Prüfschichten. In Claude Code zeigt außerdem der Befehl `/memory`, welche Anweisungsdateien geladen sind.
+Erwartet: Der Agent nennt The Swarm, ordnet die Aufgabe einer Stufe zu (meist M) und skizziert Plan und Prüfschichten. In Claude Code zeigt außerdem der Befehl `/memory`, welche Anweisungsdateien geladen sind.
 
 ---
 
@@ -187,7 +187,7 @@ Stufe L: Plane die Umsetzung des Backlogs in Phasen und koordiniere Subagents.
 | Mehr Parallelität | „Nutze bis zu drei Subagents parallel, die Maschine hat Reserven.“ |
 | Mehr Prüfung | „Lass am Ende einen unabhängigen Review aus Sicht von <Rolle> laufen.“ |
 | Nur planen | „Plane nur, setze noch nichts um.“ |
-| Learnings anstoßen | „Mach eine Retrospektive und schlage Learnings für Beehive vor.“ |
+| Learnings anstoßen | „Mach eine Retrospektive und schlage Learnings für The Swarm vor.“ |
 
 ---
 
@@ -212,7 +212,7 @@ Außerdem gibt es eine Vorlage für read-only Prüfer mit Rollen und Szenarien.
 ### 6.3 Umgebungsprobe und lokales Hardware-Profil
 
 ```bash
-~/.beehive/tools/probe-env.sh > ~/.beehive/hardware/$(hostname -s).local.md
+~/.the-swarm/tools/probe-env.sh > ~/.the-swarm/hardware/$(hostname -s).local.md
 ```
 
 Das Profil enthält Betriebssystem, Architektur, Kerne, RAM, Grafik, Werkzeuge, Laufzeiten, Geräte und Last. Darunter stehen von Hand gepflegte **bewährte Grenzen**, zum Beispiel wie viele parallele Builds die Maschine verträgt, welcher Sichtprüfweg funktioniert und welche Umgehungen es gibt.
@@ -223,10 +223,10 @@ Das Profil enthält Betriebssystem, Architektur, Kerne, RAM, Grafik, Werkzeuge, 
 
 ## 7. Learnings zurückgeben
 
-Beehive wächst nur, wenn Erfahrungen zurückfließen. Ablauf (Details in `CONTRIBUTING.md`):
+The Swarm wächst nur, wenn Erfahrungen zurückfließen. Ablauf (Details in `CONTRIBUTING.md`):
 
 ```bash
-cd ~/.beehive && git pull
+cd ~/.the-swarm && git pull
 git switch -c learnings/$(date +%Y-%m-%d)-<thema>
 # LEARNINGS.md oben ergänzen:
 #   ## JJJJ-MM-TT · <anonymer Kontext>
@@ -239,7 +239,7 @@ git push -u origin HEAD
 gh pr create --fill
 ```
 
-Du kannst das auch dem Agent überlassen: „Erstelle einen Pull Request mit den Learnings dieser Sitzung für Beehive.“
+Du kannst das auch dem Agent überlassen: „Erstelle einen Pull Request mit den Learnings dieser Sitzung für The Swarm.“
 
 **Regeln für Beiträge:**
 
@@ -257,16 +257,16 @@ Du kannst das auch dem Agent überlassen: „Erstelle einen Pull Request mit den
   - Klarstellung → Patch
 - **Aktualisieren** beim lokalen Klon:
   ```bash
-  git -C ~/.beehive pull
+  git -C ~/.the-swarm pull
   ```
   Beim Online-Verweis ist automatisch `main` aktuell.
 - **Festpinnen,** wenn ein Team eine feste Fassung will:
   ```bash
-  git -C ~/.beehive checkout v1.1.1
+  git -C ~/.the-swarm checkout v1.1.1
   ```
   Online pinnst du über die Tag-URL:
   ```text
-  https://raw.githubusercontent.com/diren89/Beehive/v1.1.1/MANIFEST.md
+  https://raw.githubusercontent.com/diren89/The-Swarm/v1.1.1/MANIFEST.md
   ```
 
 ---
@@ -275,7 +275,7 @@ Du kannst das auch dem Agent überlassen: „Erstelle einen Pull Request mit den
 
 | Problem | Ursache | Lösung |
 | --- | --- | --- |
-| Agent kennt Beehive nicht | Anweisungsdatei nicht geladen oder Sitzung lief schon vorher | Neue Sitzung starten; Pfad prüfen (Abschnitt 3); in Claude Code mit `/memory` nachsehen |
+| Agent kennt The Swarm nicht | Anweisungsdatei nicht geladen oder Sitzung lief schon vorher | Neue Sitzung starten; Pfad prüfen (Abschnitt 3); in Claude Code mit `/memory` nachsehen |
 | Agent kann die URL nicht abrufen | kein Webzugriff oder Netz gesperrt | lokalen Klon mit Import nutzen (3.1 B) oder Inhalt in den System-Prompt stellen (3.5) |
 | Zu viel Aufwand bei Kleinigkeiten | Stufe zu hoch gewählt | Stufe S vorgeben; der Agent sollte sonst §0.1 beachten |
 | Projektregel widerspricht dem Manifest | gewollt | Projektregel gilt, der Rest des Manifests bleibt aktiv |
@@ -287,17 +287,17 @@ Du kannst das auch dem Agent überlassen: „Erstelle einen Pull Request mit den
 
 ## 10. Deinstallation
 
-1. Den Beehive-Absatz aus `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, `~/.gemini/GEMINI.md` oder den Projektdateien entfernen.
-2. Optional den lokalen Klon löschen: `rm -rf ~/.beehive`. Dabei gehen auch deine lokalen Hardware-Profile verloren, also vorher sichern, falls du sie brauchst.
+1. Den The-Swarm-Absatz aus `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, `~/.gemini/GEMINI.md` oder den Projektdateien entfernen.
+2. Optional den lokalen Klon löschen: `rm -rf ~/.the-swarm`. Dabei gehen auch deine lokalen Hardware-Profile verloren, also vorher sichern, falls du sie brauchst.
 
 ---
 
 ## 11. Häufige Fragen
 
-**Muss ich Beehive in jedem Projekt erwähnen?**
+**Muss ich The Swarm in jedem Projekt erwähnen?**
 Nein. Global eingetragen gilt es überall (MANIFEST §0.2). Projektdateien brauchst du nur für Abweichungen.
 
-**Funktioniert Beehive ohne Subagents?**
+**Funktioniert The Swarm ohne Subagents?**
 Ja. Der Koordinator arbeitet die Pakete dann nacheinander ab. Planung, Prüfschichten, Ehrlichkeit und Lernschleife bleiben.
 
 **Welche Modelle soll ich für Subagents nehmen?**
@@ -310,4 +310,4 @@ Nur, wenn du einen Pull Request mit solchen Daten mergst. Die Beitragsregeln ver
 Nur auf deinen ausdrücklichen Wunsch (MANIFEST §0.2).
 
 **Wie trage ich bei, wenn ich keinen Schreibzugriff habe?**
-Repo forken, Änderung im Fork machen und einen Pull Request an `diren89/Beehive` stellen.
+Repo forken, Änderung im Fork machen und einen Pull Request an `diren89/The-Swarm` stellen.

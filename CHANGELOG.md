@@ -2,7 +2,7 @@
 
 ## 1.1.1 · 2026-11-21
 
-- Repo heißt jetzt **Beehive** (`diren89/Beehive`); alle Verweise angepasst, die alte URL leitet weiter.
+- Repo heißt jetzt **The Swarm** (`diren89/The-Swarm`; GitHub erlaubt keine Leerzeichen im Repo-Namen). Alle Verweise sind angepasst. Die früheren Namen `agent-manifest` und `Beehive` leiten auf GitHub weiter.
 - Neu: [ANLEITUNG.md](ANLEITUNG.md) zu Installation (global, pro Projekt, Claude Code, Codex CLI, Gemini CLI, Cursor, Copilot, API), Nutzung, Beiträgen, Versionen, Fehlerbehebung.
 - Keine Regeländerung.
 
