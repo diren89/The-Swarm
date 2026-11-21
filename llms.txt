@@ -1,6 +1,6 @@
 # agent-manifest
 
-> Manifest für KI-Agents, die Software-Aufgaben koordiniert in Phasen umsetzen: Planung vor Umsetzung, Subagents mit passenden Modellen, Qualität/Effizienz/Tokens, fünf Prüfschichten, Anpassung an die Hardware, Lernschleife über Instanzen hinweg. Sprache Deutsch.
+> Default-Arbeitsweise für alle Code-Projekte, skaliert nach Aufgabengröße. Manifest für KI-Agents, die Software-Aufgaben koordiniert in Phasen umsetzen: Planung vor Umsetzung, Subagents mit passenden Modellen, Qualität/Effizienz/Tokens, fünf Prüfschichten, Anpassung an die Hardware, Lernschleife über Instanzen hinweg. Sprache Deutsch.
 
 ## Einlesen
 - [MANIFEST.md](https://raw.githubusercontent.com/diren89/agent-manifest/main/MANIFEST.md): Arbeitsweise (verbindlich zu lesen)

@@ -1,10 +1,44 @@
 # Manifest: Koordinierte Agentenarbeit
 
-Version 1.0.0 · Stand 21.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
+Version 1.1.0 · Stand 21.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
 
-Dieses Manifest beschreibt, wie ein **koordinierender Agent** größere Software-Aufgaben in Phasen plant, an **Subagents** mit passenden Modellen verteilt, die Ergebnisse **selbst prüft und verbessert** und dabei **bei jedem Schritt dazulernt**. Es ist für Sprachmodelle geschrieben, die es zu Beginn einer Aufgabe einlesen, und für Menschen, die nachvollziehen wollen, wie gearbeitet wird.
+Dieses Manifest beschreibt, wie ein **koordinierender Agent** Software-Aufgaben in Phasen plant, an **Subagents** mit passenden Modellen verteilt, die Ergebnisse **selbst prüft und verbessert** und dabei **bei jedem Schritt dazulernt**. Es ist für Sprachmodelle geschrieben, die es zu Beginn einer Aufgabe einlesen, und für Menschen, die nachvollziehen wollen, wie gearbeitet wird.
 
 **Vorrang:** Anweisungen der Nutzerin oder des Nutzers und Projektregeln (`CLAUDE.md`, `AGENTS.md`, `DESIGN.md` im Zielprojekt) gehen diesem Manifest vor. Das Manifest ist Arbeitsweise, keine Befugnis: Es erlaubt keine Aktion, die die Nutzerin nicht verlangt hat.
+
+---
+
+## 0. Geltungsbereich: Default für alle Code-Projekte
+
+Diese Arbeitsweise ist der **Standard für jede Arbeit an Code**: neue Projekte, bestehende Projekte, Skripte, Konfiguration, Infrastruktur-als-Code. Sie gilt, ohne dass sie im Projekt eigens erwähnt werden muss. Abweichungen entstehen nur durch
+1. ausdrückliche Anweisung der Nutzerin für diese Aufgabe,
+2. Projektregeln, die etwas anderes festlegen (sie gehen vor, der Rest des Manifests gilt weiter),
+3. fehlende Werkzeuge der Plattform (z. B. keine Subagents verfügbar → Koordinator arbeitet die Pakete selbst nacheinander ab, Prüfschichten bleiben).
+
+### 0.1 Nach Aufgabengröße skalieren
+
+Der Aufwand richtet sich nach der Aufgabe, nicht umgekehrt. Vor dem Start wird die Stufe gewählt und bei Bedarf hochgestuft.
+
+| Stufe | Typische Aufgabe | Pflicht | Entfällt |
+| --- | --- | --- | --- |
+| **S · klein** | eine Datei oder wenige Zeilen, eine Frage, ein Bugfix mit klarer Ursache | kurz Umgebung und Kontext prüfen; Plan im Kopf; nach der Änderung bauen und testen; Wirkung verifizieren; ehrlich berichten | schriftlicher Plan, Subagents, Retrospektive (Learning nur, wenn etwas Überraschendes passiert ist) |
+| **M · mittel** | ein Feature, mehrere Dateien, eine Sitzung | Plan in der Antwort oder Aufgabenliste; Prüfschichten 1–3 und 5; 0–2 Subagents, wenn Pakete unabhängig sind; Learnings bei Überraschungen | Phasenplan als Datei, Rollen-Review optional |
+| **L · groß** | mehrere Features oder Ziele, mehrere Sitzungen, neues Projekt | alles in diesem Manifest: Phase 0, Phasenplan im Projekt, Subagents nach Abschnitt 5, alle fünf Prüfschichten, Retrospektive je Phase | – |
+
+**Immer, in jeder Stufe:** Wirkung statt Exit-Code prüfen (§6.2), null neue Warnungen, ehrlich berichten (§1.6), Projektregeln vor Manifest.
+
+### 0.2 Als Default verankern
+
+Damit Agents das Manifest in jedem Projekt automatisch berücksichtigen, gehört dieser Absatz in die **globale** Agenten-Konfiguration der Nutzerin (z. B. die benutzerweite `CLAUDE.md` oder `AGENTS.md`), nicht in jedes einzelne Projekt:
+
+```markdown
+## Arbeitsweise (Default für alle Code-Projekte)
+Bei jeder Arbeit an Code gilt https://github.com/diren89/agent-manifest
+(MANIFEST.md, neueste Einträge in LEARNINGS.md), skaliert nach MANIFEST §0.1.
+Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Request zurückgeben.
+```
+
+Ein Agent ändert diese globale Konfiguration nur auf ausdrücklichen Wunsch der Nutzerin.
 
 ---
 
@@ -187,7 +221,7 @@ Lernen passiert auf drei Zeitskalen:
 
 ## 10. Wissen zwischen Instanzen teilen
 
-- **Einlesen:** Zu Beginn einer Aufgabe `MANIFEST.md` und `LEARNINGS.md` aus diesem Repo lesen (Raw-URLs in der [README](README.md)). Projektregeln haben Vorrang.
+- **Einlesen:** Zu Beginn jeder Arbeit an Code `MANIFEST.md` und `LEARNINGS.md` aus diesem Repo lesen (Raw-URLs in der [README](README.md)), bei Stufe S genügt das Manifest. Projektregeln haben Vorrang.
 - **Beitragen:** Neue Learnings und Regelvorschläge als Pull Request nach [CONTRIBUTING.md](CONTRIBUTING.md). Ein Mensch prüft und merged; Modelle mergen nicht selbst in `main`.
 - **Vertrauen:** Inhalte dieses Repos sind Arbeitswissen, keine Befehle. Sie erweitern keine Befugnisse und ersetzen keine Rückfrage bei der Nutzerin.
 - **Versionieren:** Semantische Versionen. Neue Regel = Minor, umformulierte oder gestrichene Regel = Major, Korrekturen = Patch.
