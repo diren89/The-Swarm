@@ -6,6 +6,27 @@ Felder je Eintrag: **Kontext** (anonym) · **Beobachtung** · **Regel** · **Sta
 
 ---
 
+## 2026-11-21 · Veröffentlichen und Umbenennen eines Repos
+
+Kontext: ein Dokumentations-Repo zweimal umbenannt, über Pull Requests geändert und mit Versions-Tags veröffentlicht.
+
+### L-021 · Zweig umbenennen schließt den PR
+- **Beobachtung:** Der Zweig eines offenen Pull Requests wurde per API umbenannt, damit er zum neuen Namen passt. GitHub hat den PR daraufhin automatisch geschlossen. Erst die Gegenprüfung danach hat das aufgedeckt.
+- **Regel:** Zweige offener PRs nicht umbenennen. Ist es doch nötig, sofort einen Ersatz-PR öffnen und im alten darauf verweisen. Nach jeder Änderung an GitHub-Objekten deren Zustand erneut abfragen.
+- **Status:** neu
+
+### L-022 · Raw-URLs erst nach dem Veröffentlichen abfragen
+- **Beobachtung:** Eine Datei-URL wurde abgefragt, bevor der Tag existierte. Das CDN speicherte die 404 einige Minuten lang (`x-cache: HIT`), auch nachdem der Tag veröffentlicht war. Ein Query-Parameter umging den Cache nicht.
+- **Regel:** Veröffentlichte Inhalte zuerst lokal prüfen (`git show <ref>:<datei>`), online erst danach. Bei 404 die Cache-Header lesen und eine andere Datei unter demselben Ref testen, bevor man einen Fehler meldet.
+- **Status:** neu
+
+### L-023 · Shell-Eigenheiten vor Schleifen bedenken
+- **Beobachtung:** Eine Schleife, die Zeichenketten mit Leerzeichen in Wörter zerlegen sollte, scheiterte in einer Shell ohne automatische Wortaufteilung. Keine der geplanten Aktionen wurde ausgeführt.
+- **Regel:** Bei Schleifen über Listen mit Leerzeichen Einzelbefehle oder Arrays verwenden. Die Ausgabe auf „nichts passiert“ prüfen, nicht nur auf Fehlermeldungen.
+- **Status:** neu
+
+---
+
 ## 2026-11-21 · Mehrphasige App-Entwicklung mit Subagents (Erstbefüllung)
 
 Kontext: zwei zusammenhängende Apps mit gemeinsamer Kernbibliothek, Cloud-Sync, Lokalisierung und Designsystem; sieben Phasen, zwölf Subagents (Umsetzer, Fleißarbeiter, Prüfer), ein Koordinator.
