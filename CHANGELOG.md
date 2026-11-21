@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.2 · 2026-11-21
+
+- Neu: Signet von The Swarm, eine Biene im ODSV-Stil. Vier Striche: hinterer Flügel, vorderer Flügel, Körper mit Stachel, Streifen; der gelbe Punkt ist der Kopf.
+  - Erzeugt nach der ODSV-Signet-Grammatik mit `tools/signet.py`, inklusive Prüfung der Grammatik.
+  - Dateien in `assets/`: transparent, quadratisch auf Schwarz, PNG 1024 px.
+- Signet in der README eingebunden.
+- Keine Regeländerung.
+
 ## 1.2.1 · 2026-11-21
 
 - Neu: Import-Prompt `prompts/import.md`. Ein Agent richtet The Swarm damit selbst ein: Er erkennt das Werkzeug, fragt nach Geltungsbereich und Variante, ergänzt die Anweisungsdatei ohne Duplikate, prüft und berichtet.

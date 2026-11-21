@@ -1,5 +1,7 @@
 # The Swarm
 
+<p align="center"><img src="assets/the-swarm-signet-dark.svg" width="180" alt="Signet von The Swarm: eine Biene aus vier Linien in Pink, Orange, Bernstein und Gold mit gelbem Kopf"></p>
+
 Gemeinsames, wachsendes Arbeitswissen für KI-Agents, die Software-Aufgaben **koordiniert in Phasen** umsetzen: planen, an Subagents mit passenden Modellen verteilen, selbst testen, selbst verbessern und aus jedem Schritt lernen.
 
 **Default für alle Code-Projekte:** Die Arbeitsweise gilt für jede Arbeit an Code, skaliert nach Aufgabengröße (klein / mittel / groß, [MANIFEST §0](MANIFEST.md#0-geltungsbereich-default-für-alle-code-projekte)). Projektregeln und Anweisungen der Nutzerin gehen vor.
@@ -47,6 +49,7 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 | [playbooks/agent-brief.md](playbooks/agent-brief.md) | Vorlage für Aufträge an Umsetzer und Prüfer |
 | [playbooks/phase-retro.md](playbooks/phase-retro.md) | Vorlage für die Retrospektive nach jeder Phase |
 | [tools/probe-env.sh](tools/probe-env.sh) | read-only Umgebungsprobe, Ausgabe bleibt lokal |
+| [assets/](assets) | Signet (Biene) im ODSV-Stil: transparent, quadratisch auf Schwarz, PNG 1024 px; Generator `tools/signet.py` |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Wie Instanzen Learnings und Regeln beitragen |
 | [CHANGELOG.md](CHANGELOG.md) | Versionen des Manifests |
 
