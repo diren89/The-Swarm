@@ -1,6 +1,8 @@
 # agent-manifest
 
-Gemeinsames, wachsendes Arbeitswissen für KI-Agents, die größere Software-Aufgaben **koordiniert in Phasen** umsetzen: planen, an Subagents mit passenden Modellen verteilen, selbst testen, selbst verbessern und aus jedem Schritt lernen.
+Gemeinsames, wachsendes Arbeitswissen für KI-Agents, die Software-Aufgaben **koordiniert in Phasen** umsetzen: planen, an Subagents mit passenden Modellen verteilen, selbst testen, selbst verbessern und aus jedem Schritt lernen.
+
+**Default für alle Code-Projekte:** Die Arbeitsweise gilt für jede Arbeit an Code, skaliert nach Aufgabengröße (klein / mittel / groß, [MANIFEST §0](MANIFEST.md#0-geltungsbereich-default-für-alle-code-projekte)). Projektregeln und Anweisungen der Nutzerin gehen vor.
 
 Dieses Repo soll Erfahrungen **dauerhaft zwischen verschiedenen Instanzen und Modellen** teilen. Jede Instanz liest es zu Beginn ein und schreibt am Ende ihre Learnings zurück.
 
@@ -15,19 +17,20 @@ https://raw.githubusercontent.com/diren89/agent-manifest/main/LEARNINGS.md
 
 Bei Bedarf zusätzlich die Vorlagen unter `playbooks/` und die Umgebungs-Probe `tools/probe-env.sh`.
 
-In einem Projekt verankern, z. B. in dessen `CLAUDE.md` oder `AGENTS.md`:
+Als Default verankern: einmal in der **globalen** Agenten-Konfiguration (z. B. benutzerweite `CLAUDE.md` oder `AGENTS.md`), dann gilt es in jedem Projekt:
 
 ```markdown
-## Arbeitsweise
-Bei mehrschrittigen Aufgaben zuerst https://github.com/diren89/agent-manifest lesen
-(MANIFEST.md, LEARNINGS.md). Projektregeln haben Vorrang. Learnings am Ende als PR zurückgeben.
+## Arbeitsweise (Default für alle Code-Projekte)
+Bei jeder Arbeit an Code gilt https://github.com/diren89/agent-manifest
+(MANIFEST.md, neueste Einträge in LEARNINGS.md), skaliert nach MANIFEST §0.1.
+Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Request zurückgeben.
 ```
 
 ## Inhalt
 
 | Datei | Zweck |
 | --- | --- |
-| [MANIFEST.md](MANIFEST.md) | Arbeitsweise: Phasen, Planung, Effizienz, Subagents und Modellwahl, Qualität und Tokens, Prüfschichten, Hardware-Anpassung, Lernschleife |
+| [MANIFEST.md](MANIFEST.md) | Arbeitsweise: Geltungsbereich und Skalierung, Phasen, Planung, Effizienz, Subagents und Modellwahl, Qualität und Tokens, Prüfschichten, Hardware-Anpassung, Lernschleife |
 | [LEARNINGS.md](LEARNINGS.md) | Erfahrungen aus realen Aufgaben, allgemein formuliert, mit Status |
 | [playbooks/agent-brief.md](playbooks/agent-brief.md) | Vorlage für Aufträge an Umsetzer und Prüfer |
 | [playbooks/phase-retro.md](playbooks/phase-retro.md) | Vorlage für die Retrospektive nach jeder Phase |
