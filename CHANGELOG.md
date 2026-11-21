@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 · 2026-11-21
+
+- Neu: Import-Prompt `prompts/import.md`. Ein Agent richtet The Swarm damit selbst ein: Er erkennt das Werkzeug, fragt nach Geltungsbereich und Variante, ergänzt die Anweisungsdatei ohne Duplikate, prüft und berichtet.
+- Kurzform per URL in README, ANLEITUNG (§3.0) und llms.txt; Fehlerbehebung für Agents, die Webinhalten nicht folgen.
+- Keine Regeländerung.
+
 ## 1.2.0 · 2026-11-21
 
 - Neu §5.1: Rolle **Expertin / Experte** für Fachaufgaben (z. B. 3D-Modellierung, Video- und Audiobearbeitung, Grafik, anspruchsvolle Algorithmen), delegiert an das größte, leistungsfähigste verfügbare Modell. Die Faustregel ist um das nötige Fachwissen ergänzt.

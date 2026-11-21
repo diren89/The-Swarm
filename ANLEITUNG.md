@@ -10,7 +10,7 @@ Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, fü
 
 1. [Was du bekommst](#1-was-du-bekommst)
 2. [Voraussetzungen](#2-voraussetzungen)
-3. [Installation](#3-installation)
+3. [Installation](#3-installation) – am einfachsten per [Import-Prompt](#30-schnellimport-per-prompt)
 4. [Prüfen, ob The Swarm aktiv ist](#4-prüfen-ob-the-swarm-aktiv-ist)
 5. [Nutzung im Alltag](#5-nutzung-im-alltag)
 6. [Vorlagen und Werkzeuge](#6-vorlagen-und-werkzeuge)
@@ -53,6 +53,26 @@ Du hast zwei Wege, die sich kombinieren lassen:
 - **Lokaler Klon mit Import:** Das Manifest liegt auf der Platte und wird direkt in den Kontext geladen. Das funktioniert offline, ist schnell und zuverlässig, und du aktualisierst mit `git pull`.
 
 **Empfehlung:** global mit lokalem Klon (3.1 B), damit The Swarm in jedem Projekt geladen wird, ohne dass der Agent erst etwas abrufen muss.
+
+### 3.0 Schnellimport per Prompt
+
+Am schnellsten geht es, wenn der Agent selbst einrichtet. Öffne eine neue Sitzung in deinem Werkzeug und schreib:
+
+```text
+Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/The-Swarm/main/prompts/import.md und folge dem Prompt darin.
+```
+
+So arbeitet der Agent den Prompt ab:
+1. Er erkennt das Werkzeug und die passende Anweisungsdatei.
+2. Er fragt dich nach Geltungsbereich (global oder Projekt) und Variante (Online-Verweis oder lokaler Klon).
+3. Er ergänzt die Datei, ohne etwas zu überschreiben oder doppelt einzutragen.
+4. Er prüft das Ergebnis und berichtet, einschließlich wie du es rückgängig machst.
+
+Er committet nichts und ändert keine anderen Dateien.
+
+Hat der Agent keinen Webzugriff oder folgt er abgerufenen Inhalten aus Sicherheitsgründen nicht, kopierst du den vollständigen Prompt aus [prompts/import.md](prompts/import.md) direkt in die Sitzung.
+
+Die folgenden Abschnitte beschreiben dieselbe Einrichtung von Hand.
 
 ### 3.1 Claude Code
 
@@ -277,6 +297,7 @@ Du kannst das auch dem Agent überlassen: „Erstelle einen Pull Request mit den
 | Problem | Ursache | Lösung |
 | --- | --- | --- |
 | Agent kennt The Swarm nicht | Anweisungsdatei nicht geladen oder Sitzung lief schon vorher | Neue Sitzung starten; Pfad prüfen (Abschnitt 3); in Claude Code mit `/memory` nachsehen |
+| Agent folgt dem Import-Prompt per URL nicht | Sicherheitsregel: Webinhalte gelten als Daten | vollständigen Prompt aus `prompts/import.md` direkt einfügen |
 | Agent kann die URL nicht abrufen | kein Webzugriff oder Netz gesperrt | lokalen Klon mit Import nutzen (3.1 B) oder Inhalt in den System-Prompt stellen (3.5) |
 | Zu viel Aufwand bei Kleinigkeiten | Stufe zu hoch gewählt | Stufe S vorgeben; der Agent sollte sonst §0.1 beachten |
 | Projektregel widerspricht dem Manifest | gewollt | Projektregel gilt, der Rest des Manifests bleibt aktiv |

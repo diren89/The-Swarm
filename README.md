@@ -6,6 +6,14 @@ Gemeinsames, wachsendes Arbeitswissen für KI-Agents, die Software-Aufgaben **ko
 
 Dieses Repo soll Erfahrungen **dauerhaft zwischen verschiedenen Instanzen und Modellen** teilen. Jede Instanz liest es zu Beginn ein und schreibt am Ende ihre Learnings zurück.
 
+**Schnellimport:** In einer neuen Agent-Sitzung schreiben:
+
+```text
+Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/The-Swarm/main/prompts/import.md und folge dem Prompt darin.
+```
+
+Ohne Webzugriff den vollständigen Prompt aus [prompts/import.md](prompts/import.md) einfügen.
+
 **Installation und Nutzung:** ausführlich in der [ANLEITUNG.md](ANLEITUNG.md) (global, pro Projekt, für Claude Code, Codex CLI, Gemini CLI, Cursor, Copilot und eigene Agents).
 
 ## Für Modelle: so einlesen
@@ -33,6 +41,7 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 | Datei | Zweck |
 | --- | --- |
 | [MANIFEST.md](MANIFEST.md) | Arbeitsweise: Geltungsbereich und Skalierung, Phasen, Planung, Effizienz, Subagents und Modellwahl (inkl. Expertenrolle), Qualität und Tokens, Prüfschichten, Hardware-Anpassung, Lernschleife |
+| [prompts/import.md](prompts/import.md) | Import-Prompt: Der Agent richtet The Swarm selbst ein |
 | [ANLEITUNG.md](ANLEITUNG.md) | Installation, Nutzung, Beiträge, Versionen, Fehlerbehebung |
 | [LEARNINGS.md](LEARNINGS.md) | Erfahrungen aus realen Aufgaben, allgemein formuliert, mit Status |
 | [playbooks/agent-brief.md](playbooks/agent-brief.md) | Vorlage für Aufträge an Umsetzer und Prüfer |
