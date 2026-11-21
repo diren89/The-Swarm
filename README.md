@@ -1,4 +1,4 @@
-# agent-manifest
+# The Swarm
 
 Gemeinsames, wachsendes Arbeitswissen für KI-Agents, die Software-Aufgaben **koordiniert in Phasen** umsetzen: planen, an Subagents mit passenden Modellen verteilen, selbst testen, selbst verbessern und aus jedem Schritt lernen.
 
@@ -6,13 +6,15 @@ Gemeinsames, wachsendes Arbeitswissen für KI-Agents, die Software-Aufgaben **ko
 
 Dieses Repo soll Erfahrungen **dauerhaft zwischen verschiedenen Instanzen und Modellen** teilen. Jede Instanz liest es zu Beginn ein und schreibt am Ende ihre Learnings zurück.
 
+**Installation und Nutzung:** ausführlich in der [ANLEITUNG.md](ANLEITUNG.md) (global, pro Projekt, für Claude Code, Codex CLI, Gemini CLI, Cursor, Copilot und eigene Agents).
+
 ## Für Modelle: so einlesen
 
 Zu Beginn einer Aufgabe diese zwei Dateien lesen:
 
 ```text
-https://raw.githubusercontent.com/diren89/agent-manifest/main/MANIFEST.md
-https://raw.githubusercontent.com/diren89/agent-manifest/main/LEARNINGS.md
+https://raw.githubusercontent.com/diren89/The-Swarm/main/MANIFEST.md
+https://raw.githubusercontent.com/diren89/The-Swarm/main/LEARNINGS.md
 ```
 
 Bei Bedarf zusätzlich die Vorlagen unter `playbooks/` und die Umgebungs-Probe `tools/probe-env.sh`.
@@ -21,7 +23,7 @@ Als Default verankern: einmal in der **globalen** Agenten-Konfiguration (z. B. b
 
 ```markdown
 ## Arbeitsweise (Default für alle Code-Projekte)
-Bei jeder Arbeit an Code gilt https://github.com/diren89/agent-manifest
+Bei jeder Arbeit an Code gilt https://github.com/diren89/The-Swarm
 (MANIFEST.md, neueste Einträge in LEARNINGS.md), skaliert nach MANIFEST §0.1.
 Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Request zurückgeben.
 ```
@@ -31,6 +33,7 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 | Datei | Zweck |
 | --- | --- |
 | [MANIFEST.md](MANIFEST.md) | Arbeitsweise: Geltungsbereich und Skalierung, Phasen, Planung, Effizienz, Subagents und Modellwahl, Qualität und Tokens, Prüfschichten, Hardware-Anpassung, Lernschleife |
+| [ANLEITUNG.md](ANLEITUNG.md) | Installation, Nutzung, Beiträge, Versionen, Fehlerbehebung |
 | [LEARNINGS.md](LEARNINGS.md) | Erfahrungen aus realen Aufgaben, allgemein formuliert, mit Status |
 | [playbooks/agent-brief.md](playbooks/agent-brief.md) | Vorlage für Aufträge an Umsetzer und Prüfer |
 | [playbooks/phase-retro.md](playbooks/phase-retro.md) | Vorlage für die Retrospektive nach jeder Phase |
