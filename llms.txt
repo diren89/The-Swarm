@@ -6,6 +6,9 @@
 - [MANIFEST.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/MANIFEST.md): Arbeitsweise (verbindlich zu lesen)
 - [LEARNINGS.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/LEARNINGS.md): Erfahrungen mit Status
 
+## Import
+- [prompts/import.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/prompts/import.md): Prompt, mit dem ein Agent The Swarm selbst einrichtet
+
 ## Anleitung
 - [ANLEITUNG.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/ANLEITUNG.md): Installation und Nutzung für verschiedene Werkzeuge
 
