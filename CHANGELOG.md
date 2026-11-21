@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0 · 2026-11-21
+
+- Neu §5.1: Rolle **Expertin / Experte** für Fachaufgaben (z. B. 3D-Modellierung, Video- und Audiobearbeitung, Grafik, anspruchsvolle Algorithmen), delegiert an das größte, leistungsfähigste verfügbare Modell. Die Faustregel ist um das nötige Fachwissen ergänzt.
+- Neu §5.1.1: Wann die Expertenrolle eingesetzt wird; Klärung von Werkzeugen, Rechenleistung, Material und Rechten; messbare Abnahmekriterien; Prüfung über Messwerte und Vorschauen; reproduzierbare Abgabe.
+- Neu: Brief-Vorlage für die Expertenrolle in `playbooks/agent-brief.md`; ANLEITUNG ergänzt.
+
 ## 1.1.1 · 2026-11-21
 
 - Repo heißt jetzt **The Swarm** (`diren89/The-Swarm`; GitHub erlaubt keine Leerzeichen im Repo-Namen). Alle Verweise sind angepasst. Die früheren Namen `agent-manifest` und `Beehive` leiten auf GitHub weiter.
