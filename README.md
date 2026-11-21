@@ -32,7 +32,7 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 
 | Datei | Zweck |
 | --- | --- |
-| [MANIFEST.md](MANIFEST.md) | Arbeitsweise: Geltungsbereich und Skalierung, Phasen, Planung, Effizienz, Subagents und Modellwahl, Qualität und Tokens, Prüfschichten, Hardware-Anpassung, Lernschleife |
+| [MANIFEST.md](MANIFEST.md) | Arbeitsweise: Geltungsbereich und Skalierung, Phasen, Planung, Effizienz, Subagents und Modellwahl (inkl. Expertenrolle), Qualität und Tokens, Prüfschichten, Hardware-Anpassung, Lernschleife |
 | [ANLEITUNG.md](ANLEITUNG.md) | Installation, Nutzung, Beiträge, Versionen, Fehlerbehebung |
 | [LEARNINGS.md](LEARNINGS.md) | Erfahrungen aus realen Aufgaben, allgemein formuliert, mit Status |
 | [playbooks/agent-brief.md](playbooks/agent-brief.md) | Vorlage für Aufträge an Umsetzer und Prüfer |

@@ -187,6 +187,7 @@ Stufe L: Plane die Umsetzung des Backlogs in Phasen und koordiniere Subagents.
 | Mehr Parallelität | „Nutze bis zu drei Subagents parallel, die Maschine hat Reserven.“ |
 | Mehr Prüfung | „Lass am Ende einen unabhängigen Review aus Sicht von <Rolle> laufen.“ |
 | Nur planen | „Plane nur, setze noch nichts um.“ |
+| Fachaufgabe delegieren | „Das 3D-Modell / den Videoschnitt bitte an die Expertenrolle mit dem größten Modell geben, mit Vorschau und Messprotokoll.“ |
 | Learnings anstoßen | „Mach eine Retrospektive und schlage Learnings für The Swarm vor.“ |
 
 ---
@@ -301,7 +302,7 @@ Nein. Global eingetragen gilt es überall (MANIFEST §0.2). Projektdateien brauc
 Ja. Der Koordinator arbeitet die Pakete dann nacheinander ab. Planung, Prüfschichten, Ehrlichkeit und Lernschleife bleiben.
 
 **Welche Modelle soll ich für Subagents nehmen?**
-Je eindeutiger der Auftrag, desto kleiner das Modell (MANIFEST §5.1). Urteil, Integration und Fehlersuche bleiben beim stärksten Modell.
+Je eindeutiger der Auftrag, desto kleiner das Modell, und je tiefer das nötige Fachwissen, desto größer (MANIFEST §5.1). Fachaufgaben wie 3D-Modellierung oder Videobearbeitung gehen an die **Expertenrolle** mit dem größten verfügbaren Modell (§5.1.1). Urteil, Integration und Fehlersuche bleiben beim stärksten Modell.
 
 **Gelangen meine Projektdaten nach GitHub?**
 Nur, wenn du einen Pull Request mit solchen Daten mergst. Die Beitragsregeln verbieten Namen, Projektdetails und Hardware-Beispiele, und vor dem Merge prüft ein Mensch.
