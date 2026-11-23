@@ -52,11 +52,12 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 
 ## Releasenotes
 
-Aktuelle Version: **1.3.0** (23.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.0` usw.) abrufbar.
+Aktuelle Version: **1.3.1** (23.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.1` usw.) abrufbar.
 
 | Version | Datum | Was ist neu |
 | --- | --- | --- |
-| **1.3.0** | 23.11.2026 | Neue Regeln aus L-024 bis L-035: Rechte und Werkzeuge von Subagents (§5.5), abbrechbare Läufe mit Checkpoint und Lückenliste (§7.3), Prüfungen selbst prüfen (§6.1), Daten nicht durch das Modell kopieren (§6.2), Budget in der Umgebungsprobe (§2), Ausgabeformat und Werkzeuge im Brief (§5.2) |
+| **1.3.1** | 23.11.2026 | Releasenotes in der README sind bei jeder Version Pflicht, Tag nach dem Merge ([CONTRIBUTING](CONTRIBUTING.md)). Keine Regeländerung |
+| 1.3.0 | 23.11.2026 | Neue Regeln aus L-024 bis L-035: Rechte und Werkzeuge von Subagents (§5.5), abbrechbare Läufe mit Checkpoint und Lückenliste (§7.3), Prüfungen selbst prüfen (§6.1), Daten nicht durch das Modell kopieren (§6.2), Budget in der Umgebungsprobe (§2), Ausgabeformat und Werkzeuge im Brief (§5.2) |
 | 1.2.1 | 21.11.2026 | Import-Prompt: Ein Agent richtet The Swarm selbst ein. Keine Regeländerung |
 | 1.2.0 | 21.11.2026 | Rolle Expertin / Experte für Fachaufgaben (§5.1, §5.1.1) mit eigener Brief-Vorlage |
 | 1.1.1 | 21.11.2026 | Neuer Name The Swarm, ANLEITUNG.md. Keine Regeländerung |

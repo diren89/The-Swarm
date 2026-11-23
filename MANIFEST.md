@@ -1,6 +1,6 @@
 # The Swarm · Manifest: Koordinierte Agentenarbeit
 
-Version 1.3.0 · Stand 23.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
+Version 1.3.1 · Stand 23.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Dieses Manifest beschreibt, wie ein **koordinierender Agent** Software-Aufgaben in Phasen plant, an **Subagents** mit passenden Modellen verteilt, die Ergebnisse **selbst prüft und verbessert** und dabei **bei jedem Schritt dazulernt**. Es ist für Sprachmodelle geschrieben, die es zu Beginn einer Aufgabe einlesen, und für Menschen, die nachvollziehen wollen, wie gearbeitet wird.
 
