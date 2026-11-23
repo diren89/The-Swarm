@@ -16,7 +16,9 @@
 ## Vorlagen
 - [playbooks/agent-brief.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/playbooks/agent-brief.md): Auftrag an Umsetzer und Prüfer
 - [playbooks/phase-retro.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/playbooks/phase-retro.md): Retrospektive
+- [playbooks/korrektur-brief.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/playbooks/korrektur-brief.md): Übergabe einer Korrekturrunde
 - [tools/probe-env.sh](https://raw.githubusercontent.com/diren89/The-Swarm/main/tools/probe-env.sh): Umgebungsprobe (read-only)
+- [tools/pruefen.sh](https://raw.githubusercontent.com/diren89/The-Swarm/main/tools/pruefen.sh): Prüfläufe mit Testzahl und Warnungen
 
 ## Beitragen
 - [CONTRIBUTING.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/CONTRIBUTING.md): anonym, allgemein, per Pull Request

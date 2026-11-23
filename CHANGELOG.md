@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0 · 2026-11-23
+
+- Neu §5.1.2 **Unter-Koordinator**: großes, abgegrenztes Code-Paket als Ganzes mit eigenem Plan, Umsetzern, Prüfern und Korrekturrunden; wann einsetzen und wann nicht; kein eigener Dialog mit der Nutzerin, Weichen als `blockiert` zurück; Schachtelungstiefe per Probe prüfen. Neue Zeile in der Rollentabelle §5.1. Aus L-050.
+- Neu `tools/pruefen.sh` mit Selbsttest `tools/test-pruefen.sh` (33 Fälle): Status OK/WARN/FAIL, Zahl ausgeführter Tests, getrennte Warnungen, Langausgabe je Lauf. Verweis in §6.1. Aus L-048.
+- Neu `playbooks/korrektur-brief.md`: Übergabe einer Korrekturrunde an eine frische Sitzung.
+- Learnings L-045 bis L-050.
+
 ## 1.3.3 · 2026-11-23
 
 - Neu `assets/icon/`: Icon und Signet von The Swarm (vier Flugbahnen sammeln sich an einem Punkt), gestaltet nach der Signet-Grammatik von ODSV; SVG, PNG in 32/180/512/1024 px, `favicon.ico`, kurze Nutzungsregeln.
