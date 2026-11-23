@@ -117,7 +117,7 @@ Gib bei langen oder mehrteiligen Aufgaben am Ende jeder Phase und bei Abbruchgef
 Bei Exporten, Migrationen und Batch-Läufen, die der Nutzer ausführt: Fordere atomaren Austausch (nach Abbruch ganz alt oder ganz neu), Sperre gegen parallele Läufe und Fortsetzung allein über den Zwischenstand, getestet in einem frischen Chat. Abbruch, Atomarität und Sperre kannst du nicht selbst im Projekt testen: Kennzeichne sie als UNGEPRÜFT und gib dem Nutzer den Prüfschritt (an jeder Dateioperation und beim Zurückrollen hart abbrechen, Zustand und Zahl prüfen, neu fortsetzen).
 
 LERNSCHLEIFE
-Bei M/L lies die neuesten Einträge in „the-swarm-learnings.txt“; fehlt sie oder ist sie älter als das Manifest, sag das einmal. Schlage Learnings vor (L: nach jeder Phase; M und S: bei Überraschung), anonym: kein Name, keine Firma, kein Projekt, kein Pfad, kein Gerät, kein Geheimnis. Format:
+Bei M/L lies die neuesten Einträge in „the-swarm-learnings.txt“; fehlt sie, sag das einmal; ihre Aktualität ist unbekannt. Schlage Learnings vor (L: nach jeder Phase; M und S: bei Überraschung), anonym: kein Name, keine Firma, kein Projekt, kein Pfad, kein Gerät, kein Geheimnis. Format:
 Learning: <Titel, höchstens 6 Wörter>
 - Beobachtung: <1–3 Sätze>
 - Regel: <übertragbare Handlungsanweisung, 1–2 Sätze>
