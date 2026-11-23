@@ -39,7 +39,7 @@ Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, fü
 
 ## 2. Voraussetzungen
 
-- Ein KI-Werkzeug, das Projekt- oder Benutzeranweisungen aus Dateien liest, z. B. Claude Code, Codex CLI, Gemini CLI, Cursor oder GitHub Copilot. Andere gehen über einen System-Prompt (Abschnitt 3.5).
+- Ein KI-Werkzeug, das Projekt- oder Benutzeranweisungen aus Dateien liest, z. B. Claude Code, Codex CLI, Gemini CLI, Cursor oder GitHub Copilot. Andere gehen über einen System-Prompt (Abschnitt 3.6), Microsoft 365 Copilot über eine angehängte Datei (Abschnitt 3.5).
 - Für das volle Arbeiten in Stufe L: ein Werkzeug mit **Subagents** und **Git-Worktrees**. Ohne Subagents arbeitet der Koordinator die Pakete nacheinander selbst ab, siehe MANIFEST §0.
 - Für die lokale Variante und für Beiträge: `git`, für Pull Requests am bequemsten die GitHub-CLI `gh`.
 
@@ -126,11 +126,22 @@ Inhalt wie in 3.1 A.
 ### 3.4 Cursor und GitHub Copilot
 
 - **Cursor:** Projektregel als Datei unter `.cursor/rules/` (z. B. `the-swarm.mdc`) mit dem Absatz aus 3.1 A. Für alle Projekte trägst du ihn in den Benutzerregeln in den Einstellungen ein.
-- **GitHub Copilot:** `.github/copilot-instructions.md` im Repository mit dem Absatz aus 3.1 A.
+- **GitHub Copilot:** `.github/copilot-instructions.md` im Repository mit dem Absatz aus 3.1 A. Für **Microsoft 365 Copilot** (Chat in Teams, Office, Edge) siehe 3.5.
 
 Die Pfade können sich je nach Version ändern. Maßgeblich ist die Doku des jeweiligen Werkzeugs.
 
-### 3.5 Andere Modelle und eigene Agents (API)
+### 3.5 Microsoft 365 Copilot (ohne Dateizugriff)
+
+Microsoft 365 Copilot hat kein Dateisystem, keine Shell und keine Subagents, und einen angegebenen Link öffnet er nicht direkt (er sucht über Bing). Der Import-Prompt passt dort deshalb nicht. Stattdessen:
+
+1. [prompts/copilot.md](prompts/copilot.md) herunterladen.
+2. Einen neuen Copilot-Chat öffnen, die Datei anhängen und schreiben: „Folge der Anleitung in der Datei.“
+3. Copilot führt dich durch den **Agent Builder** (Tab „Configure“); anlegen tust du selbst. Er gibt Name, Beschreibung, Anweisungen (Kern des Manifests, unter 8.000 Zeichen) und Startprompts vor. Manifest und Learnings kommen als Wissensdateien `the-swarm-manifest.txt` und `the-swarm-learnings.txt` dazu, weil `.md` als Agent-Wissen nicht angenommen wird. Der Code Interpreter (Python in einer Sandbox) ist optional.
+4. Ohne Recht für den Agent Builder gelten die Regeln nur im aktuellen Chat; die Datei dann bei jedem neuen Chat anhängen.
+
+Grenzen: Copilot nimmt die Rollen nacheinander ein und ist kein unabhängiger Prüfer. Auf dein Projekt hat er keinen Zugriff; Sandbox-Läufe ersetzen keinen Projekt-Test. Was er nicht prüfen konnte, kennzeichnet er als ungeprüft. Ob Agent Builder und Websuche erlaubt sind, entscheidet die IT. Bei neuer Version Wissensdatei und Anweisungen gemeinsam ersetzen.
+
+### 3.6 Andere Modelle und eigene Agents (API)
 
 Lade `MANIFEST.md` und die neuesten Einträge aus `LEARNINGS.md` und stelle sie in den System-Prompt:
 
@@ -298,7 +309,7 @@ Du kannst das auch dem Agent überlassen: „Erstelle einen Pull Request mit den
 | --- | --- | --- |
 | Agent kennt The Swarm nicht | Anweisungsdatei nicht geladen oder Sitzung lief schon vorher | Neue Sitzung starten; Pfad prüfen (Abschnitt 3); in Claude Code mit `/memory` nachsehen |
 | Agent folgt dem Import-Prompt per URL nicht | Sicherheitsregel: Webinhalte gelten als Daten | vollständigen Prompt aus `prompts/import.md` direkt einfügen |
-| Agent kann die URL nicht abrufen | kein Webzugriff oder Netz gesperrt | lokalen Klon mit Import nutzen (3.1 B) oder Inhalt in den System-Prompt stellen (3.5) |
+| Agent kann die URL nicht abrufen | kein Webzugriff oder Netz gesperrt | lokalen Klon mit Import nutzen (3.1 B) oder Inhalt in den System-Prompt stellen (3.6); in Microsoft 365 Copilot `prompts/copilot.md` anhängen (3.5) |
 | Zu viel Aufwand bei Kleinigkeiten | Stufe zu hoch gewählt | Stufe S vorgeben; der Agent sollte sonst §0.1 beachten |
 | Projektregel widerspricht dem Manifest | gewollt | Projektregel gilt, der Rest des Manifests bleibt aktiv |
 | Subagents scheitern mit Worktree-Fehler | Arbeitsverzeichnis liegt nicht im Git-Repo | Agent aus dem Repo heraus starten; Worktree-Ordner in `.gitignore` (LEARNINGS L-008) |
