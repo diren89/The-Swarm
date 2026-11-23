@@ -39,7 +39,7 @@ Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, fü
 
 ## 2. Voraussetzungen
 
-- Ein KI-Werkzeug, das Projekt- oder Benutzeranweisungen aus Dateien liest, z. B. Claude Code, Codex CLI, Gemini CLI, Cursor oder GitHub Copilot. Andere gehen über einen System-Prompt (Abschnitt 3.5).
+- Ein KI-Werkzeug, das Projekt- oder Benutzeranweisungen aus Dateien liest, z. B. Claude Code, Codex CLI, Gemini CLI, Cursor oder GitHub Copilot. Andere gehen über einen System-Prompt (Abschnitt 3.6), Microsoft 365 Copilot über eine angehängte Datei (Abschnitt 3.5).
 - Für das volle Arbeiten in Stufe L: ein Werkzeug mit **Subagents** und **Git-Worktrees**. Ohne Subagents arbeitet der Koordinator die Pakete nacheinander selbst ab, siehe MANIFEST §0.
 - Für die lokale Variante und für Beiträge: `git`, für Pull Requests am bequemsten die GitHub-CLI `gh`.
 
