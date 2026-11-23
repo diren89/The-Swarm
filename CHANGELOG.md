@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0 · 2026-11-23
+
+- Neu §5.5 **Rechte und Werkzeuge**: Rechte als Allowlist und per echtem Lauf prüfen; ein Verbot sperrt den ganzen Aufruf (ein Befehl je Aufruf, bei Ablehnung aufteilen); Werkzeugsatz je Modellfamilie prüfen; Schutz im Werkzeug statt nur im Prompt (aufgelöste Pfade, maschineller Abgleich). Aus L-027, L-028, L-029, L-031, L-033, L-035.
+- Neu §7.3 **Abbrechbare Läufe**: Checkpoint mit Lückenliste, atomarer Austausch mit Abbruchtests, Fortsetzung in frischer Session, Endabgleich gegen die Quelle. Aus L-030, L-033, L-034.
+- Neu §6.1 **Prüfungen selbst prüfen**: verfälschte Eingaben, Zahl geprüfter Fälle, Testfall eingetreten. Aus L-026, L-030, L-034.
+- Neu §6.2 **Daten nicht durch das Modell kopieren**: direkter Weg vom Werkzeug in die Datei, Quittung mit Objektzahl. Aus L-032.
+- Ergänzt §2 (Budgets und Kontingente in der Umgebungsprobe, L-024) und §5.2 (abweichendes Ausgabeformat ausdrücklich nennen, L-025; Werkzeuge im Brief, L-029).
+- L-021 bis L-023 bleiben `neu` (einmalig und werkzeugspezifisch).
+- README: neuer Abschnitt **Releasenotes** mit Versionsübersicht und Lesehilfe zu Versionsnummern.
+
 ## 1.2.1 · 2026-11-21
 
 - Neu: Import-Prompt `prompts/import.md`. Ein Agent richtet The Swarm damit selbst ein: Er erkennt das Werkzeug, fragt nach Geltungsbereich und Variante, ergänzt die Anweisungsdatei ohne Duplikate, prüft und berichtet.

@@ -50,6 +50,21 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Wie Instanzen Learnings und Regeln beitragen |
 | [CHANGELOG.md](CHANGELOG.md) | Versionen des Manifests |
 
+## Releasenotes
+
+Aktuelle Version: **1.3.0** (23.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.0` usw.) abrufbar.
+
+| Version | Datum | Was ist neu |
+| --- | --- | --- |
+| **1.3.0** | 23.11.2026 | Neue Regeln aus L-024 bis L-035: Rechte und Werkzeuge von Subagents (§5.5), abbrechbare Läufe mit Checkpoint und Lückenliste (§7.3), Prüfungen selbst prüfen (§6.1), Daten nicht durch das Modell kopieren (§6.2), Budget in der Umgebungsprobe (§2), Ausgabeformat und Werkzeuge im Brief (§5.2) |
+| 1.2.1 | 21.11.2026 | Import-Prompt: Ein Agent richtet The Swarm selbst ein. Keine Regeländerung |
+| 1.2.0 | 21.11.2026 | Rolle Expertin / Experte für Fachaufgaben (§5.1, §5.1.1) mit eigener Brief-Vorlage |
+| 1.1.1 | 21.11.2026 | Neuer Name The Swarm, ANLEITUNG.md. Keine Regeländerung |
+| 1.1.0 | 21.11.2026 | Default für alle Code-Projekte, Skalierung nach Aufgabengröße S/M/L (§0) |
+| 1.0.0 | 21.11.2026 | Erste Fassung mit L-001 bis L-020 |
+
+**Versionen lesen:** Minor (1.**3**.0) bringt neue Regeln, Major (**2**.0.0) ändert oder streicht bestehende, Patch (1.3.**1**) korrigiert oder stellt klar. Ein Major-Wechsel verdient einen genauen Blick, weil sich bestehende Arbeitsweisen ändern. Regeln entstehen aus Learnings in [LEARNINGS.md](LEARNINGS.md); deren Status zeigt, wo sie übernommen wurden (`übernommen §x`).
+
 ## Grundsätze in einem Satz
 
 Erst verstehen, dann planen, in Phasen liefern, delegieren und nichts ungeprüft übernehmen, ehrlich berichten und aus jedem Fehler eine Regel machen.
