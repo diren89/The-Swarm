@@ -1,3 +1,5 @@
+<img src="assets/icon/the-swarm-icon.svg" alt="Signet The Swarm: vier Flugbahnen laufen auf einen gelben Punkt zu" width="96" height="96">
+
 # The Swarm
 
 Gemeinsames, wachsendes Arbeitswissen für KI-Agents, die Software-Aufgaben **koordiniert in Phasen** umsetzen: planen, an Subagents mit passenden Modellen verteilen, selbst testen, selbst verbessern und aus jedem Schritt lernen.
@@ -54,11 +56,12 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 
 ## Releasenotes
 
-Aktuelle Version: **1.3.2** (23.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.2` usw.) abrufbar.
+Aktuelle Version: **1.3.3** (23.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.2` usw.) abrufbar.
 
 | Version | Datum | Was ist neu |
 | --- | --- | --- |
-| **1.3.2** | 23.11.2026 | Microsoft 365 Copilot: [prompts/copilot.md](prompts/copilot.md) führt durch den Bau eines eigenen Agents „The Swarm“ im Agent Builder, mit Chat-Fallback (ANLEITUNG §3.5). Keine Regeländerung |
+| **1.3.3** | 23.11.2026 | Icon und Signet nach ODSV-Grammatik in [assets/icon/](assets/icon/), in der README oben eingebunden. Keine Regeländerung |
+| 1.3.2 | 23.11.2026 | Microsoft 365 Copilot: [prompts/copilot.md](prompts/copilot.md) führt durch den Bau eines eigenen Agents „The Swarm“ im Agent Builder, mit Chat-Fallback (ANLEITUNG §3.5). Keine Regeländerung |
 | 1.3.1 | 23.11.2026 | Releasenotes in der README sind bei jeder Version Pflicht, Tag nach dem Merge ([CONTRIBUTING](CONTRIBUTING.md)). Keine Regeländerung |
 | 1.3.0 | 23.11.2026 | Neue Regeln aus L-024 bis L-035: Rechte und Werkzeuge von Subagents (§5.5), abbrechbare Läufe mit Checkpoint und Lückenliste (§7.3), Prüfungen selbst prüfen (§6.1), Daten nicht durch das Modell kopieren (§6.2), Budget in der Umgebungsprobe (§2), Ausgabeformat und Werkzeuge im Brief (§5.2) |
 | 1.2.1 | 21.11.2026 | Import-Prompt: Ein Agent richtet The Swarm selbst ein. Keine Regeländerung |
