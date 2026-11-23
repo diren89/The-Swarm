@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.3 · 2026-11-23
+
+- Neu `assets/icon/`: Icon und Signet von The Swarm (vier Flugbahnen sammeln sich an einem Punkt), gestaltet nach der Signet-Grammatik von ODSV; SVG, PNG in 32/180/512/1024 px, `favicon.ico`, kurze Nutzungsregeln.
+- README zeigt das Icon oben.
+- Keine Regeländerung im Manifest.
+
 ## 1.3.2 · 2026-11-23
 
 - Neu `prompts/copilot.md`: Datei zum Anhängen in Microsoft 365 Copilot. Copilot führt durch den Agent Builder (Configure), gibt Name, Beschreibung, Anweisungen (Manifest-Kern, 7.490 Zeichen) und Startprompts vor; Manifest und Learnings als Wissensdateien `.txt`; optional Code Interpreter (Python-Sandbox, ersetzt keinen Projekt-Test); vier Testfragen, Create erst nach bestandenem Test oder bewusster Entscheidung trotz Mangel; Fallback nur im Chat. Die Person legt den Agent selbst an.
