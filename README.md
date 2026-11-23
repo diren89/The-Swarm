@@ -50,17 +50,20 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 | [LEARNINGS.md](LEARNINGS.md) | Erfahrungen aus realen Aufgaben, allgemein formuliert, mit Status |
 | [playbooks/agent-brief.md](playbooks/agent-brief.md) | Vorlage für Aufträge an Umsetzer und Prüfer |
 | [playbooks/phase-retro.md](playbooks/phase-retro.md) | Vorlage für die Retrospektive nach jeder Phase |
+| [playbooks/korrektur-brief.md](playbooks/korrektur-brief.md) | Übergabe einer Korrekturrunde an eine frische Sitzung |
 | [tools/probe-env.sh](tools/probe-env.sh) | read-only Umgebungsprobe, Ausgabe bleibt lokal |
+| [tools/pruefen.sh](tools/pruefen.sh) | Prüfläufe mit Kurzausgabe OK/WARN/FAIL, Testzahl und Logs; Selbsttest `tools/test-pruefen.sh` |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Wie Instanzen Learnings und Regeln beitragen |
 | [CHANGELOG.md](CHANGELOG.md) | Versionen des Manifests |
 
 ## Releasenotes
 
-Aktuelle Version: **1.3.3** (23.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.2` usw.) abrufbar.
+Aktuelle Version: **1.4.0** (23.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.2` usw.) abrufbar.
 
 | Version | Datum | Was ist neu |
 | --- | --- | --- |
-| **1.3.3** | 23.11.2026 | Icon und Signet nach ODSV-Grammatik in [assets/icon/](assets/icon/), in der README oben eingebunden. Keine Regeländerung |
+| **1.4.0** | 23.11.2026 | Neue Rolle Unter-Koordinator für große Code-Pakete (§5.1.2); Prüfskript [tools/pruefen.sh](tools/pruefen.sh) mit Selbsttest; Vorlage [playbooks/korrektur-brief.md](playbooks/korrektur-brief.md); Learnings L-045 bis L-050 |
+| 1.3.3 | 23.11.2026 | Icon und Signet nach ODSV-Grammatik in [assets/icon/](assets/icon/), in der README oben eingebunden. Keine Regeländerung |
 | 1.3.2 | 23.11.2026 | Microsoft 365 Copilot: [prompts/copilot.md](prompts/copilot.md) führt durch den Bau eines eigenen Agents „The Swarm“ im Agent Builder, mit Chat-Fallback (ANLEITUNG §3.5). Keine Regeländerung |
 | 1.3.1 | 23.11.2026 | Releasenotes in der README sind bei jeder Version Pflicht, Tag nach dem Merge ([CONTRIBUTING](CONTRIBUTING.md)). Keine Regeländerung |
 | 1.3.0 | 23.11.2026 | Neue Regeln aus L-024 bis L-035: Rechte und Werkzeuge von Subagents (§5.5), abbrechbare Läufe mit Checkpoint und Lückenliste (§7.3), Prüfungen selbst prüfen (§6.1), Daten nicht durch das Modell kopieren (§6.2), Budget in der Umgebungsprobe (§2), Ausgabeformat und Werkzeuge im Brief (§5.2) |

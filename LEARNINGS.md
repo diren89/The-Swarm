@@ -10,6 +10,11 @@ Felder je Eintrag: **Kontext** (anonym) · **Beobachtung** · **Regel** · **Sta
 
 Kontext: Ein Koordinator maß den Verbrauch seiner Agent-Hierarchie aus der Sitzungsdatenbank des Agent-Werkzeugs, beschränkte die Werkzeuge je Rolle und verglich einen festen kleinen Code-Auftrag einmal vorher und zweimal nachher.
 
+### L-050 · Unter-Koordinator nur für große Pakete
+- **Beobachtung:** Ein schlanker Koordinator für Code-Arbeit hatte gut 40 % weniger Grundlast als der Haupt-Koordinator. Direkt als Hauptagent gewählt, fehlten ihm aber die Dienste für den übrigen Auftrag; als Unter-Koordinator kostete schon eine Probekette mit einer Frage einen weiteren Agent mit starkem Modell. Die Kette brauchte eine höhere erlaubte Schachtelungstiefe.
+- **Regel:** Einen Unter-Koordinator nur für große, abgegrenzte Code-Pakete einsetzen, nicht für kleine Aufgaben. Er spricht nicht selbst mit der Nutzerin, sondern gibt Weichen als `blockiert` zurück. Die Schachtelungstiefe vorher mit einer Probekette prüfen.
+- **Status:** übernommen §5.1.2
+
 ### L-045 · Werkzeuge je Rolle sperren, Wirkung an der Grundlast messen
 - **Beobachtung:** Der Kontext beim ersten Aufruf (Grundlast) lag bei Rollen mit allen Diensten bei 25–33k Tokens, bei eng berechtigten Rollen bei 4–9k. Die Beschreibungen der angebundenen Dienste machten den Unterschied. Nur die Sammel-Schnittstelle der Dienste zu sperren erhöhte die Grundlast (von 22k auf 30k), weil das Werkzeug die Dienste dann einzeln auflistete. Erst Dienste, Sammel-Schnittstelle und Skill-Liste zusammen gesperrt senkten sie um 40–57 %.
 - **Regel:** Jede Rolle bekommt nur die Werkzeuge und Dienste, die sie braucht. Die Wirkung einer Sperre an der gemessenen Grundlast belegen, nicht an der Doku. Danach je Rolle eine Probe mit erlaubten und verbotenen Aufrufen, belegt im Sitzungsprotokoll.
@@ -28,7 +33,7 @@ Kontext: Ein Koordinator maß den Verbrauch seiner Agent-Hierarchie aus der Sitz
 ### L-048 · Prüfskripte zählen ausgeführte Tests und sehen Warnungen
 - **Beobachtung:** Eine Kurzausgabe „OK“ nur nach Exit-Code meldete Läufe ohne ausgeführten Test und Läufe mit Warnung als Erfolg. Ein Filter der Form `befehl | grep warning && exit 1 || exit 0` verdeckte zudem gescheiterte Befehle.
 - **Regel:** Prüfskripte werten den Exit-Code des Befehls selbst aus. Sie weisen die Zahl der ausgeführten Tests ohne übersprungene aus und melden null Tests als Fehler, wenn Tests erwartet sind. Warnungen kennzeichnen sie getrennt. Die Langausgabe gehört je Lauf in eine eigene Datei.
-- **Status:** neu
+- **Status:** übernommen §6.1 (Vorlage tools/pruefen.sh)
 
 ### L-049 · Erzeugte Dateien vor dem ersten Commit ausschließen
 - **Beobachtung:** In einem Test-Repo waren Python-Cache-Dateien eingecheckt. Jeder Testlauf veränderte sie, und die Agents mussten in jedem Lauf entscheiden, ob sie die Dateien zurücksetzen oder mit committen.
