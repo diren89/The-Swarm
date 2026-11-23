@@ -6,6 +6,27 @@ Felder je Eintrag: **Kontext** (anonym) · **Beobachtung** · **Regel** · **Sta
 
 ---
 
+## 2026-11-23 · Modellabgleich für eine Delegations-Hierarchie
+
+Kontext: kleiner Benchmark (7 Aufgaben, 6 Modelle über ein Modell-Gateway) zur Wahl günstiger Modelle für Subagents, geprüft von einem Reviewer aus anderer Modellfamilie.
+
+### L-024 · Gateway-Budget vor Delegation prüfen
+- **Beobachtung:** Zwei Läufe brachen mitten in der Arbeit ab, weil das Budget des Modell-Gateways erschöpft war. Die Subagents meldeten nur allgemeine Fehler, die Ursache fiel erst beim Lesen der Logs auf.
+- **Regel:** In Phase 0 das verbleibende Budget abfragen und gegen die geschätzten Kosten des Plans halten. Für jede Phase ein Kostenlimit festlegen und bei Fehlern zuerst Budget und Kontingente prüfen.
+- **Status:** neu
+
+### L-025 · Agent-Format schlägt Auftragsformat
+- **Beobachtung:** Ein Auftrag verlangte reines JSON, der Prompt des Agents ein eigenes Berichtsformat. Ein Modell lieferte inhaltlich richtig, aber im Berichtsformat, und fiel durch. Andere Modelle folgten dem Auftrag.
+- **Regel:** Im Auftrag ausdrücklich sagen, welches Ausgabeformat gilt, wenn es vom Berichtsformat des Agents abweicht. Bei maschineller Weiterverarbeitung Inhalt und Format getrennt prüfen.
+- **Status:** neu
+
+### L-026 · Bewertungen mit plausibel falschen Antworten testen
+- **Beobachtung:** Die automatischen Bewertungen wurden mit Musterlösung und offensichtlichem Unsinn geprüft und galten als korrekt. Der Reviewer fand in drei Runden Lücken: vertauschte Zuordnungen, Doppel-Einträge, eingefügte Widersprüche und Leerantworten wurden nicht oder falsch gewertet. Die erste Auswertung zog dadurch zu weite Schlüsse.
+- **Regel:** Jede Bewertung zusätzlich mit gezielt verfälschten, plausibel aussehenden Antworten testen und Fehlläufe als 0 zählen. Schlüsse auf die getestete Aufgabenart begrenzen.
+- **Status:** neu
+
+---
+
 ## 2026-11-21 · Veröffentlichen und Umbenennen eines Repos
 
 Kontext: ein Dokumentations-Repo zweimal umbenannt, über Pull Requests geändert und mit Versions-Tags veröffentlicht.
