@@ -6,6 +6,27 @@ Felder je Eintrag: **Kontext** (anonym) · **Beobachtung** · **Regel** · **Sta
 
 ---
 
+## 2026-11-23 · Rechte eines Daten-Subagents härten
+
+Kontext: Ein Review fand Lücken in Skripten und Rechten eines Daten-Abrufers (kleines Modell). Die Korrekturen liefen über vier Runden mit Reviewer aus anderer Modellfamilie, dazu Live-Proben der Rechte und ein echter Abruf.
+
+### L-039 · Rechte-Proben an der Wirkung prüfen
+- **Beobachtung:** Ein Subagent probierte erlaubte und verbotene Shell-Aufrufe und meldete alle Umgehungsversuche als „abgelehnt“. Im Protokoll stand ein Aufruf mit Umleitung (`skript --help > /pfad`) aber als ausgeführt, und die Datei lag im Dateisystem. Ohne diesen Abgleich wäre eine Schreiblücke als geschlossen gemeldet worden.
+- **Regel:** Rechte-Proben mit Aufrufen bauen, die eine prüfbare Spur hinterlassen (Datei anlegen). Das Ergebnis am Sitzungsprotokoll und im Dateisystem prüfen, nicht am Bericht. Danach die Spuren löschen.
+- **Status:** neu
+
+### L-040 · Erlaubte Befehlsmuster decken mehr als gedacht
+- **Beobachtung:** Ein Muster wie `python3 skript.py *` ließ auch Umleitungen zu, das Skript konnte so an beliebige Stellen schreiben. Muster wie `rm -rf */_raw` oder `mv ~/Downloads/* *` passen auch auf Leerzeichen und weitere Argumente und damit auf fremde Ziele. Ketten, Pipes und `$()` lehnte das Rechtesystem in der Probe dagegen ab.
+- **Regel:** Schreibende und löschende Shell-Befehle nicht als Muster erlauben, sondern über ein eigenes Skript, das jeden Pfad selbst prüft (aufgelöst, kein Symlink, innerhalb des Arbeitsordners). Umleitungen (`>`, `<`) und Backticks ausdrücklich sperren. Die Auslegung der Muster live belegen (L-039), nicht annehmen.
+- **Status:** neu
+
+### L-041 · Review-Runden begrenzen, Restrisiko mit dem Menschen entscheiden
+- **Beobachtung:** Jede Nachprüfung fand neue, immer kleinere Randfälle, vor allem in Code, der gerade erst zur Behebung entstanden war. Nach drei Runden waren die schweren Lücken zu, die restlichen Befunde hatten geringes praktisches Risiko oder großen Aufwand.
+- **Regel:** Vor dem Start eine Höchstzahl an Korrekturrunden festlegen (z. B. drei). Danach anhalten und der Nutzerin die Restbefunde mit Risiko und Aufwand vorlegen. Was offen bleibt, als bekanntes Restrisiko in der Rollenbeschreibung festhalten. Späte kleine Befunde mit klarer Lösung dürfen in die letzte Runde, wenn das gesagt wird.
+- **Status:** neu
+
+---
+
 ## 2026-11-23 · Werkzeug-Repo neben dem Manifest
 
 Kontext: Ein Agent arbeitete nach dem Manifest an einem zweiten, selbst gepflegten Repo (Designsystem). Dessen Regeln entstanden vor dem Manifest und regelten nur Inhalte, nicht den Weg der Änderungen.
