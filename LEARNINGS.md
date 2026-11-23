@@ -6,6 +6,22 @@ Felder je Eintrag: **Kontext** (anonym) · **Beobachtung** · **Regel** · **Sta
 
 ---
 
+## 2026-11-23 · Arbeitsweise auf eine Chat-Plattform ohne Werkzeuge übertragen
+
+Kontext: Das Manifest wurde für einen Büro-Chat-Assistenten aufbereitet, der Agents über einen Baukasten mit begrenzten Feldern anlegt. Recherche und Entwurf liefen über Subagents, die Prüfung über einen Reviewer aus anderer Modellfamilie in drei Runden, dazu ein Live-Test durch die Nutzerin.
+
+### L-036 · Fähigkeiten der Zielplattform einzeln belegen
+- **Beobachtung:** Recherche und Entwurf gingen davon aus, die Plattform könne nichts ausführen, und schrieben das als Regel in die Agent-Anweisungen. Erst der Reviewer fand eine zuschaltbare Python-Sandbox in der Herstellerdoku. Die pauschale Aussage hätte den Agent zu falscher Bescheidenheit oder zu unklaren Testbehauptungen geführt.
+- **Regel:** Bei einer Zielplattform ohne die üblichen Werkzeuge jede Fähigkeit einzeln mit Quelle klären: Ausführung (auch Sandbox), Websuche, direkter URL-Abruf, Wissensdateien und Dateitypen, Feldgrenzen. Im Recherche-Auftrag als Pflichtfragen stellen. In den Anweisungen Sandbox-Läufe von Läufen im echten Projekt trennen.
+- **Status:** neu
+
+### L-037 · Bei harten Feldgrenzen Puffer für Review-Nachträge
+- **Beobachtung:** Der erste Entwurf der Agent-Anweisungen nutzte schon 82 % der selbst gesetzten Grenze. Die Nachträge aus dem Review ließen sich nur unterbringen, indem mehrmals andere Sätze gekürzt wurden.
+- **Regel:** Bei Texten mit harter Längengrenze den ersten Entwurf auf etwa zwei Drittel der Grenze auslegen. Der Rest ist Reserve für Review-Befunde. Zeichen nach jeder Änderung neu zählen.
+- **Status:** neu
+
+---
+
 ## 2026-11-23 · Live-Exporte mit Abbruch und Fortsetzung
 
 Kontext: erste echte Läufe eines generischen Daten-Abrufers (Subagent auf einem kleinen Modell) gegen zwei Quellen, eine Werkzeug-API mit Cursor und eine paginierte Website über den Browser. Getestet wurde jeweils ein gewollter Abbruch und die Fortsetzung in einer neuen Session. Das Ergebnis prüfte der Orchestrator gegen die Dateien.
