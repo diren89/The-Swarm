@@ -6,6 +6,37 @@ Felder je Eintrag: **Kontext** (anonym) · **Beobachtung** · **Regel** · **Sta
 
 ---
 
+## 2026-11-23 · Rechte, Werkzeuge und Atomarität in einer Agent-Hierarchie
+
+Kontext: Ausbau einer dreistufigen Subagent-Hierarchie in einem Agent-Framework (neue Rollen, generischer Daten-Abrufer mit Profilen, Konverter für Exporte), geprüft durch Live-Probeläufe und einen Reviewer aus anderer Modellfamilie über fünf Runden.
+
+### L-027 · Subagent-Rechte als Allowlist anlegen
+- **Beobachtung:** Das Framework stellt jeder Rolle eine Standardregel „alles erlaubt“ voran. Rollen, die nur einzelne Aktionen verboten, konnten dadurch weiter externe Werkzeug-Server und Skript-Ausführung nutzen. Erst ein Live-Probelauf je Rolle deckte das auf.
+- **Regel:** Rechte jeder Rolle mit „alles verboten“ beginnen und nur benötigte Aktionen einzeln erlauben. Die wirksamen Rechte nach jeder Änderung mit einem echten Lauf prüfen, nicht nur in der Konfiguration lesen.
+- **Status:** neu
+
+### L-028 · Ein Verbot sperrt den ganzen Aufruf
+- **Beobachtung:** Ein Werkzeugaufruf mit mehreren Pfaden wurde komplett abgelehnt, weil ein einziger Pfad unter ein Verbot fiel. Der Agent hielt das für einen allgemeinen Fehler.
+- **Regel:** Aufträge an eingeschränkte Rollen so schneiden, dass ein Aufruf nur erlaubte Pfade berührt (eine Datei je Aufruf). Ablehnungen im Bericht wörtlich zurückgeben lassen.
+- **Status:** neu
+
+### L-029 · Werkzeugsatz hängt an der Modellfamilie
+- **Beobachtung:** Ein Prüfer auf einem Modell einer anderen Familie sollte einen Bericht als Datei ablegen. Er erhielt dort ein anderes Schreibwerkzeug als erwartet, versuchte das Schreiben nie und meldete den Bericht als „nicht erstellt“. Die Rechte waren korrekt.
+- **Regel:** Je Modellfamilie einmal prüfen, welche Werkzeuge ein Agent tatsächlich sieht, und im Auftrag das passende Werkzeug ausdrücklich nennen.
+- **Status:** neu
+
+### L-030 · Atomarität mit Abbruch an jeder Operation testen
+- **Beobachtung:** Ein Austausch von Exportdateien sollte nach einem Abbruch immer ganz alt oder ganz neu sein. Zwei Korrekturen, die nach Lektüre richtig wirkten, hätten in bestimmten Abbruchmomenten Daten gelöscht. Erst ein Test, der den Prozess hart an jeder einzelnen Dateioperation beendet und danach den Zustand prüft, machte die Lösung belastbar. Der erste Lauf dieses Tests prüfte versehentlich null Abbruchpunkte und meldete trotzdem „0 Fehler“.
+- **Regel:** Absturzsicherheit mit hartem Abbruch an jeder Operation testen, auch während des Zurückrollens, und parallele Läufe sperren. Bei jedem Test die Zahl der tatsächlich geprüften Fälle ausgeben und kontrollieren.
+- **Status:** neu
+
+### L-031 · Pfadschutz am aufgelösten Pfad prüfen
+- **Beobachtung:** Ein Schutz gegen Schreiben in den Konfigurationsordner prüfte nur das Befehlsmuster. Über Verknüpfungen, `..` oder Platzhalter war er umgehbar. Beim Testen legte eine Shell einen Platzhalter-Pfad ohne Treffer wörtlich als neuen Ordner an, und das Werkzeug schrieb unbemerkt dorthin.
+- **Regel:** Schreib- und Löschziele im Werkzeug selbst über den aufgelösten Pfad prüfen, bevor irgendetwas angelegt wird. Platzhalter-Tests in einer Shell mit bekanntem Verhalten ausführen und das Ziel danach auf Ort und Inhalt prüfen (vgl. L-023).
+- **Status:** neu
+
+---
+
 ## 2026-11-23 · Modellabgleich für eine Delegations-Hierarchie
 
 Kontext: kleiner Benchmark (7 Aufgaben, 6 Modelle über ein Modell-Gateway) zur Wahl günstiger Modelle für Subagents, geprüft von einem Reviewer aus anderer Modellfamilie.
