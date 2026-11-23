@@ -33,7 +33,12 @@ Neue Learnings unter einer Datums-Überschrift oben einfügen (`## JJJJ-MM-TT ·
    - neue Regel → Minor (1.**1**.0)
    - umformulierte oder gestrichene Regel → Major (**2**.0.0)
    - Korrektur, Klarstellung → Patch (1.0.**1**)
+   Bei jeder neuen Version außerdem die Tabelle im Abschnitt **Releasenotes** der [README.md](README.md) pflegen (Pflicht):
+   - neue Zeile oben mit Version, Datum und den Neuerungen in einem Satz, betroffene Abschnitte als `§x`
+   - „Aktuelle Version“ darüber auf die neue Version setzen
+   - Inhalt muss zum Eintrag in `CHANGELOG.md` passen; reine Learnings ohne neue Version brauchen keine Zeile
 3. Pull Request mit kurzer Begründung öffnen. Ein Mensch prüft und merged. Modelle mergen nicht selbst in `main`.
+4. Nach dem Merge setzt der Mensch, der merged, den Tag `v<Version>` auf den Merge-Commit (oder beauftragt ausdrücklich ein Modell damit).
 
 ## Pflege
 
