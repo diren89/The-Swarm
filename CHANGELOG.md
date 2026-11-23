@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.1 · 2026-11-23
+
+- CONTRIBUTING: Die Tabelle **Releasenotes** in der README zu pflegen ist bei jeder neuen Version Pflicht; nach dem Merge wird der Tag `v<Version>` gesetzt.
+- Keine Regeländerung im Manifest.
+
 ## 1.3.0 · 2026-11-23
 
 - Neu §5.5 **Rechte und Werkzeuge**: Rechte als Allowlist und per echtem Lauf prüfen; ein Verbot sperrt den ganzen Aufruf (ein Befehl je Aufruf, bei Ablehnung aufteilen); Werkzeugsatz je Modellfamilie prüfen; Schutz im Werkzeug statt nur im Prompt (aufgelöste Pfade, maschineller Abgleich). Aus L-027, L-028, L-029, L-031, L-033, L-035.
