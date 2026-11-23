@@ -14,7 +14,9 @@ Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/T
 
 Ohne Webzugriff den vollständigen Prompt aus [prompts/import.md](prompts/import.md) einfügen.
 
-**Installation und Nutzung:** ausführlich in der [ANLEITUNG.md](ANLEITUNG.md) (global, pro Projekt, für Claude Code, Codex CLI, Gemini CLI, Cursor, Copilot und eigene Agents).
+**Microsoft 365 Copilot** (ohne Dateizugriff): [prompts/copilot.md](prompts/copilot.md) an einen neuen Chat anhängen und „Folge der Anleitung in der Datei.“ schreiben. Copilot baut damit einen eigenen Agent „The Swarm“ ([ANLEITUNG §3.5](ANLEITUNG.md#35-microsoft-365-copilot-ohne-dateizugriff)).
+
+**Installation und Nutzung:** ausführlich in der [ANLEITUNG.md](ANLEITUNG.md) (global, pro Projekt, für Claude Code, Codex CLI, Gemini CLI, Cursor, GitHub Copilot, Microsoft 365 Copilot und eigene Agents).
 
 ## Für Modelle: so einlesen
 
@@ -52,11 +54,12 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 
 ## Releasenotes
 
-Aktuelle Version: **1.3.1** (23.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.1` usw.) abrufbar.
+Aktuelle Version: **1.3.2** (23.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.2` usw.) abrufbar.
 
 | Version | Datum | Was ist neu |
 | --- | --- | --- |
-| **1.3.1** | 23.11.2026 | Releasenotes in der README sind bei jeder Version Pflicht, Tag nach dem Merge ([CONTRIBUTING](CONTRIBUTING.md)). Keine Regeländerung |
+| **1.3.2** | 23.11.2026 | Microsoft 365 Copilot: [prompts/copilot.md](prompts/copilot.md) lässt Copilot einen eigenen Agent „The Swarm“ bauen (ANLEITUNG §3.5). Keine Regeländerung |
+| 1.3.1 | 23.11.2026 | Releasenotes in der README sind bei jeder Version Pflicht, Tag nach dem Merge ([CONTRIBUTING](CONTRIBUTING.md)). Keine Regeländerung |
 | 1.3.0 | 23.11.2026 | Neue Regeln aus L-024 bis L-035: Rechte und Werkzeuge von Subagents (§5.5), abbrechbare Läufe mit Checkpoint und Lückenliste (§7.3), Prüfungen selbst prüfen (§6.1), Daten nicht durch das Modell kopieren (§6.2), Budget in der Umgebungsprobe (§2), Ausgabeformat und Werkzeuge im Brief (§5.2) |
 | 1.2.1 | 21.11.2026 | Import-Prompt: Ein Agent richtet The Swarm selbst ein. Keine Regeländerung |
 | 1.2.0 | 21.11.2026 | Rolle Expertin / Experte für Fachaufgaben (§5.1, §5.1.1) mit eigener Brief-Vorlage |

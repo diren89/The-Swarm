@@ -1,6 +1,6 @@
 # Import-Prompt für The Swarm
 
-Diesen Prompt in eine neue Sitzung eines KI-Coding-Agents kopieren (Claude Code, Codex CLI, Gemini CLI, Cursor, Copilot o. Ä.). Der Agent richtet The Swarm dann für dich ein: Er fragt nach Geltungsbereich und Variante, ändert nur die nötige Anweisungsdatei, prüft das Ergebnis und berichtet.
+Diesen Prompt in eine neue Sitzung eines KI-Coding-Agents kopieren (Claude Code, Codex CLI, Gemini CLI, Cursor, GitHub Copilot o. Ä.). Für **Microsoft 365 Copilot** (Chat ohne Dateizugriff) stattdessen [copilot.md](copilot.md) anhängen. Der Agent richtet The Swarm dann für dich ein: Er fragt nach Geltungsbereich und Variante, ändert nur die nötige Anweisungsdatei, prüft das Ergebnis und berichtet.
 
 Kurzform für Agents mit Webzugriff:
 
@@ -25,6 +25,8 @@ Richte für mich „The Swarm“ ein, ein Manifest für die Arbeitsweise von KI-
    | Cursor         | Benutzerregeln (Settings)  | .cursor/rules/the-swarm.mdc         |
    | GitHub Copilot | –                          | .github/copilot-instructions.md     |
    Weichen deine Doku-Pfade davon ab, gilt deine Doku. Ohne Anweisungsdatei: Schritt 7 (Variante C).
+   Bist du Microsoft 365 Copilot oder ein anderer Chat ohne Dateien und Shell: Brich hier ab und bitte mich,
+   https://github.com/diren89/The-Swarm/blob/main/prompts/copilot.md herunterzuladen und anzuhängen.
 
 2. Mich fragen (eine gebündelte Frage, mit Empfehlung)
    a) Geltungsbereich: global für alle Projekte (empfohlen) oder nur dieses Projekt?
