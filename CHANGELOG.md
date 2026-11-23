@@ -8,6 +8,7 @@
 - Neu §6.2 **Daten nicht durch das Modell kopieren**: direkter Weg vom Werkzeug in die Datei, Quittung mit Objektzahl. Aus L-032.
 - Ergänzt §2 (Budgets und Kontingente in der Umgebungsprobe, L-024) und §5.2 (abweichendes Ausgabeformat ausdrücklich nennen, L-025; Werkzeuge im Brief, L-029).
 - L-021 bis L-023 bleiben `neu` (einmalig und werkzeugspezifisch).
+- README: neuer Abschnitt **Releasenotes** mit Versionsübersicht und Lesehilfe zu Versionsnummern.
 
 ## 1.2.1 · 2026-11-21
 
