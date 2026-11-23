@@ -6,6 +6,27 @@ Felder je Eintrag: **Kontext** (anonym) · **Beobachtung** · **Regel** · **Sta
 
 ---
 
+## 2026-11-23 · GUI-Plugin für eine Desktop-App
+
+Kontext: Ein Koordinator baute ein Oberflächen-Plugin für eine Desktop-App (Übersicht über Sitzungen, Statuspunkte, Markierungen auf der Startseite). Die Oberfläche selbst konnte er nicht sehen, visuelle Prüfung lief über Screenshots der Nutzerin.
+
+### L-042 · Erst Echtdaten, dann Logik verdächtigen
+- **Beobachtung:** Alle Statuspunkte erschienen grau, der Verdacht fiel auf die Statuslogik. Ein Lauf der Logik mit echten API-Antworten zeigte korrekte Zustände. Ursache waren veraltete Farbvariablen der Host-App, die im Dunkelmodus fast grau wirkten.
+- **Regel:** Bei Anzeigefehlern zuerst die Logik mit echten Daten außerhalb der Oberfläche laufen lassen. Erst wenn sie stimmt, Darstellung und Styles prüfen, und umgekehrt.
+- **Status:** neu
+
+### L-043 · Markup und Styles des Hosts lesen
+- **Beobachtung:** Wie die App einen Plugin-Button zeichnet (Abstände, Icon-Größe, aktuelle Farbvariablen), stand in keiner Doku. Das ausgelieferte Bundle der App enthielt es lesbar. Raten hätte mehrere Screenshot-Runden gekostet.
+- **Regel:** Hängt das Aussehen eines Plugins vom Host ab, dessen ausgelieferte Styles und Templates lesen, bevor CSS geschrieben wird. Selektoren auf Host-Interna im Code als zerbrechlich kennzeichnen, so dass sie bei Updates still wegfallen statt zu stören.
+- **Status:** neu
+
+### L-044 · Gateway-Fehler beim Fortsetzen eines Subagents
+- **Beobachtung:** Beim Fortsetzen eines Subagents lehnte das Modell-Gateway die Anfrage ab, weil der Verlauf mit einer Assistenten-Nachricht endete („prefill“ nicht unterstützt). Eine weitere Nachricht in derselben Sitzung lief durch.
+- **Regel:** Bei diesem Fehler dieselbe Sitzung mit einer neuen Nutzernachricht fortsetzen, statt neu zu starten oder das Modell zu wechseln. Erst wenn das scheitert, den Modell-Ausweich nutzen.
+- **Status:** neu
+
+---
+
 ## 2026-11-23 · Rechte eines Daten-Subagents härten
 
 Kontext: Ein Review fand Lücken in Skripten und Rechten eines Daten-Abrufers (kleines Modell). Die Korrekturen liefen über vier Runden mit Reviewer aus anderer Modellfamilie, dazu Live-Proben der Rechte und ein echter Abruf.
