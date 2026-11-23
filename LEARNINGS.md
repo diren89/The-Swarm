@@ -6,6 +6,17 @@ Felder je Eintrag: **Kontext** (anonym) · **Beobachtung** · **Regel** · **Sta
 
 ---
 
+## 2026-11-23 · Werkzeug-Repo neben dem Manifest
+
+Kontext: Ein Agent arbeitete nach dem Manifest an einem zweiten, selbst gepflegten Repo (Designsystem). Dessen Regeln entstanden vor dem Manifest und regelten nur Inhalte, nicht den Weg der Änderungen.
+
+### L-038 · Beitragsregeln im Zielrepo prüfen
+- **Beobachtung:** Das Zielrepo hatte keine Beitragsregeln. Seine Agent-Anleitung nannte als Weg zur Veröffentlichung „Push auf `main`“. Weil Projektregeln Vorrang vor dem Manifest haben, hätte ein Agent ohne Pull Request und ohne menschliche Freigabe veröffentlichen dürfen. Die Lücke fiel erst beim ausdrücklichen Abgleich beider Regelwerke auf.
+- **Regel:** Vor dem ersten Schreibzugriff auf ein Repo prüfen, ob es Beitragsregeln hat (Zweig, Pull Request, wer merged, Version, Tag). Fehlen sie oder erlauben sie den direkten Push auf `main`, das der Nutzerin melden und einen Pull Request vorschlagen, der die Regeln ergänzt. Bis dahin gilt für Merge und Veröffentlichung das Manifest.
+- **Status:** neu
+
+---
+
 ## 2026-11-23 · Arbeitsweise auf eine Chat-Plattform ohne Werkzeuge übertragen
 
 Kontext: Das Manifest wurde für einen Büro-Chat-Assistenten aufbereitet, der Agents über einen Baukasten mit begrenzten Feldern anlegt. Recherche und Entwurf liefen über Subagents, die Prüfung über einen Reviewer aus anderer Modellfamilie in drei Runden, dazu ein Live-Test durch die Nutzerin.
