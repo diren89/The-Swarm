@@ -13,22 +13,22 @@ Kontext: erste echte Läufe eines generischen Daten-Abrufers (Subagent auf einem
 ### L-032 · Rohdaten nie vom Modell abschreiben lassen
 - **Beobachtung:** Die Werkzeug-Laufzeit konnte keine Dateien schreiben. Der Agent baute deshalb eine große Tool-Antwort von Hand als Datei nach und übernahm 7 von 41 Objekten. Das Schreibwerkzeug meldete Erfolg. Weil der Agent den Fortsetzungs-Cursor mitkopiert hatte, wirkte die Datei vollständig. Erst eine Nachfrage in derselben Session deckte das auf.
 - **Regel:** Daten vom Werkzeug direkt in die Datei leiten, z. B. über einen lokalen Empfänger, an den die Laufzeit sendet. Das Modell sieht nur eine Quittung mit der Objektzahl und gleicht sie mit der Zahl der Quelle ab. Eine Erfolgsmeldung beim Schreiben beweist keine Vollständigkeit.
-- **Status:** neu
+- **Status:** übernommen §6.2
 
 ### L-033 · Checkpoint mit Lückenliste, nicht nur letzter Position
 - **Beobachtung:** Eine Seite wurde dauerhaft abgelehnt, und danach brach die Verbindung ab. Der Agent holte trotz Stopp-Regel spätere Seiten. Der Checkpoint enthielt nur die letzte lückenlose Seite. Ein Folgelauf hätte die Lücken nicht gekannt und bereits Vorhandenes doppelt geholt.
 - **Regel:** Ein Checkpoint führt eine Liste der fehlenden Teile, gegen die vorhandenen Rohdaten abgeglichen. „Vollständig“ gilt nur bei leerer Liste. Ein Folgelauf holt zuerst die Lücken. Stopp-Regeln, die nur im Prompt stehen, durch diesen Abgleich absichern.
-- **Status:** neu
+- **Status:** übernommen §5.5, §7.3
 
 ### L-034 · Fortsetzung in frischer Session und gegen die Quelle prüfen
 - **Beobachtung:** Ein Test „nach drei Seiten abbrechen“ löste nicht aus, weil die Quelle trotz Seitenlimit größere Seiten lieferte. Echte Abbrüche zeigten sich erst später. Die Fortsetzung durch einen neuen Agent, der nur den Checkpoint kannte, deckte zwei Fehler auf, die im ersten Lauf unsichtbar blieben. Während eines Laufs änderte sich die Gesamtzahl der Quelle um eins. Erst der Endabgleich gegen diese Zahl bestätigte die Vollständigkeit.
 - **Regel:** Abbruch und Fortsetzung in einer frischen Session testen, ohne Gesprächshistorie. Prüfen, ob der Testfall überhaupt eingetreten ist. Am Ende die Zahl der eindeutigen Objekte gegen die aktuelle Gesamtzahl der Quelle abgleichen.
-- **Status:** neu
+- **Status:** übernommen §6.1, §7.3
 
 ### L-035 · Bei Ablehnung aufteilen statt aufgeben
 - **Beobachtung:** Ergänzt L-028. Ein Agent verkettete mehrere Shell-Befehle. Einer davon berührte einen gesperrten Pfad, und der ganze Aufruf wurde abgelehnt. Der Agent schloss daraus, die Shell sei insgesamt gesperrt, und beendete einen schon halb erledigten Auftrag, nach einem Login durch den Nutzer.
 - **Regel:** In Rollen-Prompts „ein Befehl je Aufruf“ vorschreiben, wenn Rechte über Befehlsmuster gelten. Bei einer Ablehnung den Aufruf aufteilen und neu versuchen. Erst wenn ein einzelner Befehl abgelehnt wird, als blockiert melden.
-- **Status:** neu
+- **Status:** übernommen §5.5
 
 ---
 
@@ -39,27 +39,27 @@ Kontext: Ausbau einer dreistufigen Subagent-Hierarchie in einem Agent-Framework 
 ### L-027 · Subagent-Rechte als Allowlist anlegen
 - **Beobachtung:** Das Framework stellt jeder Rolle eine Standardregel „alles erlaubt“ voran. Rollen, die nur einzelne Aktionen verboten, konnten dadurch weiter externe Werkzeug-Server und Skript-Ausführung nutzen. Erst ein Live-Probelauf je Rolle deckte das auf.
 - **Regel:** Rechte jeder Rolle mit „alles verboten“ beginnen und nur benötigte Aktionen einzeln erlauben. Die wirksamen Rechte nach jeder Änderung mit einem echten Lauf prüfen, nicht nur in der Konfiguration lesen.
-- **Status:** neu
+- **Status:** übernommen §5.5
 
 ### L-028 · Ein Verbot sperrt den ganzen Aufruf
 - **Beobachtung:** Ein Werkzeugaufruf mit mehreren Pfaden wurde komplett abgelehnt, weil ein einziger Pfad unter ein Verbot fiel. Der Agent hielt das für einen allgemeinen Fehler.
 - **Regel:** Aufträge an eingeschränkte Rollen so schneiden, dass ein Aufruf nur erlaubte Pfade berührt (eine Datei je Aufruf). Ablehnungen im Bericht wörtlich zurückgeben lassen.
-- **Status:** neu
+- **Status:** übernommen §5.5
 
 ### L-029 · Werkzeugsatz hängt an der Modellfamilie
 - **Beobachtung:** Ein Prüfer auf einem Modell einer anderen Familie sollte einen Bericht als Datei ablegen. Er erhielt dort ein anderes Schreibwerkzeug als erwartet, versuchte das Schreiben nie und meldete den Bericht als „nicht erstellt“. Die Rechte waren korrekt.
 - **Regel:** Je Modellfamilie einmal prüfen, welche Werkzeuge ein Agent tatsächlich sieht, und im Auftrag das passende Werkzeug ausdrücklich nennen.
-- **Status:** neu
+- **Status:** übernommen §5.2, §5.5
 
 ### L-030 · Atomarität mit Abbruch an jeder Operation testen
 - **Beobachtung:** Ein Austausch von Exportdateien sollte nach einem Abbruch immer ganz alt oder ganz neu sein. Zwei Korrekturen, die nach Lektüre richtig wirkten, hätten in bestimmten Abbruchmomenten Daten gelöscht. Erst ein Test, der den Prozess hart an jeder einzelnen Dateioperation beendet und danach den Zustand prüft, machte die Lösung belastbar. Der erste Lauf dieses Tests prüfte versehentlich null Abbruchpunkte und meldete trotzdem „0 Fehler“.
 - **Regel:** Absturzsicherheit mit hartem Abbruch an jeder Operation testen, auch während des Zurückrollens, und parallele Läufe sperren. Bei jedem Test die Zahl der tatsächlich geprüften Fälle ausgeben und kontrollieren.
-- **Status:** neu
+- **Status:** übernommen §6.1, §7.3
 
 ### L-031 · Pfadschutz am aufgelösten Pfad prüfen
 - **Beobachtung:** Ein Schutz gegen Schreiben in den Konfigurationsordner prüfte nur das Befehlsmuster. Über Verknüpfungen, `..` oder Platzhalter war er umgehbar. Beim Testen legte eine Shell einen Platzhalter-Pfad ohne Treffer wörtlich als neuen Ordner an, und das Werkzeug schrieb unbemerkt dorthin.
 - **Regel:** Schreib- und Löschziele im Werkzeug selbst über den aufgelösten Pfad prüfen, bevor irgendetwas angelegt wird. Platzhalter-Tests in einer Shell mit bekanntem Verhalten ausführen und das Ziel danach auf Ort und Inhalt prüfen (vgl. L-023).
-- **Status:** neu
+- **Status:** übernommen §5.5
 
 ---
 
@@ -70,17 +70,17 @@ Kontext: kleiner Benchmark (7 Aufgaben, 6 Modelle über ein Modell-Gateway) zur 
 ### L-024 · Gateway-Budget vor Delegation prüfen
 - **Beobachtung:** Zwei Läufe brachen mitten in der Arbeit ab, weil das Budget des Modell-Gateways erschöpft war. Die Subagents meldeten nur allgemeine Fehler, die Ursache fiel erst beim Lesen der Logs auf.
 - **Regel:** In Phase 0 das verbleibende Budget abfragen und gegen die geschätzten Kosten des Plans halten. Für jede Phase ein Kostenlimit festlegen und bei Fehlern zuerst Budget und Kontingente prüfen.
-- **Status:** neu
+- **Status:** übernommen §2
 
 ### L-025 · Agent-Format schlägt Auftragsformat
 - **Beobachtung:** Ein Auftrag verlangte reines JSON, der Prompt des Agents ein eigenes Berichtsformat. Ein Modell lieferte inhaltlich richtig, aber im Berichtsformat, und fiel durch. Andere Modelle folgten dem Auftrag.
 - **Regel:** Im Auftrag ausdrücklich sagen, welches Ausgabeformat gilt, wenn es vom Berichtsformat des Agents abweicht. Bei maschineller Weiterverarbeitung Inhalt und Format getrennt prüfen.
-- **Status:** neu
+- **Status:** übernommen §5.2
 
 ### L-026 · Bewertungen mit plausibel falschen Antworten testen
 - **Beobachtung:** Die automatischen Bewertungen wurden mit Musterlösung und offensichtlichem Unsinn geprüft und galten als korrekt. Der Reviewer fand in drei Runden Lücken: vertauschte Zuordnungen, Doppel-Einträge, eingefügte Widersprüche und Leerantworten wurden nicht oder falsch gewertet. Die erste Auswertung zog dadurch zu weite Schlüsse.
 - **Regel:** Jede Bewertung zusätzlich mit gezielt verfälschten, plausibel aussehenden Antworten testen und Fehlläufe als 0 zählen. Schlüsse auf die getestete Aufgabenart begrenzen.
-- **Status:** neu
+- **Status:** übernommen §6.1
 
 ---
 
