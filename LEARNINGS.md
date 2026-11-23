@@ -6,6 +6,37 @@ Felder je Eintrag: **Kontext** (anonym) · **Beobachtung** · **Regel** · **Sta
 
 ---
 
+## 2026-11-23 · Token- und Kontextverbrauch einer Agent-Hierarchie messen und senken
+
+Kontext: Ein Koordinator maß den Verbrauch seiner Agent-Hierarchie aus der Sitzungsdatenbank des Agent-Werkzeugs, beschränkte die Werkzeuge je Rolle und verglich einen festen kleinen Code-Auftrag einmal vorher und zweimal nachher.
+
+### L-045 · Werkzeuge je Rolle sperren, Wirkung an der Grundlast messen
+- **Beobachtung:** Der Kontext beim ersten Aufruf (Grundlast) lag bei Rollen mit allen Diensten bei 25–33k Tokens, bei eng berechtigten Rollen bei 4–9k. Die Beschreibungen der angebundenen Dienste machten den Unterschied. Nur die Sammel-Schnittstelle der Dienste zu sperren erhöhte die Grundlast (von 22k auf 30k), weil das Werkzeug die Dienste dann einzeln auflistete. Erst Dienste, Sammel-Schnittstelle und Skill-Liste zusammen gesperrt senkten sie um 40–57 %.
+- **Regel:** Jede Rolle bekommt nur die Werkzeuge und Dienste, die sie braucht. Die Wirkung einer Sperre an der gemessenen Grundlast belegen, nicht an der Doku. Danach je Rolle eine Probe mit erlaubten und verbotenen Aufrufen, belegt im Sitzungsprotokoll.
+- **Status:** neu
+
+### L-046 · Kosten über mehrere Läufe vergleichen
+- **Beobachtung:** Derselbe Auftrag kostete nach der Optimierung einmal 0,82 und einmal 1,07 (vorher 1,02), obwohl jeder einzelne Aufruf um 25–40 % billiger war. Die Kosten hingen vor allem an der Zahl der Prüf- und Korrekturrunden, nicht an der Grundlast. Bei kleinen Aufträgen ist die Streuung größer als die Ersparnis.
+- **Regel:** Optimierungen mit einem Messwerkzeug und mindestens zwei Läufen je Konfiguration bewerten. Neben den Gesamtkosten Kosten je Aufruf und Kontext getrennt ausweisen, und die Qualität mit denselben Prüfungen an allen Läufen messen. Einzelläufe nicht als Beleg werten.
+- **Status:** neu
+
+### L-047 · Letzte Korrekturrunde selbst nachprüfen oder offen benennen
+- **Beobachtung:** Mit einer Grenze von drei Review-Runden blieb in mehreren Fällen die Korrektur aus der letzten Runde ohne unabhängige Nachprüfung. Gerade dort lagen neue Randfälle, etwa eine Testzählung, die bei übersprungenen Untertests negativ wurde.
+- **Regel:** Ist das Rundenlimit erreicht, die letzte Korrektur selbst mit einem gezielten Test der Fehlerklasse prüfen. Im Bericht ausdrücklich sagen, dass sie nicht unabhängig geprüft ist, und die Nutzerin über eine Zusatzrunde entscheiden lassen.
+- **Status:** neu (ergänzt L-041)
+
+### L-048 · Prüfskripte zählen ausgeführte Tests und sehen Warnungen
+- **Beobachtung:** Eine Kurzausgabe „OK“ nur nach Exit-Code meldete Läufe ohne ausgeführten Test und Läufe mit Warnung als Erfolg. Ein Filter der Form `befehl | grep warning && exit 1 || exit 0` verdeckte zudem gescheiterte Befehle.
+- **Regel:** Prüfskripte werten den Exit-Code des Befehls selbst aus. Sie weisen die Zahl der ausgeführten Tests ohne übersprungene aus und melden null Tests als Fehler, wenn Tests erwartet sind. Warnungen kennzeichnen sie getrennt. Die Langausgabe gehört je Lauf in eine eigene Datei.
+- **Status:** neu
+
+### L-049 · Erzeugte Dateien vor dem ersten Commit ausschließen
+- **Beobachtung:** In einem Test-Repo waren Python-Cache-Dateien eingecheckt. Jeder Testlauf veränderte sie, und die Agents mussten in jedem Lauf entscheiden, ob sie die Dateien zurücksetzen oder mit committen.
+- **Regel:** Vor dem ersten Commit erzeugte Dateien (Cache, Build) per `.gitignore` ausschließen. Vor jedem Commit nur gezielte Pfade mit `git add` aufnehmen, nicht `-A`.
+- **Status:** neu
+
+---
+
 ## 2026-11-23 · GUI-Plugin für eine Desktop-App
 
 Kontext: Ein Koordinator baute ein Oberflächen-Plugin für eine Desktop-App (Übersicht über Sitzungen, Statuspunkte, Markierungen auf der Startseite). Die Oberfläche selbst konnte er nicht sehen, visuelle Prüfung lief über Screenshots der Nutzerin.
