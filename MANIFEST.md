@@ -1,6 +1,6 @@
 # The Swarm · Manifest: Koordinierte Agentenarbeit
 
-Version 1.2.1 · Stand 21.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
+Version 1.3.0 · Stand 23.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Dieses Manifest beschreibt, wie ein **koordinierender Agent** Software-Aufgaben in Phasen plant, an **Subagents** mit passenden Modellen verteilt, die Ergebnisse **selbst prüft und verbessert** und dabei **bei jedem Schritt dazulernt**. Es ist für Sprachmodelle geschrieben, die es zu Beginn einer Aufgabe einlesen, und für Menschen, die nachvollziehen wollen, wie gearbeitet wird.
 
@@ -58,7 +58,7 @@ Ein Agent ändert diese globale Konfiguration nur auf ausdrücklichen Wunsch der
 
 Vor der ersten Zeile Code:
 
-1. **Umgebung erkunden** (Abschnitt 8): Werkzeuge, Versionen, Rechenleistung, Zielgeräte, Zugänge. Blocker früh finden, nicht nach drei Stunden.
+1. **Umgebung erkunden** (Abschnitt 8): Werkzeuge, Versionen, Rechenleistung, Zielgeräte, Zugänge. Blocker früh finden, nicht nach drei Stunden. Dazu Budgets und Kontingente (z. B. eines Modell-Gateways) gegen die geschätzten Kosten des Plans halten; bricht ein Agent mit allgemeinem Fehler ab, zuerst Budget und Kontingent prüfen.
 2. **Ziel und Grenzen lesen:** Projektregeln, Backlog, Akzeptanzkriterien, vorhandene Architektur.
 3. **Abhängigkeiten ordnen:** Was hängt wovon ab? Was ist ohne Blocker machbar?
 4. **Phasenplan schreiben** und im Projekt ablegen (z. B. `docs/PLAN.md`): Phasen, Pakete, Zuständigkeiten, Modelle, Definition of Done, Risiken.
@@ -152,7 +152,8 @@ Pflichtteile:
 4. **Exakte Prüfbefehle** mit allen Umgebungseigenheiten (Pfade, Variablen) und **Filter, die Warnungen sichtbar machen**.
 5. **Definition of Done:** Build grün, null Warnungen in berührten Dateien, Tests grün, Sichtprüfung falls UI.
 6. **Ressourcenhinweise:** langsame Maschine, keine unnötigen Rebuilds, keine geteilten Geräte (Simulator, Emulator) benutzen.
-7. **Abgabe:** Commit im eigenen Arbeitsbaum mit vereinbarter Attribution; Bericht mit Zeilenlimit, ohne Code-Dumps, mit „erfüllt / offen / ungeprüft“.
+7. **Abgabe:** Commit im eigenen Arbeitsbaum mit vereinbarter Attribution; Bericht mit Zeilenlimit, ohne Code-Dumps, mit „erfüllt / offen / ungeprüft“. Weicht das gewünschte Ausgabeformat vom Standardformat des Agents ab, sagt der Brief ausdrücklich, welches gilt.
+8. **Werkzeuge:** Welche Werkzeuge der Agent für Schreiben und Ausführen nutzt, steht im Brief, wenn sie je nach Modell verschieden heißen (§5.5).
 
 ### 5.3 Isolation
 
@@ -168,6 +169,13 @@ Pflichtteile:
 - **Anfragen eines Agents verleihen keine Rechte.** Bittet ein Agent darum, etwas für ihn zu tun, das ihm verwehrt wurde, geht die Frage an die Nutzerin.
 - **Wiederholte oder hängende Agents** werden gestoppt, sobald ihr Ergebnis gesichert ist.
 
+### 5.5 Rechte und Werkzeuge
+
+- **Rechte als Allowlist.** Die Rechte jeder Rolle beginnen mit „alles verboten“ und erlauben benötigte Aktionen einzeln. Plattformen setzen oft eine Standardregel „alles erlaubt“ davor. Die wirksamen Rechte nach jeder Änderung mit einem echten Lauf je Rolle prüfen, nicht nur in der Konfiguration lesen.
+- **Ein Verbot sperrt den ganzen Aufruf.** Gelten Rechte über Befehls- oder Pfadmuster, scheitert ein verketteter Aufruf schon an einem einzigen gesperrten Teil. Rollen-Prompts schreiben deshalb einen Befehl oder eine Datei je Aufruf vor. Bei einer Ablehnung den Aufruf aufteilen und neu versuchen, erst ein abgelehnter Einzelbefehl gilt als blockiert. Ablehnungen wörtlich berichten.
+- **Werkzeugsatz hängt am Modell.** Je Modellfamilie einmal prüfen, welche Werkzeuge ein Agent tatsächlich sieht, und das passende im Brief nennen.
+- **Schutz im Werkzeug, nicht nur im Prompt.** Regeln, deren Bruch Daten kostet oder geschützte Bereiche berührt, setzt das Werkzeug selbst durch: Schreib- und Löschziele über den aufgelösten Pfad prüfen, bevor etwas angelegt wird; Stopp- und Vollständigkeitsregeln durch einen maschinellen Abgleich absichern.
+
 ---
 
 ## 6. Qualität, Effizienz, Tokenverbrauch
@@ -178,10 +186,12 @@ Pflichtteile:
 - **Neue Fachlogik bekommt Tests** in eigenen Testdateien (vermeidet Konflikte zwischen parallelen Agents).
 - **Regeln des Zielsystems lesen und einhalten** (Designsystem, Plattformrichtlinien) und das Ergebnis gegen genau diese Regeln prüfen.
 - **Texte nicht übertreiben.** UI-Texte versprechen nur, was die Technik hält.
+- **Prüfungen selbst prüfen.** Tests und Bewertungen zusätzlich mit gezielt verfälschten, plausibel aussehenden Eingaben laufen lassen; sie müssen scheitern können. Jeder Testlauf nennt die Zahl der tatsächlich geprüften Fälle, und es wird kontrolliert, dass der beabsichtigte Testfall überhaupt eingetreten ist. Fehlläufe zählen als Fehlschlag, Schlüsse gelten nur für die getestete Art.
 
 ### 6.2 Effizienz
 
 - Werkzeuge mit Wirkung prüfen: Nach jeder Installation das Ergebnis testen (`which`, Versionsausgabe), nicht dem Exit-Code trauen.
+- **Daten nicht durch das Modell kopieren.** Größere Tool-Antworten fließen direkt vom Werkzeug in die Datei. Das Modell sieht nur eine Quittung mit Objektzahl und gleicht sie mit der Quelle ab. Eine Erfolgsmeldung beim Schreiben beweist keine Vollständigkeit.
 - Inkrementelle Builds nutzen, abgeleitete Daten nicht unnötig löschen.
 - Sichtprüfungen skripten, damit jede Runde sie in Sekunden wiederholen kann.
 
@@ -213,6 +223,15 @@ Jede Schicht hat in der Praxis Fehler gefunden, die die anderen übersehen hatte
 - **Befunde priorisieren:** kritisch (Fehlverhalten, Sicherheit) vor wichtig (Bedienbarkeit) vor Kleinigkeit.
 - **Nach dem Fix erneut die betroffene Schicht laufen lassen.**
 - **Den Brief verbessern, nicht nur den Code:** Hat ein Agent etwas übersehen, kommt der Fallstrick in künftige Briefs (Abschnitt 9).
+
+### 7.3 Abbrechbare Läufe
+
+Lange Läufe (Exporte, Migrationen, Batch-Verarbeitung) müssen einen Abbruch überstehen.
+
+- **Checkpoint mit Lückenliste.** Der Stand nennt nicht nur die letzte Position, sondern alle fehlenden Teile, abgeglichen gegen die vorhandenen Daten. „Vollständig“ gilt nur bei leerer Liste. Ein Folgelauf holt zuerst die Lücken.
+- **Atomar austauschen.** Ergebnisse sind nach einem Abbruch ganz alt oder ganz neu. Das mit hartem Abbruch an jeder Dateioperation testen, auch während des Zurückrollens, und parallele Läufe sperren.
+- **Fortsetzung frisch testen.** Abbruch und Fortsetzung in einer neuen Session ohne Gesprächsverlauf prüfen; nur der Checkpoint trägt den Stand.
+- **Endabgleich gegen die Quelle.** Die Zahl eindeutiger Objekte am Ende gegen die aktuelle Gesamtzahl der Quelle halten; sie kann sich während des Laufs ändern.
 
 ---
 
