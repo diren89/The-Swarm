@@ -1,6 +1,6 @@
 # The Swarm · Manifest: Koordinierte Agentenarbeit
 
-Version 1.3.3 · Stand 23.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
+Version 1.4.0 · Stand 23.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Dieses Manifest beschreibt, wie ein **koordinierender Agent** Software-Aufgaben in Phasen plant, an **Subagents** mit passenden Modellen verteilt, die Ergebnisse **selbst prüft und verbessert** und dabei **bei jedem Schritt dazulernt**. Es ist für Sprachmodelle geschrieben, die es zu Beginn einer Aufgabe einlesen, und für Menschen, die nachvollziehen wollen, wie gearbeitet wird.
 
@@ -109,6 +109,7 @@ Der Plan ist ein Werkzeug, kein Vertrag: Ändert sich die Lage (Blocker, neue Fa
 | Umsetzer | klar spezifiziertes Paket: Code, Tests, Build | mittleres, schnelles Modell |
 | Fleißarbeiter | mechanisch, regelgeleitet (Übersetzungen, Umbenennungen, Kataloge) | kleinstes ausreichendes Modell |
 | Prüfer | read-only Review aus einer Rolle (z. B. Endnutzer, Barrierefreiheit, Sicherheit) | mittleres Modell, nie der Autor |
+| Unter-Koordinator | großes, abgegrenztes Code-Paket als Ganzes: Plan, Umsetzer, Prüfer, Korrekturrunden (§5.1.2) | wie der Koordinator, aber mit schmalem Werkzeugsatz |
 
 Faustregel: **Je eindeutiger die Spezifikation, desto kleiner das Modell, und je tiefer das nötige Fachwissen, desto größer.** Urteil, Integration und Fehlersuche in fremder Umgebung bleiben beim Koordinator, echte Expertenarbeit geht an die Expertenrolle.
 
@@ -139,6 +140,29 @@ Nicht für Aufgaben, die ein Umsetzer mit klarer Spezifikation lösen kann.
 - **Fachlich Strittiges** über einen zweiten Experten-Agent als Prüfer (Schicht 4), wenn die Tragweite es rechtfertigt.
 
 **Ergebnis ablegen:** reproduzierbar, als Quelldatei oder Skript plus Ergebnis plus Vorschau. Beispiele: eine parametrische Modelldatei oder ein Generierungsskript statt nur des fertigen Exports, eine Schnittliste oder ein Encoding-Befehl statt nur des fertigen Videos.
+
+### 5.1.2 Der Unter-Koordinator
+
+Der Koordinator kann ein großes Code-Paket als Ganzes an einen Unter-Koordinator geben. Der plant es, verteilt an Umsetzer und Prüfer, prüft und korrigiert und liefert dem Koordinator einen Bericht. Gewinn: Der lange Prüf- und Korrekturverlauf bleibt aus dem Kontext des Koordinators, und jeder dieser Aufrufe läuft mit kleinerer Grundlast, weil der Unter-Koordinator nur die Werkzeuge für Code-Arbeit hat (§5.5).
+
+**Wann einsetzen:**
+- Ein großes, klar abgegrenztes Code-Paket mit vielen Prüf- und Korrekturrunden, z. B. ein neues Modul mit Tests und Review.
+- Mehrere unabhängige Code-Pakete parallel, je Paket ein Unter-Koordinator.
+- Lange Projekte mit vielen Phasen: je Phase ein frischer Unter-Koordinator, Übergabe über den Plan.
+- Gemischte Aufträge: Der Koordinator klärt Anforderungen und holt Daten aus Diensten, die reine Umsetzung im Code geht an den Unter-Koordinator.
+- Fehlersuche oder Härtung mit vielen Testläufen und langen Logs.
+
+**Nicht einsetzen:**
+- Für kleine Code-Aufgaben; die gehen direkt an einen Umsetzer. Die zusätzliche Ebene kostet einen weiteren Agent mit starkem Modell und kann die Ersparnis aufzehren.
+- Wenn die Arbeit Dienste oder Werkzeuge braucht, die er nicht hat.
+- Wenn unterwegs viel mit der Nutzerin abzustimmen ist (Freigabe je Phase, offene Gestaltungsfragen) oder der Koordinator ständig nachsteuern muss.
+
+**Regeln:**
+1. **Kein eigener Dialog mit der Nutzerin.** Er ist nur über den Koordinator erreichbar und nicht selbst als Hauptagent wählbar. Echte Weichen, fehlende Rechte oder Freigaben gibt er als `blockiert` mit Optionen und Empfehlung zurück, statt zu raten.
+2. **Brief wie §5.2,** zusätzlich mit Modus (Standard: gesamthaft), Budget und Höchstzahl der Korrekturrunden.
+3. **Bericht an den Koordinator** mit Zeilenlimit; Details in Dateien. Der Koordinator prüft das Ergebnis wie jedes andere (§5.4, §7.1).
+4. **Schachtelungstiefe prüfen:** Die Plattform muss Koordinator → Unter-Koordinator → Umsetzer → Hilfsagent erlauben. Vor dem ersten echten Einsatz die Kette einmal mit einem Probeauftrag durchlaufen lassen.
+5. **Wird sein Kontext lang,** sichert er den Stand im Plan und kehrt zurück; der Koordinator startet die nächste Phase frisch. Für Korrekturrunden gibt es den Übergabe-Brief [playbooks/korrektur-brief.md](playbooks/korrektur-brief.md).
 
 ### 5.2 Der Auftrag (Brief)
 
@@ -194,6 +218,7 @@ Pflichtteile:
 - **Daten nicht durch das Modell kopieren.** Größere Tool-Antworten fließen direkt vom Werkzeug in die Datei. Das Modell sieht nur eine Quittung mit Objektzahl und gleicht sie mit der Quelle ab. Eine Erfolgsmeldung beim Schreiben beweist keine Vollständigkeit.
 - Inkrementelle Builds nutzen, abgeleitete Daten nicht unnötig löschen.
 - Sichtprüfungen skripten, damit jede Runde sie in Sekunden wiederholen kann.
+- Vorlage für Prüfläufe: [tools/pruefen.sh](tools/pruefen.sh) wertet den Exit-Code des Befehls selbst aus, zählt ausgeführte Tests, meldet Warnungen getrennt und legt die Langausgabe je Lauf ab; Selbsttest in `tools/test-pruefen.sh`.
 
 ### 6.3 Tokens
 
