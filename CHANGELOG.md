@@ -2,7 +2,7 @@
 
 ## 1.3.2 · 2026-11-23
 
-- Neu `prompts/copilot.md`: Datei zum Anhängen in Microsoft 365 Copilot. Copilot führt durch den Agent Builder (Configure), gibt Name, Beschreibung, Anweisungen (Manifest-Kern, 6.550 Zeichen) und Startprompts vor; Manifest als Wissensdatei `.txt`; Testfragen; Fallback nur im Chat.
+- Neu `prompts/copilot.md`: Datei zum Anhängen in Microsoft 365 Copilot. Copilot führt durch den Agent Builder (Configure), gibt Name, Beschreibung, Anweisungen (Manifest-Kern, 7.469 Zeichen) und Startprompts vor; Manifest und Learnings als Wissensdateien `.txt`; optional Code Interpreter (Python-Sandbox, ersetzt keinen Projekt-Test); vier Testfragen, Create erst nach bestandenem Test; Fallback nur im Chat. Die Person legt den Agent selbst an.
 - ANLEITUNG neu §3.5 Microsoft 365 Copilot (bisher §3.5 API wird §3.6); Hinweise in README, `prompts/import.md` und `llms.txt`.
 - Keine Regeländerung im Manifest.
 

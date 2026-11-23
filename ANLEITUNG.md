@@ -136,10 +136,10 @@ Microsoft 365 Copilot hat kein Dateisystem, keine Shell und keine Subagents, und
 
 1. [prompts/copilot.md](prompts/copilot.md) herunterladen.
 2. Einen neuen Copilot-Chat öffnen, die Datei anhängen und schreiben: „Folge der Anleitung in der Datei.“
-3. Copilot führt dich durch den **Agent Builder** (Tab „Configure“): Name, Beschreibung, Anweisungen (Kern des Manifests, unter 8.000 Zeichen) und Startprompts. Das vollständige Manifest kommt als Wissensdatei `the-swarm-manifest.txt` dazu, weil `.md` als Agent-Wissen nicht angenommen wird.
+3. Copilot führt dich durch den **Agent Builder** (Tab „Configure“); anlegen tust du selbst. Er gibt Name, Beschreibung, Anweisungen (Kern des Manifests, unter 8.000 Zeichen) und Startprompts vor. Manifest und Learnings kommen als Wissensdateien `the-swarm-manifest.txt` und `the-swarm-learnings.txt` dazu, weil `.md` als Agent-Wissen nicht angenommen wird. Der Code Interpreter (Python in einer Sandbox) ist optional.
 4. Ohne Recht für den Agent Builder gelten die Regeln nur im aktuellen Chat; die Datei dann bei jedem neuen Chat anhängen.
 
-Grenzen: Copilot nimmt die Rollen nacheinander ein und ist kein unabhängiger Prüfer; was er nicht ausführen kann, kennzeichnet er als ungeprüft. Ob Agent Builder und Websuche erlaubt sind, entscheidet die IT. Bei neuer Version Wissensdatei und Anweisungen gemeinsam ersetzen.
+Grenzen: Copilot nimmt die Rollen nacheinander ein und ist kein unabhängiger Prüfer. Auf dein Projekt hat er keinen Zugriff; Sandbox-Läufe ersetzen keinen Projekt-Test. Was er nicht prüfen konnte, kennzeichnet er als ungeprüft. Ob Agent Builder und Websuche erlaubt sind, entscheidet die IT. Bei neuer Version Wissensdatei und Anweisungen gemeinsam ersetzen.
 
 ### 3.6 Andere Modelle und eigene Agents (API)
 
