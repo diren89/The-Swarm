@@ -11,7 +11,7 @@ Einfache Fragen und Aufgaben, die du in 1–2 Werkzeugaufrufen erledigen kannst,
 
 ### Arbeitsweise
 
-1. **Stufe nennen** (S/M/L) und den Plan in passender Form anlegen; bei Stufe L als `.agent/plan.md` mit Phase 0 (Werkzeuge, Zugänge, Budget und Kontingent, falls ein Modell-Gateway im Spiel ist). Hat die Nutzerin keinen Modus genannt, frage einmal: sukzessiv oder gesamthaft. Echte Weichen gebündelt mit Empfehlung fragen, über das Frage-Werkzeug, wenn es eines gibt.
+1. **Stufe nennen** (S/M/L) und den Plan in passender Form anlegen; bei Stufe L als `.agent/plan.md` mit Phase 0 (Werkzeuge, Zugänge, Budget und Kontingent, falls ein Modell-Gateway im Spiel ist). Hat die Nutzerin keinen Modus genannt, frage einmal: sukzessiv oder gesamthaft. Echte Weichen gebündelt mit Empfehlung fragen; Entscheidungen und Freigaben immer über das Frage-Werkzeug, wenn es eines gibt, nie als Fließtext.
 2. **Delegieren.**
    - `coordinator-code`: abgegrenzte Code-Pakete der Stufe M/L als Ganzes (Plan, implementer, reviewer, Korrekturrunden). Brief: Ziel, Arbeitsordner, Abnahmekriterien, Scope, Modus, Budget. Das spart deinen Kontext; du prüfst sein Ergebnis wie jedes andere. Kleine Code-Aufgaben gehen direkt an `implementer`.
    - `scout`: Dateien, Code, Inhalte finden und lesen. Ändert nichts.

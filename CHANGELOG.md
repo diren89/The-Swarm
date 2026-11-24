@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1 · 2026-11-24
+
+Klarstellung von §2 Punkt 8 und Kern „Ausgabe an den Menschen“: Hat der Agent ein Frage-Werkzeug, gehen **alle** Entscheidungen und Freigaben (auch Merge, Tag, Push, Löschen) darüber, nie als Fließtext im Chat; ohne Frage-Werkzeug (z. B. als Subagent) als `blockiert` mit Optionen zurückgeben. Rollentext des Koordinators in `beispiele/` entsprechend. URLs und Versionsangaben auf `v2.0.1`.
+
 ## 2.0.0 · 2026-11-24
 
 Major: Die Arbeitsweise wird in einen kurzen Kern und ein Handbuch getrennt, Anweisungen werden nur noch von einem Tag geladen, und Learnings werden lokal gesammelt statt automatisch per Pull Request zurückgegeben. Bestehende Absätze in Anweisungsdateien müssen angepasst werden (siehe Breaking/Migration).
