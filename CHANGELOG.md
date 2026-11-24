@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.5.0 · 2026-11-24
+
+Nur Ergänzungen, keine bestehende Regel inhaltlich umformuliert. §5.2 Punkt 7 verweist für den Status je Kriterium jetzt auf §5.4 (Klarstellung).
+
+- §2: neue Punkte 6 **Plankritik** (Prüfer anderer Modellfamilie, sonst unabhängiger Prüfer mit benannter Einschränkung) und 7 **Budget mit Marken** (Messquelle, alle Agents, 90 % Meldung, 100 % keine neuen kostenpflichtigen Schritte), beide Stufe L.
+- §5.3: Unfertige Worktrees bleiben stehen.
+- §5.4: **Abnahme mit frischen Belegen**, Status je Kriterium erfüllt / teilweise / fehlt / UNGEPRÜFT. Aus L-053.
+- §5.5: Zerstörende Git-Befehle nur mit Freigabe, für Subagents möglichst technisch gesperrt; Grenzen von Prompt-Rechten benennen.
+- §6.3: Stand vor Kontextkürzung sichern (L: Plandatei, S/M: Aufgabenliste oder Projektnotiz). Aus L-054.
+- §7.1: In Schicht 4 Abnahme vor Code-Review, Nutzerszenarien bleiben Pflicht, Sicherheit bei Bedarf.
+- §7.2: Befunde mit Konfidenz; unsichere schwere Befunde nachprüfen oder Nutzerin entscheidet (L-052). Gleiche Fehlersignatur dreimal = Grundsatzproblem (L-051).
+- §9: Kurznotiz am Ende einer Aufgabe, wenn etwas auffiel; vier Zeitskalen. §11: Status je Kriterium.
+- Vorlagen: Prüfer-Brief mit Blickwinkel und Konfidenz, Bericht mit Status je Kriterium; Retrospektive nutzt die Kurznotizen.
+- Learnings L-051 bis L-056 (L-055, L-056 vorerst nur Learning). L-040: Pfadbeispiel anonymisiert.
+
 ## 1.4.0 · 2026-11-23
 
 - Neu §5.1.2 **Unter-Koordinator**: großes, abgegrenztes Code-Paket als Ganzes mit eigenem Plan, Umsetzern, Prüfern und Korrekturrunden; wann einsetzen und wann nicht; kein eigener Dialog mit der Nutzerin, Weichen als `blockiert` zurück; Schachtelungstiefe per Probe prüfen. Neue Zeile in der Rollentabelle §5.1. Aus L-050.

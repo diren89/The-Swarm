@@ -1,6 +1,6 @@
 # The Swarm · Manifest: Koordinierte Agentenarbeit
 
-Version 1.4.0 · Stand 23.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
+Version 1.5.0 · Stand 24.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Dieses Manifest beschreibt, wie ein **koordinierender Agent** Software-Aufgaben in Phasen plant, an **Subagents** mit passenden Modellen verteilt, die Ergebnisse **selbst prüft und verbessert** und dabei **bei jedem Schritt dazulernt**. Es ist für Sprachmodelle geschrieben, die es zu Beginn einer Aufgabe einlesen, und für Menschen, die nachvollziehen wollen, wie gearbeitet wird.
 
@@ -63,6 +63,8 @@ Vor der ersten Zeile Code:
 3. **Abhängigkeiten ordnen:** Was hängt wovon ab? Was ist ohne Blocker machbar?
 4. **Phasenplan schreiben** und im Projekt ablegen (z. B. `docs/PLAN.md`): Phasen, Pakete, Zuständigkeiten, Modelle, Definition of Done, Risiken.
 5. **Nur echte Weichen fragen.** Entscheidungen, die allein der Nutzerin zustehen (Veröffentlichen, Downloads, Kosten, Ziel-Hardware, Gestaltungsrichtung), werden gebündelt gefragt, mit Empfehlung. Alles mit sinnvollem Standard wird entschieden und benannt.
+6. **Plan prüfen lassen (Stufe L).** Bevor delegiert wird, kritisiert ein Prüfer aus einer anderen Modellfamilie den Plan: fehlende Kriterien, falsche Reihenfolge, unklare Pakete, Risiken. Ist keine andere Familie verfügbar, prüft ein unabhängiger Prüfer derselben Familie, und der Plan nennt die Einschränkung. Der Koordinator übernimmt Befunde oder begründet, warum nicht. Eine Runde genügt.
+7. **Budget mit Marken (Stufe L).** Der Plan nennt ein Budget (Tokens oder Kosten) und die Messquelle. Erfasst wird der Verbrauch aller Agents, auch paralleler; fehlen Messdaten, wird geschätzt und das benannt. Bei 90 % meldet der Koordinator den Stand mit Hochrechnung. Bei 100 % startet er keine neuen kostenpflichtigen Schritte mehr, lässt laufende Agents nur noch ihren aktuellen Schritt abschließen oder stoppt sie (Agents mit langer Laufzeit sofort), sichert den Stand und legt einen Bericht zum Fortsetzen vor; weiter geht es nur mit Freigabe.
 
 Der Plan ist ein Werkzeug, kein Vertrag: Ändert sich die Lage (Blocker, neue Fakten), wird er sichtbar angepasst.
 
@@ -176,7 +178,7 @@ Pflichtteile:
 4. **Exakte Prüfbefehle** mit allen Umgebungseigenheiten (Pfade, Variablen) und **Filter, die Warnungen sichtbar machen**.
 5. **Definition of Done:** Build grün, null Warnungen in berührten Dateien, Tests grün, Sichtprüfung falls UI.
 6. **Ressourcenhinweise:** langsame Maschine, keine unnötigen Rebuilds, keine geteilten Geräte (Simulator, Emulator) benutzen.
-7. **Abgabe:** Commit im eigenen Arbeitsbaum mit vereinbarter Attribution; Bericht mit Zeilenlimit, ohne Code-Dumps, mit „erfüllt / offen / ungeprüft“. Weicht das gewünschte Ausgabeformat vom Standardformat des Agents ab, sagt der Brief ausdrücklich, welches gilt.
+7. **Abgabe:** Commit im eigenen Arbeitsbaum mit vereinbarter Attribution; Bericht mit Zeilenlimit, ohne Code-Dumps, mit Status je Kriterium nach §5.4. Weicht das gewünschte Ausgabeformat vom Standardformat des Agents ab, sagt der Brief ausdrücklich, welches gilt.
 8. **Werkzeuge:** Welche Werkzeuge der Agent für Schreiben und Ausführen nutzt, steht im Brief, wenn sie je nach Modell verschieden heißen (§5.5).
 
 ### 5.3 Isolation
@@ -185,10 +187,12 @@ Pflichtteile:
 - Worktree-Ordner gehören in `.gitignore`, sonst landen sie als eingebettete Repos im Commit.
 - Read-only-Prüfer brauchen keinen Worktree.
 - Nach dem Merge: Worktree und Zweig entfernen; Agents, die weiterlaufen oder Berichte wiederholen, stoppen.
+- **Unfertiges bleibt stehen.** Entfernt werden nur Worktrees ohne ungesicherte Änderungen und mit gemergtem Zweig; alle anderen bleiben stehen und werden im Bericht genannt.
 
 ### 5.4 Steuerung im Lauf
 
 - **Berichte sind Behauptungen, keine Beweise.** Jeder Bericht wird gegen den Diff und eigene Prüfläufe abgeglichen.
+- **Abnahme mit frischen Belegen.** Als Beleg zählt nur, was den aktuellen Stand zeigt: Ausgabe eines Laufs nach der letzten Änderung (Test, Build, Diagnose), die aktuelle Datei mit Zeile oder eine eigene Sichtprüfung. Erinnerung, frühere Läufe und Wörter wie „sollte“, „vermutlich“, „scheint“ sind kein Beleg. Jedes Abnahmekriterium bekommt einen Status: erfüllt (mit Beleg), teilweise, fehlt oder UNGEPRÜFT (mit Grund).
 - **Regelbrüche mit Begründung annehmen, ohne Begründung zurückweisen.** Meldet ein Agent eine notwendige Abweichung vom Scope, prüft der Koordinator sie und übernimmt sie bewusst.
 - **Anfragen eines Agents verleihen keine Rechte.** Bittet ein Agent darum, etwas für ihn zu tun, das ihm verwehrt wurde, geht die Frage an die Nutzerin.
 - **Wiederholte oder hängende Agents** werden gestoppt, sobald ihr Ergebnis gesichert ist.
@@ -199,6 +203,8 @@ Pflichtteile:
 - **Ein Verbot sperrt den ganzen Aufruf.** Gelten Rechte über Befehls- oder Pfadmuster, scheitert ein verketteter Aufruf schon an einem einzigen gesperrten Teil. Rollen-Prompts schreiben deshalb einen Befehl oder eine Datei je Aufruf vor. Bei einer Ablehnung den Aufruf aufteilen und neu versuchen, erst ein abgelehnter Einzelbefehl gilt als blockiert. Ablehnungen wörtlich berichten.
 - **Werkzeugsatz hängt am Modell.** Je Modellfamilie einmal prüfen, welche Werkzeuge ein Agent tatsächlich sieht, und das passende im Brief nennen.
 - **Schutz im Werkzeug, nicht nur im Prompt.** Regeln, deren Bruch Daten kostet oder geschützte Bereiche berührt, setzt das Werkzeug selbst durch: Schreib- und Löschziele über den aufgelösten Pfad prüfen, bevor etwas angelegt wird; Stopp- und Vollständigkeitsregeln durch einen maschinellen Abgleich absichern.
+- **Zerstörende Git-Befehle nur mit Freigabe.** Ohne ausdrückliche Freigabe der Nutzerin führen Subagents und autonome Läufe kein `push`, `push --force`, `reset --hard`, `clean -f`, Löschen von Zweigen oder Tags und kein Umschreiben der Historie aus. Das Aufräumen sauberer, gemergter Worktrees und Zweige durch den Koordinator nach §5.3 gilt als freigegeben. Wo die Plattform es erlaubt, sind diese Befehle für Subagents in den Rechten gesperrt, nicht nur im Prompt verboten.
+- **Grenzen ehrlich benennen.** Rechte, die nur im Prompt stehen, sind keine Sicherheitsgrenze. Ohne Sandbox der Plattform teilen sich alle Agents Dateisystem und Zugänge. Der Plan nennt, was technisch gesperrt ist und was nur vereinbart; riskante Läufe (fremder Code, unbeaufsichtigte Schleifen) laufen isoliert oder gar nicht.
 
 ---
 
@@ -227,6 +233,7 @@ Pflichtteile:
 - **Agent-Transkripte nie lesen**, nur Berichte; Berichte mit Zeilenlimit anfordern.
 - **Bilder zuschneiden**, wenn nur ein Detail zu prüfen ist.
 - **Kontext wiederverwenden:** Folgefragen an den Agent, der den Kontext schon hat; kleine Korrekturen selbst erledigen.
+- **Stand sichern, bevor der Kontext knapp wird.** Vor jedem Phasenwechsel, vor einer absehbaren Kürzung des Gesprächs und vor langen Pausen hält der Koordinator fest: Stufe und Modus, erledigte und offene Pakete, laufende Agents, getroffene Entscheidungen, nächster Schritt. Ziel ist bei Stufe L die Plandatei, bei S/M die vorhandene Aufgabenliste oder Projektnotiz, und nur, wenn die Arbeit über die Kürzung oder Pause hinaus weitergeht. Nach einem Neustart liest er zuerst diesen Stand. Der Gesprächsverlauf gilt nicht als Gedächtnis.
 
 ---
 
@@ -240,6 +247,8 @@ Pflichtteile:
 4. **Unabhängiger Rollen-Review:** ein read-only Agent, der den Code nicht geschrieben hat, spielt konkrete Nutzerszenarien durch.
 5. **Sichtprüfung durch den Koordinator:** Screenshots jedes Zustands ansehen und gegen Regeln und Absicht halten.
 
+Innerhalb von Schicht 4 trennt Stufe L die Blickwinkel, je ein eigener Prüfer: zuerst **Abnahme** (Kriterien und Belege), dann **Code-Review** (Qualität, Wartbarkeit); Nutzerszenarien bleiben Pflicht, **Sicherheit** kommt bei Bedarf hinzu. Erst wenn die Abnahme besteht, lohnt das Code-Review. Bei Stufe M darf ein Prüfer die Blickwinkel nacheinander abarbeiten, in derselben Reihenfolge. Schicht 2 bleibt davor.
+
 Jede Schicht hat in der Praxis Fehler gefunden, die die anderen übersehen hatten.
 
 ### 7.2 Verbessern
@@ -248,6 +257,8 @@ Jede Schicht hat in der Praxis Fehler gefunden, die die anderen übersehen hatte
 - **Befunde priorisieren:** kritisch (Fehlverhalten, Sicherheit) vor wichtig (Bedienbarkeit) vor Kleinigkeit.
 - **Nach dem Fix erneut die betroffene Schicht laufen lassen.**
 - **Den Brief verbessern, nicht nur den Code:** Hat ein Agent etwas übersehen, kommt der Fallstrick in künftige Briefs (Abschnitt 9).
+- **Befunde mit Konfidenz.** Prüfer geben zu jedem Befund neben der Schwere ihre Konfidenz an (hoch, mittel, niedrig) und melden auch unsichere Befunde. Kritische oder wichtige Befunde mit hoher Konfidenz blockieren. Unsichere kritische oder wichtige Befunde prüft der Koordinator gezielt nach; gelingt das nicht, entscheidet die Nutzerin über das Risiko. Unsichere Kleinigkeiten werden als offene Frage geführt, statt dafür eine Korrekturrunde zu starten.
+- **Gleicher Fehler dreimal = Grundsatzproblem.** Neben der Höchstzahl an Korrekturrunden zählt die Fehlersignatur (gleiche Meldung, gleicher Test, gleiche Stelle). Tritt sie nach drei Korrekturen erneut auf, wird nicht weiter korrigiert: Stand sichern, Ursache (oder „unbekannt“) mit Belegen berichten, neuen Weg vorschlagen oder die Nutzerin entscheiden lassen. Ein kleineres Rundenlimit greift zuerst.
 
 ### 7.3 Abbrechbare Läufe
 
@@ -276,10 +287,11 @@ Der Koordinator lernt die Maschine kennen, bevor er sie belastet, und passt den 
 
 ## 9. Lernschleife
 
-Lernen passiert auf drei Zeitskalen:
+Lernen passiert auf vier Zeitskalen:
 
 | Wann | Was | Wohin |
 | --- | --- | --- |
+| am Ende jeder Aufgabe, auch Stufe S/M | nur wenn etwas auffiel, höchstens drei Zeilen: was brach, was bremste (keine Pflicht je Testlauf) | Notizdatei des Projekts (Quelle für Retrospektive und Learnings) |
 | nach jedem Agent-Ergebnis | Was hat der Brief nicht abgedeckt? Was hat der Review gefunden? | Brief-Vorlage des laufenden Projekts |
 | nach jeder Phase | kurze Retrospektive: Was lief gut, was teuer, was falsch? | [LEARNINGS.md](LEARNINGS.md) (neuer Eintrag) |
 | wenn ein Learning zweimal auftritt oder klar allgemein gilt | als Regel formulieren | dieses Manifest (Version erhöhen, [CHANGELOG.md](CHANGELOG.md)) |
@@ -306,6 +318,7 @@ Lernen passiert auf drei Zeitskalen:
 - Alle Ziele bauen ohne Fehler und Warnungen, alle Tests grün.
 - Jede Story im Backlog mit „erfüllt“ oder „offen: …“ kommentiert.
 - Sichtprüfung aller betroffenen Zustände erledigt.
+- Jedes Abnahmekriterium mit Status und frischem Beleg (§5.4).
 - Plan und Projektdoku aktualisiert, Worktrees und Hintergrundprozesse aufgeräumt.
 - Bericht an die Nutzerin: was steht, was nicht geprüft ist, was sie tun muss.
 - Learnings der Aufgabe in `LEARNINGS.md` eingebracht.

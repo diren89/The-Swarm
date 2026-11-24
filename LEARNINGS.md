@@ -6,6 +6,42 @@ Felder je Eintrag: **Kontext** (anonym) · **Beobachtung** · **Regel** · **Sta
 
 ---
 
+## 2026-11-24 · Regeln für Abnahme, Abbruch und Zustand
+
+Kontext: Ein Koordinator prüfte seine Arbeitsweise gegen wiederkehrende Schwachstellen aus früheren Aufgaben: Korrekturschleifen ohne Fortschritt, Review-Runden für unsichere Befunde, Abnahmen mit veralteten Belegen, verlorener Stand nach Kontextkürzung.
+
+### L-051 · Fehlersignatur zählen, nicht nur Runden
+- **Beobachtung:** Ein Rundenlimit allein verhindert nicht, dass mehrere Runden am selben Symptom korrigiert werden. Kehrt derselbe Fehler wieder, liegt die Ursache meist tiefer als die Korrekturen reichen.
+- **Regel:** Tritt dieselbe Fehlersignatur nach drei Korrekturen erneut auf, abbrechen, Ursache mit Belegen berichten und einen anderen Weg vorschlagen.
+- **Status:** übernommen §7.2
+
+### L-052 · Befunde mit Konfidenz bewerten
+- **Beobachtung:** Unsichere Review-Befunde lösten ganze Korrekturrunden aus, die sich später als unnötig erwiesen.
+- **Regel:** Prüfer nennen zu jedem Befund Schwere und Konfidenz. Blockierend ist nur hohe Schwere bei hoher Konfidenz, Unsicheres wird gezielt nachgeprüft oder als offene Frage geführt.
+- **Status:** übernommen §7.2
+
+### L-053 · Belege aus dem letzten Lauf
+- **Beobachtung:** Abnahmen stützten sich auf Testausgaben, die vor der letzten Änderung entstanden waren.
+- **Regel:** Als Beleg gilt nur, was den aktuellen Stand zeigt (Lauf nach der letzten Änderung, aktuelle Datei mit Zeile, eigene Sichtprüfung); jedes Kriterium bekommt den Status erfüllt, teilweise, fehlt oder UNGEPRÜFT.
+- **Status:** übernommen §5.4
+
+### L-054 · Stand vor der Kontextkürzung sichern
+- **Beobachtung:** Nach einer automatischen Kürzung des Gesprächs waren Modus, offene Pakete und Entscheidungen nur noch lückenhaft vorhanden.
+- **Regel:** Vor Phasenwechseln und absehbarer Kürzung den Stand festhalten (Stufe L: Plandatei, sonst Aufgabenliste oder Projektnotiz) und nach einem Neustart zuerst diesen lesen.
+- **Status:** übernommen §6.3
+
+### L-055 · Vage Aufträge zuerst schärfen
+- **Beobachtung:** Fehlen einem Auftrag prüfbare Kriterien, lässt sich weder sinnvoll delegieren noch abnehmen; Unklarheiten zeigen sich erst nach teurer Umsetzung.
+- **Regel:** Bei fehlenden Kriterien eine kurze, gebündelte Rückfragerunde (höchstens fünf Fragen, je mit Vorschlag) und das Ergebnis als Anforderungsliste mit prüfbaren Kriterien in den Plan. Bei klaren Aufträgen entfällt der Schritt.
+- **Status:** neu
+
+### L-056 · Projektwissen bleibt im Projekt
+- **Beobachtung:** Fakten, die nur in einem Projekt gelten, blähen gemeinsame Learnings auf und gehen zwischen Sitzungen verloren, wenn sie nur im Gespräch stehen.
+- **Regel:** Projektspezifisches in eine Projektnotiz schreiben, die jede Sitzung zu Beginn liest. Ein Learning wird daraus nur, wenn es nicht trivial ist, sich nicht schnell nachschlagen lässt und durch echte Arbeit gewonnen wurde.
+- **Status:** neu
+
+---
+
 ## 2026-11-23 · Token- und Kontextverbrauch einer Agent-Hierarchie messen und senken
 
 Kontext: Ein Koordinator maß den Verbrauch seiner Agent-Hierarchie aus der Sitzungsdatenbank des Agent-Werkzeugs, beschränkte die Werkzeuge je Rolle und verglich einen festen kleinen Code-Auftrag einmal vorher und zweimal nachher.
@@ -73,7 +109,7 @@ Kontext: Ein Review fand Lücken in Skripten und Rechten eines Daten-Abrufers (k
 - **Status:** neu
 
 ### L-040 · Erlaubte Befehlsmuster decken mehr als gedacht
-- **Beobachtung:** Ein Muster wie `python3 skript.py *` ließ auch Umleitungen zu, das Skript konnte so an beliebige Stellen schreiben. Muster wie `rm -rf */_raw` oder `mv ~/Downloads/* *` passen auch auf Leerzeichen und weitere Argumente und damit auf fremde Ziele. Ketten, Pipes und `$()` lehnte das Rechtesystem in der Probe dagegen ab.
+- **Beobachtung:** Ein Muster wie `python3 skript.py *` ließ auch Umleitungen zu, das Skript konnte so an beliebige Stellen schreiben. Muster wie `rm -rf */_raw` oder `mv <Quelle>/* *` passen auch auf Leerzeichen und weitere Argumente und damit auf fremde Ziele. Ketten, Pipes und `$()` lehnte das Rechtesystem in der Probe dagegen ab.
 - **Regel:** Schreibende und löschende Shell-Befehle nicht als Muster erlauben, sondern über ein eigenes Skript, das jeden Pfad selbst prüft (aufgelöst, kein Symlink, innerhalb des Arbeitsordners). Umleitungen (`>`, `<`) und Backticks ausdrücklich sperren. Die Auslegung der Muster live belegen (L-039), nicht annehmen.
 - **Status:** neu
 

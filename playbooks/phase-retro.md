@@ -1,6 +1,6 @@
 # Vorlage: Retrospektive nach einer Phase
 
-Höchstens zehn Zeilen. Zuerst in die Projektnotizen schreiben, was allgemein gilt, danach als Eintrag in `LEARNINGS.md`.
+Höchstens zehn Zeilen. Zuerst in die Projektnotizen schreiben, was allgemein gilt, danach als Eintrag in `LEARNINGS.md`. Quelle sind die Kurznotizen der Läufe (MANIFEST §9).
 
 ```text
 Phase: <Name>             Ziel erreicht: ja / teilweise / nein

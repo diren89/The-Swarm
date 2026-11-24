@@ -28,7 +28,7 @@ Done = alle Builds grün, null Warnungen in berührten Dateien, Tests grün, Sic
 Ressourcen: <Maschinenhinweis, z. B. "langsam, ein anderer Agent baut parallel – keine unnötigen Rebuilds">. Geteilte Geräte (Emulator, Simulator) nicht benutzen. Keine Drittanbieter-Pakete ohne Freigabe.
 
 Abgabe: Commit im eigenen Worktree, Nachricht endet mit `<Attributionszeile>`.
-Bericht ≤ <N> Zeilen: Änderungen je Datei, Kriterien erfüllt/offen, UNGEPRÜFT, Abweichungen vom Scope. Keine Code-Dumps.
+Bericht ≤ <N> Zeilen: Änderungen je Datei, je Kriterium erfüllt (frischer Beleg) / teilweise / fehlt / UNGEPRÜFT (mit Grund), Abweichungen vom Scope. Keine Code-Dumps.
 ~~~
 
 ## Checkliste vor dem Absenden
@@ -66,7 +66,7 @@ Abgabe in <Ordner>:
 - Messprotokoll: Ausgabe der Analysewerkzeuge, die die Abnahmekriterien belegen
 
 Commit im eigenen Worktree, Nachricht endet mit `<Attributionszeile>`.
-Bericht ≤ <N> Zeilen: Ergebnis je Kriterium (erfüllt / offen / UNGEPRÜFT), Rechenzeit, Assets mit Quelle, fachliche Annahmen. Keine Dumps.
+Bericht ≤ <N> Zeilen: Ergebnis je Kriterium (erfüllt mit frischem Beleg / teilweise / fehlt / UNGEPRÜFT mit Grund), Rechenzeit, Assets mit Quelle, fachliche Annahmen. Keine Dumps.
 ~~~
 
 ## Vorlage: Prüfer (read-only)
@@ -76,7 +76,9 @@ Read-only-Review. Keine Dateien ändern, nichts bauen. Repo: <Pfad>.
 Rolle: <z. B. UX-Researcherin für Kinderprodukte / Sicherheitsprüfer>. Du hast den Code nicht geschrieben.
 Szenarien: 1. <konkrete Person + Ziel> 2. <…> 3. <…>
 Prüfe gegen: <Regeln aus Projektdatei>. Scope: <Ordner>.
-Nur echte Fehler, keine Stilfragen.
+Blickwinkel: <Abnahme gegen Kriterien | Code-Review | Sicherheit | Nutzerszenarien> (Abnahme zuerst, MANIFEST §7.1).
+Nur echte Fehler, keine Stilfragen. Belege nur zum aktuellen Stand (Lauf nach der letzten Änderung, aktuelle Datei:Zeile, eigene Sichtprüfung).
 Antwort: Ergebnis (bestanden / nicht bestanden), höchstens <N> Befunde nach Schwere (kritisch, wichtig, Kleinigkeit),
-je eine Zeile `Datei:Zeile – Befund – konkreter Fix`. Kein Lob, kein Code.
+je eine Zeile `Datei:Zeile – Befund – Schwere – Konfidenz (hoch/mittel/niedrig) – konkreter Fix`.
+Unsichere Befunde gesondert als „offene Fragen“. Kein Lob, kein Code.
 ```
