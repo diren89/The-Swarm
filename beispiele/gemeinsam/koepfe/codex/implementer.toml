@@ -1,0 +1,3 @@
+name = "implementer"
+description = "Setzt klar beschriebene Arbeitspakete um (Code, Dokumente, Konfiguration). Gibt Suche an scout und rein mechanische Änderungen an editor-lite ab, prüft das Ergebnis und testet die eigene Arbeit."
+# model = "<MODELL_MITTEL>"  # Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile gilt das Modell der Hauptsitzung

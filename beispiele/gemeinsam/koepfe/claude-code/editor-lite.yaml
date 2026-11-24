@@ -1,0 +1,5 @@
+name: editor-lite
+description: "Führt mechanische, exakt beschriebene Änderungen aus (Umbenennen, Verschieben, Text ersetzen, Formatierung), ohne Urteil. Delegieren, wenn Dateien und Änderung eindeutig feststehen."
+tools: Read, Grep, Glob, Edit, Bash
+# model: <MODELL_KLEIN>  # Alias oder Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile erbt der Agent das Modell der Hauptsitzung
+maxTurns: 25

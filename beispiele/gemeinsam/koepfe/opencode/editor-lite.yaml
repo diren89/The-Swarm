@@ -1,0 +1,22 @@
+description: Führt mechanische, exakt beschriebene Änderungen aus (Umbenennen, Verschieben, Text ersetzen, Formatierung), ohne Urteil. Delegieren, wenn Dateien und Änderung eindeutig feststehen.
+mode: subagent
+# model: <provider>/<MODELL_KLEIN>
+# ^ Platzhalter ersetzen und Kommentarzeichen entfernen; ohne Zeile gilt das Standardmodell der Sitzung.
+steps: 25
+permissions:
+  - { action: "*", resource: "*", effect: deny }
+  - { action: "read", resource: "*", effect: allow }
+  - { action: "glob", resource: "*", effect: allow }
+  - { action: "grep", resource: "*", effect: allow }
+  - { action: "question", resource: "*", effect: allow }
+  - { action: "external_directory", resource: "*", effect: allow }
+  - { action: "edit", resource: "*", effect: allow }
+  - { action: "shell", resource: "mv *", effect: allow }
+  - { action: "shell", resource: "git mv *", effect: allow }
+  - { action: "shell", resource: "git diff *", effect: allow }
+  - { action: "shell", resource: "git status *", effect: allow }
+  - { action: "shell", resource: "ls *", effect: allow }
+  - { action: "shell", resource: "*>*", effect: deny }
+  - { action: "shell", resource: "*--output*", effect: deny }
+  - { action: "read", resource: "*.env", effect: ask }
+  - { action: "read", resource: "*.env.*", effect: ask }

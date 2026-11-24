@@ -1,0 +1,3 @@
+name = "researcher"
+description = "Tiefe Web- und Dokumentationsrecherche mit Quellenbewertung. Delegieren, wenn mehrere Quellen verglichen werden müssen; für lokale Dateien oder kurze Lookups reicht scout."
+# model = "<MODELL_MITTEL>"  # Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile gilt das Modell der Hauptsitzung

@@ -1,0 +1,6 @@
+name: coordinator-code
+description: "Unter-Koordinator für abgegrenzte Code-Pakete (Stufe M/L), vom coordinator aufgerufen. Plant, delegiert an implementer, reviewer und scout, prüft. Schlanker Werkzeugsatz."
+tools: Agent, Read, Grep, Glob, Edit, Write, Bash
+# model: <MODELL_GROSS>  # Alias oder Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile erbt der Agent das Modell der Hauptsitzung
+skills:
+  - orchestrierung

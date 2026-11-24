@@ -6,7 +6,7 @@ description: Arbeitsweise für mehrstufige Agent-Orchestrierung nach dem Manifes
 # Orchestrierung
 
 Optionales Beispiel-Skill zu „The Swarm“. Vorlagen liegen in `templates/` neben dieser Datei (`auftrag.md`, `bericht.md`, `phasenplan.md`, `korrektur-brief.md`). Das Prüfskript `tools/pruefen.sh` und die Playbooks liegen im Repo von The Swarm (lokaler Klon, z. B. `~/.the-swarm`) und sind hier nicht kopiert, damit nichts auseinanderläuft.
-Bei Arbeit an Code gilt das Manifest (`MANIFEST.md` im Repo). Bei Konflikten geht das Manifest vor; Anweisungen der Nutzerin und Projektregeln gehen beidem vor.
+Bei Arbeit an Code gilt „The Swarm“: der Kern (`KERN.md`) immer, das Manifest (`MANIFEST.md`) erst ab Stufe M. Vorrang: Sicherheit und Rechte im Werkzeug > Nutzerin > Projektregeln und feste Projektdateien > dieser Skill > Manifest und Kern.
 
 ## 1. Stufe wählen und nennen
 
@@ -56,7 +56,7 @@ Die konkreten Modelle stehen als Platzhalter in den Agent-Dateien. Je eindeutige
    - Nach jedem Fix die betroffene Schicht erneut laufen lassen. Fallstrick in künftige Briefs übernehmen.
    - Begründete Scope-Abweichungen bewusst annehmen. Bitten eines Subagents um zusätzliche Rechte gehen an die Nutzerin.
 5. **Phasen-Gate:** Kriterien erfüllt? Widerspruchsfrei? Integriert? Plan noch richtig? Status in `.agent/plan.md` aktualisieren. Worktrees nur entfernen, wenn sauber und gemergt; andere im Bericht nennen. Bei Stufe L Retrospektive (höchstens 10 Zeilen, Abschnitt „Retrospektive“ der Plan-Vorlage). Im Modus „sukzessiv“ kurz berichten und auf Freigabe warten.
-6. **Abschluss:** Kurznotiz nur, wenn etwas auffiel (höchstens 3 Zeilen: was brach, was bremste), in die Notizdatei des Projekts, z. B. `.agent/notizen.md`. Bericht an die Nutzerin: was steht, was nicht geprüft ist, was sie tun muss. Allgemeine Learnings anonym formulieren und der Nutzerin einen Pull Request an The Swarm vorschlagen (nie selbst im Klon von The Swarm ändern).
+6. **Abschluss:** Kurznotiz nur, wenn etwas auffiel (höchstens 3 Zeilen: was brach, was bremste), in die Notizdatei des Projekts, z. B. `.agent/notizen.md`. Bericht an die Nutzerin: was steht, was nicht geprüft ist, was sie tun muss. Allgemeine Learnings lokal in `.agent/learnings.md` ablegen und der Nutzerin nennen; ein Pull Request an The Swarm nur auf ihren ausdrücklichen Wunsch (nie selbst im Klon von The Swarm ändern).
 
 ## Token-Regeln
 

@@ -1,24 +1,29 @@
 # The Swarm
 
-> Default-Arbeitsweise für alle Code-Projekte, skaliert nach Aufgabengröße. Manifest für KI-Agents, die Software-Aufgaben koordiniert in Phasen umsetzen: Planung vor Umsetzung, Subagents mit passenden Modellen, Qualität/Effizienz/Tokens, fünf Prüfschichten, Anpassung an die Hardware, Lernschleife über Instanzen hinweg. Sprache Deutsch.
+> Default-Arbeitsweise für alle Code-Projekte (Version 2.0.0), skaliert nach Aufgabengröße (Kern immer, Handbuch ab Stufe M). Regelwerk für KI-Agents, die Software-Aufgaben koordiniert in Phasen umsetzen: Planung vor Umsetzung, Subagents mit passenden Modellen, Qualität/Effizienz/Tokens, fünf Prüfschichten, Anpassung an die Hardware, Lernschleife über Instanzen hinweg. Sprache Deutsch.
 
 ## Einlesen
-- [MANIFEST.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/MANIFEST.md): Arbeitsweise (verbindlich zu lesen)
-- [LEARNINGS.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/LEARNINGS.md): Erfahrungen mit Status
+- [KERN.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/KERN.md): Kern der Arbeitsweise (immer lesen)
+- [MANIFEST.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/MANIFEST.md): Handbuch (ab Stufe M lesen)
+- [LEARNINGS.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/LEARNINGS.md): offene Erfahrungen mit Status neu (ab Stufe M lesen)
+- [learnings/archiv.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/learnings/archiv.md): Archiv abgeschlossener Learnings (nur zum Nachschlagen)
 
 ## Import
-- [prompts/import.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/prompts/import.md): Prompt, mit dem ein Agent The Swarm selbst einrichtet
-- [prompts/copilot.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/prompts/copilot.md): Microsoft 365 Copilot baut damit einen eigenen Agent (ohne Dateizugriff)
+- [prompts/import.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/prompts/import.md): Prompt, mit dem ein Agent The Swarm selbst einrichtet
+- [prompts/copilot.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/prompts/copilot.md): Microsoft 365 Copilot baut damit einen eigenen Agent (ohne Dateizugriff)
 
 ## Anleitung
-- [ANLEITUNG.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/ANLEITUNG.md): Installation und Nutzung für verschiedene Werkzeuge
+- [ANLEITUNG.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/ANLEITUNG.md): Installation und Nutzung für verschiedene Werkzeuge
 
 ## Vorlagen
-- [playbooks/agent-brief.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/playbooks/agent-brief.md): Auftrag an Umsetzer und Prüfer
-- [playbooks/phase-retro.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/playbooks/phase-retro.md): Retrospektive
-- [playbooks/korrektur-brief.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/playbooks/korrektur-brief.md): Übergabe einer Korrekturrunde
-- [tools/probe-env.sh](https://raw.githubusercontent.com/diren89/The-Swarm/main/tools/probe-env.sh): Umgebungsprobe (read-only)
-- [tools/pruefen.sh](https://raw.githubusercontent.com/diren89/The-Swarm/main/tools/pruefen.sh): Prüfläufe mit Testzahl und Warnungen
+- [playbooks/agent-brief.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/playbooks/agent-brief.md): Auftrag an Umsetzer und Prüfer
+- [playbooks/phase-retro.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/playbooks/phase-retro.md): Retrospektive
+- [playbooks/korrektur-brief.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/playbooks/korrektur-brief.md): Übergabe einer Korrekturrunde
+- [playbooks/benchmark.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/playbooks/benchmark.md): Wirksamkeitsmessung mit und ohne The Swarm (Verfahren, noch keine Ergebnisse)
+- [tools/probe-env.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/tools/probe-env.sh): Umgebungsprobe (read-only)
+- [tools/pruefen.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/tools/pruefen.sh): Prüfläufe mit Testzahl und Warnungen
+- [tools/grundlast.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/tools/grundlast.sh): Prüft die Ladegröße von Kern und Manifest
+- [tools/update.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/tools/update.sh): Aktualisiert den lokalen Klon auf den neuesten Tag, mit Diff und Bestätigung
 
 ## Beitragen
-- [CONTRIBUTING.md](https://raw.githubusercontent.com/diren89/The-Swarm/main/CONTRIBUTING.md): anonym, allgemein, per Pull Request
+- [CONTRIBUTING.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/CONTRIBUTING.md): lokal sammeln, anonym, allgemein, Pull Request nur auf ausdrücklichen Wunsch

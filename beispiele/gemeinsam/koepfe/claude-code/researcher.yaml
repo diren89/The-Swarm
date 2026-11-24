@@ -1,0 +1,5 @@
+name: researcher
+description: "Tiefe Web- und Dokumentationsrecherche mit Quellenbewertung. Delegieren, wenn mehrere Quellen verglichen werden müssen; für lokale Dateien oder kurze Lookups reicht scout."
+tools: Read, Grep, Glob, WebSearch, WebFetch
+# model: <MODELL_MITTEL>  # Alias oder Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile erbt der Agent das Modell der Hauptsitzung
+maxTurns: 30

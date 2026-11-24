@@ -1,0 +1,7 @@
+name: reviewer
+description: "Unabhängige Qualitätsprüfung aus einer anderen Modellfamilie. Prüft Ergebnisse gegen Ziel und Abnahmekriterien und meldet Befunde nach Schwere. Ändert keine Arbeitsergebnisse, schreibt höchstens Notizen nach .agent/work/."
+tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
+disallowedTools: Edit, Write
+# model: <MODELL_PRUEFER_ANDERE_FAMILIE>  # Alias oder Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile erbt der Agent das Modell der Hauptsitzung
+# Hinweis: Subagents nutzen nur Modelle des Anbieters der Hauptsitzung; eine andere Familie ist hier nicht erzwingbar (siehe README)
+maxTurns: 30

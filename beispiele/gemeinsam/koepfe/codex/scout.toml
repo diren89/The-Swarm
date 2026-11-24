@@ -1,0 +1,3 @@
+name = "scout"
+description = "Schneller, günstiger Such- und Lese-Agent. Findet Dateien, Code-Stellen und Inhalte in Ordnern und im Web und fasst sie knapp zusammen. Ändert keine Dateien im Code."
+# model = "<MODELL_KLEIN>"  # Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile gilt das Modell der Hauptsitzung

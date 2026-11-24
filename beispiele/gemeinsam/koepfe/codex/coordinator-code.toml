@@ -1,0 +1,3 @@
+name = "coordinator-code"
+description = "Unter-Koordinator für abgegrenzte Code-Pakete (Stufe M/L), vom coordinator aufgerufen. Plant, delegiert an implementer, reviewer und scout, prüft. Schlanker Werkzeugsatz."
+# model = "<MODELL_GROSS>"  # Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile gilt das Modell der Hauptsitzung

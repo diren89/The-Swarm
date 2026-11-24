@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Selbsttest pruefen.sh
+# Selbsttest pruefen.sh, grundlast.sh und update.sh (Fälle 18 ff. mit eigenen Testdateien und Temp-Repo, unabhängig vom echten Manifest)
 P="$(cd "$(dirname "$0")" && pwd)/pruefen.sh"
 T=$(mktemp -d); pass=0; total=0
 chk() { total=$((total+1)); if [ "$2" = "$3" ]; then pass=$((pass+1)); echo "ok   $1"; else echo "FAIL $1 (erwartet '$3', war '$2')"; fi; }
@@ -37,4 +37,46 @@ run -t 'printf "Ran 3 tests in 0.0s\n\nOK (skipped=3)\n"'; chk "14 unittest alle
 run -t 'printf "Ran 3 tests in 0.0s\n\nOK (skipped=1)\n"'; echo "$out" | grep -q '^OK 0 tests=2 '; chk "15 unittest 3-1 skipped: tests=2" "$?" 0
 run 'echo "WARN: veraltet"; echo fertig'; echo "$out" | grep -q '^WARN 0 .*warn=1'; chk "16 WARN: erkannt" "$?" 0
 run -t 'printf "Ran 1 test in 0.0s\n\nOK (skipped=2)\n"'; chk "17 Subtests skipped>Ran mit -t: Exit 1" "$rc" 1; echo "$out" | grep -q 'tests=0 '; chk "17 tests=0 statt negativ" "$?" 0
+# --- grundlast.sh (Testdateien im Temp-Ordner, nicht das echte Regelwerk) ---
+GL="$(cd "$(dirname "$0")" && pwd)/grundlast.sh"
+mkgl() { rm -rf "$T/gl"; mkdir -p "$T/gl"; python3 -c "
+import sys
+d=sys.argv[1]
+for n,z in (('KERN.md',int(sys.argv[2])),('MANIFEST.md',int(sys.argv[3])),('LEARNINGS.md',int(sys.argv[4]))):
+    open(d+'/'+n,'w',encoding='utf-8').write('ä'*z)
+" "$T/gl" "$1" "$2" "$3"; }
+glrun() { out=$(bash "$GL" "$T/gl" 2>&1); rc=$?; }
+mkgl 5250 21000 99999; glrun; chk "18 grundlast genau an den Grenzen: Exit 0" "$rc" 0; echo "$out" | grep -q '^OK: grundlast'; chk "18 Schlusszeile OK" "$?" 0
+echo "$out" | grep -q '^INFO LEARNINGS.md 28572 '; chk "18 LEARNINGS nur INFO, Unicode-Zeichen statt Bytes" "$?" 0
+echo "$out" | grep -q '^OK   KERN.md 1500 / 1500'; chk "18 KERN 1500 / 1500" "$?" 0
+mkgl 5251 100 100; glrun; chk "19 KERN 1 Zeichen über Grenze: Exit 1" "$rc" 1; echo "$out" | grep -q '^FAIL KERN.md 1501 / 1500'; chk "19 FAIL-Zeile KERN" "$?" 0
+mkgl 100 21001 100; glrun; chk "20 MANIFEST über Grenze: Exit 1" "$rc" 1; echo "$out" | grep -q '^FAIL MANIFEST.md 6001 / 6000'; chk "20 FAIL-Zeile MANIFEST" "$?" 0
+echo "$out" | grep -q '^FAIL: grundlast'; chk "20 Schlusszeile FAIL" "$?" 0
+rm "$T/gl/MANIFEST.md"; glrun; chk "21 Datei fehlt: Exit 2" "$rc" 2
+mkgl 100 100 700000; glrun; chk "22 LEARNINGS groß: kein FAIL, Exit 0" "$rc" 0
+
+# --- update.sh (Temp-Repo mit zwei Tags) ---
+UP="$(cd "$(dirname "$0")" && pwd)/update.sh"
+if command -v git >/dev/null 2>&1; then
+  O="$T/up/origin"; K="$T/up/klon mit leerzeichen"; rm -rf "$T/up"; mkdir -p "$O"
+  G="git -c user.email=t@example.invalid -c user.name=Test -c commit.gpgsign=false -c tag.gpgsign=false"
+  ( cd "$O" && git init -q . && echo "kern 1" > KERN.md && echo "man 1" > MANIFEST.md && git add . && $G commit -q -m eins && git tag v1.0.0 ) >/dev/null 2>&1
+  git clone -q "$O" "$K" >/dev/null 2>&1; git -C "$K" checkout -q v1.0.0 >/dev/null 2>&1
+  uprun() { out=$(bash "$UP" "$@" 2>&1 < "${UPIN:-/dev/null}"); rc=$?; }
+  uprun "$K"; chk "23 update: bereits aktuell: Exit 0" "$rc" 0; echo "$out" | grep -q 'bereits auf v1.0.0'; chk "23 Meldung bereits aktuell" "$?" 0
+  ( cd "$O" && echo "kern 2" > KERN.md && git add . && $G commit -q -m zwei && git tag v1.1.0 ) >/dev/null 2>&1
+  printf 'n\n' > "$T/in_n"; UPIN="$T/in_n" uprun "$K"; chk "24 update Eingabe n: Exit 0" "$rc" 0
+  chk "24 kein Wechsel bei n" "$(git -C "$K" describe --tags --always)" v1.0.0
+  echo "$out" | grep -q 'Auf v1.1.0 wechseln? \[j/N\]'; chk "24 Frage mit neuem Tag" "$?" 0
+  echo "$out" | grep -q '^-kern 1'; chk "24 Diff von KERN.md gezeigt" "$?" 0
+  UPIN=/dev/null uprun "$K"; chk "25 update leere Eingabe (EOF): kein Wechsel" "$(git -C "$K" describe --tags --always)" v1.0.0
+  echo "x" >> "$K/KERN.md"; uprun -y "$K"; chk "26 lokale Änderung: Exit 1" "$rc" 1; chk "26 kein Wechsel bei lokaler Änderung" "$(git -C "$K" describe --tags --always)" v1.0.0
+  git -C "$K" checkout -q -- KERN.md
+  printf 'j\n' > "$T/in_j"; UPIN="$T/in_j" uprun "$K"; chk "27 update Eingabe j: Wechsel auf v1.1.0" "$(git -C "$K" describe --tags --always)" v1.1.0
+  git -C "$K" checkout -q v1.0.0; uprun -y "$K"; chk "28 update -y: Exit 0" "$rc" 0; chk "28 update -y: Wechsel ohne Frage" "$(git -C "$K" describe --tags --always)" v1.1.0
+  chk "29 detached HEAD, nicht auf Zweig" "$(git -C "$K" symbolic-ref -q HEAD || echo detached)" detached
+  uprun "$T/gibt-es-nicht"; chk "30 Klon fehlt: Exit 2" "$rc" 2
+else
+  echo "UNGEPRÜFT update.sh (git fehlt)"
+fi
 echo "Selbsttest: $pass/$total"; rm -rf "$T"; [ $pass -eq $total ]

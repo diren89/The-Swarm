@@ -1,5 +1,49 @@
 # Changelog
 
+## 2.0.0 · 2026-11-24
+
+Major: Die Arbeitsweise wird in einen kurzen Kern und ein Handbuch getrennt, Anweisungen werden nur noch von einem Tag geladen, und Learnings werden lokal gesammelt statt automatisch per Pull Request zurückgegeben. Bestehende Absätze in Anweisungsdateien müssen angepasst werden (siehe Breaking/Migration).
+
+### Neu
+
+- **`KERN.md`** (höchstens 1 500 Tokens): wird bei jeder Arbeit an Code geladen; enthält Vorrang (§0.3), Stufen (§0.1), Grundsätze (§1), Abnahme (§5.4), Befunde und Abbruch (§7.2), zerstörende Befehle (§5.5), Ausgabe an den Menschen (§5.6) und Lernen (§9).
+- **§0.2 Verankern** und **§0.3 Vorrang zwischen Ebenen:** Sicherheit und Rechte im Werkzeug > Nutzerin > Projektregeln und feste Projektdateien > Skill > Manifest und Kern.
+- **§2 Punkt 8:** vorhandenes Frage-Werkzeug des Agents für Rückfragen nutzen.
+- **§5.6 Ausgabe an den Menschen:** Ergebnis zuerst, Ungeprüftes benennen, nächste Aktion nennen.
+- **§6.1 feste Projektdateien** (`AGENTS.md`, `CLAUDE.md`, `DESIGN.md`, `CONTRIBUTING.md`).
+- **§9.1 Pflege des Regelwerks:** Obergrenzen (Kern 1 500, Manifest 6 000 Tokens), Verdichtung als fester Schritt vor jeder Minor-Version, Verfall von `neu` nach 30 Tagen ohne zweite Beobachtung.
+- **§10 Lernen lokal zuerst** und neue Versionslogik.
+- `learnings/archiv.md`: Archiv für übernommene, verfallene und verworfene Learnings (38 Einträge wortgleich umgezogen).
+- `playbooks/benchmark.md`: Verfahren zur Wirksamkeitsmessung mit und ohne The Swarm (vier feste Aufgabentypen, je mindestens drei Läufe, Kosten, Dauer, Qualität, Nacharbeit). Noch keine Ergebnisse.
+- `tools/grundlast.sh` (prüft die Ladegröße) und `tools/update.sh` (Update auf den neuesten Tag mit Diff und Bestätigung).
+- Learnings L-059 bis L-063 (Grundlast, Lieferkette, Versionslogik, externer Blick, lokale Lernschleife).
+
+### Geändert
+
+- **Verdichtung** `MANIFEST.md` von rund 8 300 auf unter 6 000 Tokens (Zeichen/3,5). Abschnittsnummern §0–§11 und Unterabschnitte unverändert; neu nur §0.3, §5.6, §9.1 und §2 Punkt 8.
+  - Durch Verweis auf `KERN.md` ersetzt: §1 Grundsätze, §5.4 Abnahme mit frischen Belegen, §7.2 Befunde mit Konfidenz und „gleicher Fehler dreimal“, §5.5 Liste der zerstörenden Git-Befehle. Ergänzungen, die nur im Manifest stehen (Ausnahme Aufräumen nach §5.3, kleineres Rundenlimit greift zuerst, unsichere Kleinigkeiten als offene Fragen), bleiben dort.
+  - Zusammengelegt ohne Bedeutungsänderung: §0 Abweichungsgründe, §5.1.1, §5.1.2, §5.2 (alle acht Pflichtteile), §5.3, §6.3, §7.3, §8, §9.
+  - Gestrichen: beschreibender Einleitungssatz; Beispiel zum Ersatz-Prüfweg in §8 (Regel bleibt); Werkzeughinweis auf den Selbsttest in §6.2 (steht in README und ANLEITUNG); der Begründungssatz in §7.1 („Code-Review lohnt erst nach Abnahme“), weil er in der Reihenfolge enthalten ist.
+
+- §9 Regelhürde: Eine Regel entsteht erst bei zwei unabhängigen Beobachtungen; „oder klar allgemein“ entfällt. Learnings haben das neue Feld **Beobachtungen**.
+- §10: Learnings werden nicht mehr als Standard per Pull Request zurückgegeben; Teilen nur auf ausdrückliche Anweisung der Nutzerin.
+- Versionslogik: Bedeutung geändert oder Regel gestrichen = Major; neue Regel oder Verdichtung ohne Bedeutungsänderung = Minor; Korrektur = Patch.
+- `LEARNINGS.md` enthält nur noch Einträge mit Status `neu`.
+- Lieferkette: alle Raw- und Blob-URLs nutzen den Tag `v2.0.0` statt `main`; jede Version wird getaggt. Der Klon wird auf den neuesten Tag ausgecheckt.
+- Import-Prompt, Copilot-Prompt, ANLEITUNG (§3, §7, §8), README und `llms.txt` auf 2.0.0 angepasst; README zeigt nur noch die aktuelle Version und verweist auf diesen Changelog (keine Versionstabelle mehr).
+- `CLAUDE.md` besteht nur noch aus `@AGENTS.md`; `AGENTS.md` enthält zusätzlich Regeln für die Arbeit am Repo.
+- CONTRIBUTING: Autorenangaben (nur Konto-Pseudonym oder noreply-Adresse), neue Pflege- und Versionsregeln.
+
+### Breaking/Migration
+
+- **Anweisungsdatei:** Den bisherigen Absatz „Arbeitsweise (Default für alle Code-Projekte)“ durch den neuen Absatz aus [ANLEITUNG §3.1](ANLEITUNG.md#31-claude-code) ersetzen: Kern immer lesen, Manifest ab Stufe M, in `LEARNINGS.md` nur Einträge mit Status neu.
+- **Lokaler Klon:** Einmalig von Hand auf den neuesten Tag wechseln, weil ältere Stände `tools/update.sh` noch nicht enthalten (`git -C ~/.the-swarm fetch --tags`, Diff mit `git -C ~/.the-swarm diff HEAD v2.0.0 -- MANIFEST.md KERN.md` ansehen, dann `git -C ~/.the-swarm checkout v2.0.0`) und künftig `bash ~/.the-swarm/tools/update.sh` statt `git pull` nutzen.
+- **Online-URLs:** `…/The-Swarm/main/…` durch `…/The-Swarm/v2.0.0/…` ersetzen; `main` wird nicht mehr als Quelle für Anweisungen empfohlen.
+- **Claude Code:** Den `@`-Import von `MANIFEST.md` auf `@~/.the-swarm/KERN.md` umstellen. Das Manifest wird nicht mehr importiert.
+- **Learnings:** Werden nicht mehr automatisch per Pull Request zurückgegeben, sondern lokal gesammelt (`.agent/learnings.md`); ein Pull Request entsteht nur auf ausdrücklichen Wunsch.
+- **Microsoft 365 Copilot:** Anweisungen und Wissensdateien aus der neuen `prompts/copilot.md` ersetzen (Tag-URLs).
+- Wer Verweise auf übernommene Learnings in `LEARNINGS.md` hat, findet sie jetzt in `learnings/archiv.md`.
+
 ## 1.5.1 · 2026-11-24
 
 Keine Regeländerung.

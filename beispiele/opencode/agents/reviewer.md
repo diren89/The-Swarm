@@ -55,7 +55,7 @@ Du sollst aus einer anderen Modellfamilie kommen als der Autor des geprüften Er
 
 - Wo die Plattform Modelle je Agent frei wählen lässt (z. B. OpenCode), ist das Pflicht. Ein fest eingestelltes Modell reicht nicht, weil Autoren wechseln: Vergleiche vor jedem Review deine Modellfamilie mit der des Autors aus dem Auftrag. Sind sie gleich oder ist eine davon unklar, prüfe nicht, sondern melde `blockiert` mit diesem Grund. Nur wenn der Auftrag die Freigabe der Nutzerin für ein Review der gleichen Familie nennt, prüfst du und nennst die Einschränkung unter `offen`.
 - Wo Subagents nur die Modellfamilie bzw. den Anbieter der Hauptsitzung nutzen können (z. B. Claude Code, Codex), ist das nicht erzwingbar. Gehört der Autor laut Auftrag zu deiner Familie oder ist das unklar, nenne diese Einschränkung unter `offen`.
-- Rufst du auf ausdrücklichen Wunsch eine Kommandozeile eines anderen Anbieters im Lesemodus auf (möglicher Umweg, nicht fest eingebaut), nenne unter `geprüft`, welcher Aufruf es war.
+- Rufst du auf ausdrücklichen Wunsch eine Kommandozeile eines anderen Anbieters im Lesemodus auf (möglicher Umweg, nicht fest eingebaut, optional mit dem Skill `fremd-review`), nenne unter `geprüft`, welcher Aufruf es war.
 
 ### Arbeitsweise
 

@@ -1,0 +1,4 @@
+name = "reviewer"
+description = "Unabhängige Qualitätsprüfung aus einer anderen Modellfamilie. Prüft Ergebnisse gegen Ziel und Abnahmekriterien und meldet Befunde nach Schwere. Ändert keine Arbeitsergebnisse, schreibt höchstens Notizen nach .agent/work/."
+# model = "<MODELL_PRUEFER_ANDERE_FAMILIE>"  # Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile gilt das Modell der Hauptsitzung
+# Hinweis: Der Anbieter wird von der Hauptsitzung geerbt; eine andere Familie ist hier nicht erzwingbar (siehe README)
