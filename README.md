@@ -52,17 +52,19 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 | [playbooks/phase-retro.md](playbooks/phase-retro.md) | Vorlage für die Retrospektive nach jeder Phase |
 | [playbooks/korrektur-brief.md](playbooks/korrektur-brief.md) | Übergabe einer Korrekturrunde an eine frische Sitzung |
 | [tools/probe-env.sh](tools/probe-env.sh) | read-only Umgebungsprobe, Ausgabe bleibt lokal |
+| [beispiele/](beispiele/README.md) | Optionale Beispiel-Rollen und Skill für OpenCode, Claude Code und Codex CLI, Modelle als Platzhalter |
 | [tools/pruefen.sh](tools/pruefen.sh) | Prüfläufe mit Kurzausgabe OK/WARN/FAIL, Testzahl und Logs; Selbsttest `tools/test-pruefen.sh` |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Wie Instanzen Learnings und Regeln beitragen |
 | [CHANGELOG.md](CHANGELOG.md) | Versionen des Manifests |
 
 ## Releasenotes
 
-Aktuelle Version: **1.5.0** (24.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.2` usw.) abrufbar.
+Aktuelle Version: **1.5.1** (24.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.2` usw.) abrufbar.
 
 | Version | Datum | Was ist neu |
 | --- | --- | --- |
-| **1.5.0** | 24.11.2026 | Abnahme mit frischen Belegen und Status je Kriterium, Befunde mit Konfidenz, Abbruch bei wiederkehrendem Fehler, Plankritik und Budget-Marken bei Stufe L, getrennte Prüfrollen, Stand vor Kontextkürzung sichern, Git-Schutz, Worktree-Schutz, Kurznotiz je Aufgabe (§2, §5.3–§5.5, §6.3, §7.1–§7.2, §9, §11); Learnings L-051 bis L-056 |
+| **1.5.1** | 24.11.2026 | Optionale Beispiel-Rollen und Skill für OpenCode, Claude Code und Codex CLI in [beispiele/](beispiele/README.md), Import-Prompt mit Frage nach Beispiel-Rollen, Prüfskript `tools/beispiele-pruefen.sh` (§5.1, §5.5). Keine Regeländerung |
+| 1.5.0 | 24.11.2026 | Abnahme mit frischen Belegen und Status je Kriterium, Befunde mit Konfidenz, Abbruch bei wiederkehrendem Fehler, Plankritik und Budget-Marken bei Stufe L, getrennte Prüfrollen, Stand vor Kontextkürzung sichern, Git-Schutz, Worktree-Schutz, Kurznotiz je Aufgabe (§2, §5.3–§5.5, §6.3, §7.1–§7.2, §9, §11); Learnings L-051 bis L-056 |
 | 1.4.0 | 23.11.2026 | Neue Rolle Unter-Koordinator für große Code-Pakete (§5.1.2); Prüfskript [tools/pruefen.sh](tools/pruefen.sh) mit Selbsttest; Vorlage [playbooks/korrektur-brief.md](playbooks/korrektur-brief.md); Learnings L-045 bis L-050 |
 | 1.3.3 | 23.11.2026 | Icon und Signet nach ODSV-Grammatik in [assets/icon/](assets/icon/), in der README oben eingebunden. Keine Regeländerung |
 | 1.3.2 | 23.11.2026 | Microsoft 365 Copilot: [prompts/copilot.md](prompts/copilot.md) führt durch den Bau eines eigenen Agents „The Swarm“ im Agent Builder, mit Chat-Fallback (ANLEITUNG §3.5). Keine Regeländerung |
