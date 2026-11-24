@@ -1,0 +1,16 @@
+# Beispiel für ~/.codex/rules/the-swarm.rules (Starlark). EXPERIMENTELL und UNGEPRÜFT.
+# Zerstörende Git-Befehle sind ohne ausdrückliche Freigabe der Nutzerin verboten (MANIFEST §5.5).
+# Das Muster ist ein exakter argv-Präfix, kein Shell-Glob; verschachtelte Aufrufe wie `git -C <ordner> push` greifen NICHT.
+# Die Regeln gelten für die ganze Sitzung (Haupt- und Subagents) und regeln Befehle außerhalb der Sandbox;
+# Sandbox und Freigaberichtlinie bleiben der primäre Schutz.
+
+prefix_rule(pattern=["git", "push"], decision="forbidden", justification="Kein Push ohne Freigabe der Nutzerin.")
+prefix_rule(pattern=["git", "reset", "--hard"], decision="forbidden", justification="Zerstört ungesicherte Änderungen.")
+prefix_rule(pattern=["git", "clean"], decision="forbidden", justification="Löscht unversionierte Dateien.")
+prefix_rule(pattern=["git", "branch", "-D"], decision="forbidden", justification="Löscht Zweige ohne Merge-Prüfung.")
+prefix_rule(pattern=["git", "tag", "-d"], decision="forbidden", justification="Löscht Tags.")
+prefix_rule(pattern=["git", "tag", "--delete"], decision="forbidden", justification="Löscht Tags.")
+prefix_rule(pattern=["git", "filter-branch"], decision="forbidden", justification="Schreibt die Historie um.")
+prefix_rule(pattern=["git", "filter-repo"], decision="forbidden", justification="Schreibt die Historie um.")
+prefix_rule(pattern=["git", "update-ref", "-d"], decision="forbidden", justification="Löscht Referenzen.")
+prefix_rule(pattern=["git", "worktree", "remove", "--force"], decision="forbidden", justification="Verwirft ungesicherte Änderungen im Arbeitsbaum.")
