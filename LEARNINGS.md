@@ -6,6 +6,22 @@ Felder je Eintrag: **Kontext** (anonym) · **Beobachtung** · **Regel** · **Sta
 
 ---
 
+## 2026-11-24 · Projektordner mit laufenden Sitzungen verschieben
+
+Kontext: Mehrere Projektordner sollten in einen anderen Sammelordner wandern, ohne dass gespeicherte Agent-Sitzungen, Plugins oder Verweise in der Agent-Konfiguration brechen.
+
+### L-057 · Verschieben mit Symlink am alten Ort
+- **Beobachtung:** Das Agent-Werkzeug speichert zu jeder Sitzung das Arbeitsverzeichnis als absoluten Pfad, ebenso Logs, Notizen und Konfigurationsverweise. Ein bloßes Verschieben hätte diese Pfade gebrochen. Verschieben und am alten Ort einen Symlink auf den neuen Ort anlegen hielt alles lauffähig, ohne die Sitzungsdatenbank anzufassen.
+- **Regel:** Vor dem Verschieben die Sitzungsablage und die Konfiguration nach dem alten Pfad durchsuchen und prüfen, dass kein Prozess im Ordner arbeitet. Dann verschieben, am alten Ort einen Symlink setzen und interne Datenbanken des Werkzeugs nicht von Hand umschreiben.
+- **Status:** neu
+
+### L-058 · Ladepfade direkt auf das Ziel
+- **Beobachtung:** Ein Plugin-Pfad in der Konfiguration hätte über den Symlink weiter funktioniert, wäre aber still kaputtgegangen, sobald jemand den vermeintlich überflüssigen Symlink entfernt.
+- **Regel:** Pfade, aus denen Code geladen wird (Plugins, Skripte, Skills), nach einem Umzug direkt auf den neuen Ort setzen und das Laden prüfen. Der Symlink dient nur Altbeständen wie Sitzungen, Logs und Notizen.
+- **Status:** neu
+
+---
+
 ## 2026-11-24 · Regeln für Abnahme, Abbruch und Zustand
 
 Kontext: Ein Koordinator prüfte seine Arbeitsweise gegen wiederkehrende Schwachstellen aus früheren Aufgaben: Korrekturschleifen ohne Fortschritt, Review-Runden für unsichere Befunde, Abnahmen mit veralteten Belegen, verlorener Stand nach Kontextkürzung.
