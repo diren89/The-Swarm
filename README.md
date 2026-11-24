@@ -58,11 +58,12 @@ Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Req
 
 ## Releasenotes
 
-Aktuelle Version: **1.4.0** (23.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.2` usw.) abrufbar.
+Aktuelle Version: **1.5.0** (24.11.2026). Alle Details stehen im [CHANGELOG.md](CHANGELOG.md), jede Version ist als Git-Tag (`v1.3.2` usw.) abrufbar.
 
 | Version | Datum | Was ist neu |
 | --- | --- | --- |
-| **1.4.0** | 23.11.2026 | Neue Rolle Unter-Koordinator für große Code-Pakete (§5.1.2); Prüfskript [tools/pruefen.sh](tools/pruefen.sh) mit Selbsttest; Vorlage [playbooks/korrektur-brief.md](playbooks/korrektur-brief.md); Learnings L-045 bis L-050 |
+| **1.5.0** | 24.11.2026 | Abnahme mit frischen Belegen und Status je Kriterium, Befunde mit Konfidenz, Abbruch bei wiederkehrendem Fehler, Plankritik und Budget-Marken bei Stufe L, getrennte Prüfrollen, Stand vor Kontextkürzung sichern, Git-Schutz, Worktree-Schutz, Kurznotiz je Aufgabe (§2, §5.3–§5.5, §6.3, §7.1–§7.2, §9, §11); Learnings L-051 bis L-056 |
+| 1.4.0 | 23.11.2026 | Neue Rolle Unter-Koordinator für große Code-Pakete (§5.1.2); Prüfskript [tools/pruefen.sh](tools/pruefen.sh) mit Selbsttest; Vorlage [playbooks/korrektur-brief.md](playbooks/korrektur-brief.md); Learnings L-045 bis L-050 |
 | 1.3.3 | 23.11.2026 | Icon und Signet nach ODSV-Grammatik in [assets/icon/](assets/icon/), in der README oben eingebunden. Keine Regeländerung |
 | 1.3.2 | 23.11.2026 | Microsoft 365 Copilot: [prompts/copilot.md](prompts/copilot.md) führt durch den Bau eines eigenen Agents „The Swarm“ im Agent Builder, mit Chat-Fallback (ANLEITUNG §3.5). Keine Regeländerung |
 | 1.3.1 | 23.11.2026 | Releasenotes in der README sind bei jeder Version Pflicht, Tag nach dem Merge ([CONTRIBUTING](CONTRIBUTING.md)). Keine Regeländerung |
