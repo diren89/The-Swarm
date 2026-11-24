@@ -6,13 +6,15 @@
 
 | Ordner | Inhalt |
 |---|---|
-| [gemeinsam/](gemeinsam/) | `rollen.md` (Rollentexte, eine Quelle für alle Werkzeuge), Skill `orchestrierung` mit Vorlagen (`auftrag`, `bericht`, `korrektur-brief`, `phasenplan`) |
+| [gemeinsam/](gemeinsam/) | `rollen.md` (Rollentexte, eine Quelle für alle Werkzeuge), `koepfe/` (YAML-/TOML-Kopf je Werkzeug und Rolle), Skill `orchestrierung` mit Vorlagen (`auftrag`, `bericht`, `korrektur-brief`, `phasenplan`), optionaler Skill `fremd-review` (Review über die Kommandozeile eines anderen Anbieters, nicht erprobt) |
 | [opencode/](opencode/) | 7 Agentdateien (`.md`, YAML-Kopf), `opencode.json.ausschnitt`, README |
 | [claude-code/](claude-code/) | 6 Agentdateien (`.md`), `CLAUDE.md.ausschnitt` (Koordinator-Text), `settings.json.ausschnitt`, README |
 | [codex/](codex/) | 6 Agentdateien (`.toml`), `AGENTS.md.ausschnitt` (Koordinator-Text), `config.toml.ausschnitt`, `rules/the-swarm.rules`, README |
 | [probe/](probe/) | `git-sperren.md`: Probe der Git-Sperren im Wegwerf-Repo |
 
 In Claude Code und Codex ist der Koordinator die Hauptsitzung; sein Text steht im jeweiligen Ausschnitt statt in einer Agentdatei.
+
+**Die Agentdateien und der Koordinator-Abschnitt der Ausschnitte sind erzeugt.** Ändern nur in `gemeinsam/rollen.md` (Text) bzw. `gemeinsam/koepfe/` (Kopf), dann `python3 tools/beispiele-bauen.py`. Nicht von Hand in den Werkzeugordnern ändern; `tools/beispiele-pruefen.sh` meldet jede abweichende Datei.
 
 ## Rollen
 
@@ -46,8 +48,8 @@ In den Agentdateien stehen die Modellzeilen **auskommentiert** (`# model: …`).
 | Werkzeug | Verhalten |
 |---|---|
 | OpenCode | **Pflicht.** Modelle sind je Agent frei wählbar (`provider/modell`); `reviewer` und die Plankritik laufen mit einem Modell anderer Familie. Ist dort kein Modell einer anderen Familie verfügbar, weist der Koordinator darauf hin und fragt die Nutzerin, ob das Review mit dem gleichen Modell bzw. der gleichen Familie erfolgen soll, nicht stillschweigend. |
-| Claude Code | **Nicht erzwingbar.** Subagents nutzen nur Modelle des Anbieters der Hauptsitzung. Nur Hinweis in Rollentext und README. Möglicher Umweg, nicht fest eingebaut: die Kommandozeile eines anderen Anbieters im Lesemodus per Shell aufrufen. |
-| Codex | **Nicht erzwingbar.** Der Anbieter wird von der Hauptsitzung geerbt. Hinweis und Umweg wie bei Claude Code. |
+| Claude Code | **Nicht erzwingbar.** Subagents nutzen nur Modelle des Anbieters der Hauptsitzung. Nur Hinweis in Rollentext und README. Möglicher Umweg, nicht fest eingebaut: die Kommandozeile eines anderen Anbieters im Lesemodus per Shell aufrufen, optional mit dem Skill [`fremd-review`](gemeinsam/skill-fremd-review/SKILL.md) (nicht erprobt). |
+| Codex | **Nicht erzwingbar.** Der Anbieter wird von der Hauptsitzung geerbt. Hinweis und Umweg (optional Skill `fremd-review`) wie bei Claude Code. |
 
 ## Grenzen je Werkzeug (§5.5 „Grenzen ehrlich benennen“)
 
@@ -70,4 +72,4 @@ In den Agentdateien stehen die Modellzeilen **auskommentiert** (`# model: …`).
 
 ## Konsistenz
 
-`tools/beispiele-pruefen.sh` prüft, dass der Rollentext jeder Rolle aus `gemeinsam/rollen.md` in allen Werkzeugdateien identisch steht (verhindert Drift), dass YAML-Köpfe, TOML- und JSON-Dateien lesbar sind und dass keine Namen, Pfade oder Modellnamen enthalten sind. Ein grünes Skript sagt nichts über das Laufzeitverhalten.
+`tools/beispiele-pruefen.sh` prüft, dass jede erzeugte Datei dem Ergebnis von `python3 tools/beispiele-bauen.py` entspricht (erzeugt == eingecheckt), dass der Rollentext jeder Rolle aus `gemeinsam/rollen.md` in allen Werkzeugdateien identisch steht (verhindert Drift), dass YAML-Köpfe, TOML- und JSON-Dateien lesbar sind und dass keine Namen, Pfade oder Modellnamen enthalten sind. Ein grünes Skript sagt nichts über das Laufzeitverhalten.

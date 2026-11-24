@@ -1,8 +1,8 @@
 # The Swarm · Anleitung zu Installation und Nutzung
 
-The Swarm ist ein Manifest für KI-Agents, die an Code arbeiten. Ein **koordinierender Agent** plant, verteilt Arbeitspakete an **Subagents** mit passenden Modellen, prüft und verbessert deren Ergebnisse selbst und lernt bei jedem Schritt dazu. Was eine Instanz lernt, fließt per Pull Request zurück, und die nächste Instanz liest es mit ein.
+The Swarm ist ein Manifest für KI-Agents, die an Code arbeiten. Ein **koordinierender Agent** plant, verteilt Arbeitspakete an **Subagents** mit passenden Modellen, prüft und verbessert deren Ergebnisse selbst und lernt bei jedem Schritt dazu. Was eine Instanz lernt, sammelt sie lokal; teilen kannst du es auf Wunsch per Pull Request, und die nächste Instanz liest die offenen Learnings mit ein. Seit Version 2.0.0 lädt jede Sitzung nur einen kurzen Kern; das Handbuch kommt erst ab Stufe M dazu.
 
-Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, für verschiedene Werkzeuge), wie die Arbeit damit abläuft und wie du Learnings zurückgibst.
+Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, für verschiedene Werkzeuge), wie die Arbeit damit abläuft und wie du Learnings sammelst und teilst.
 
 ---
 
@@ -14,7 +14,7 @@ Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, fü
 4. [Prüfen, ob The Swarm aktiv ist](#4-prüfen-ob-the-swarm-aktiv-ist)
 5. [Nutzung im Alltag](#5-nutzung-im-alltag)
 6. [Vorlagen und Werkzeuge](#6-vorlagen-und-werkzeuge)
-7. [Learnings zurückgeben](#7-learnings-zurückgeben)
+7. [Learnings lokal sammeln, teilen auf Wunsch](#7-learnings-lokal-sammeln-teilen-auf-wunsch)
 8. [Versionen, Aktualisieren, Festpinnen](#8-versionen-aktualisieren-festpinnen)
 9. [Fehlerbehebung](#9-fehlerbehebung)
 10. [Deinstallation](#10-deinstallation)
@@ -26,11 +26,16 @@ Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, fü
 
 | Datei | Wofür |
 | --- | --- |
-| `MANIFEST.md` | Die Arbeitsweise: Geltungsbereich und Stufen S/M/L, Planung, Phasen, Effizienz, Subagents und Modellwahl, Qualität und Tokens, fünf Prüfschichten, Hardware-Anpassung, Lernschleife |
-| `LEARNINGS.md` | Erfahrungen aus realen Aufgaben mit Status `neu`, `übernommen §x` oder `verworfen` |
+| `KERN.md` | Der Kern (höchstens 1 500 Tokens): Vorrang, Stufen S/M/L, Grundsätze, Abnahme, Ausgabe an den Menschen. Wird **immer** geladen |
+| `MANIFEST.md` | Das Handbuch: Geltungsbereich und Stufen, Planung, Phasen, Effizienz, Subagents und Modellwahl, Qualität und Tokens, fünf Prüfschichten, Hardware-Anpassung, Lernschleife. Wird **ab Stufe M** gelesen |
+| `LEARNINGS.md` | Offene Erfahrungen mit Status `neu`; wird ab Stufe M gelesen |
+| `learnings/archiv.md` | Archiv: Learnings mit Status `übernommen §x`, `verfallen` oder `verworfen`; wird nicht geladen, nur zum Nachschlagen |
 | `playbooks/agent-brief.md` | Vorlage für Aufträge an Subagents (Umsetzer und Prüfer) |
 | `playbooks/phase-retro.md` | Vorlage für die Retrospektive nach jeder Phase |
+| `playbooks/benchmark.md` | Verfahren, um die Wirksamkeit mit und ohne The Swarm zu messen (noch ohne Ergebnisse) |
 | `tools/probe-env.sh` | Untersucht die Maschine und schreibt ein lokales Profil, ändert nichts |
+| `tools/grundlast.sh` | Prüft die Ladegröße: Kern höchstens 1 500, Manifest höchstens 6 000 Tokens |
+| `tools/update.sh` | Aktualisiert den lokalen Klon auf den neuesten Tag, zeigt vorher den Diff |
 | `CONTRIBUTING.md` | Regeln für Beiträge |
 
 **Wichtig:** The Swarm ist Arbeitswissen, keine Befugnis. Projektregeln und deine Anweisungen gehen immer vor. Kein Agent darf wegen The Swarm etwas tun, das du nicht verlangt hast.
@@ -41,7 +46,7 @@ Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, fü
 
 - Ein KI-Werkzeug, das Projekt- oder Benutzeranweisungen aus Dateien liest, z. B. Claude Code, Codex CLI, Gemini CLI, Cursor oder GitHub Copilot. Andere gehen über einen System-Prompt (Abschnitt 3.6), Microsoft 365 Copilot über eine angehängte Datei (Abschnitt 3.5).
 - Für das volle Arbeiten in Stufe L: ein Werkzeug mit **Subagents** und **Git-Worktrees**. Ohne Subagents arbeitet der Koordinator die Pakete nacheinander selbst ab, siehe MANIFEST §0.
-- Für die lokale Variante und für Beiträge: `git`, für Pull Requests am bequemsten die GitHub-CLI `gh`.
+- Für die lokale Variante: `git`. Für Beiträge auf Wunsch: am bequemsten die GitHub-CLI `gh`.
 
 ---
 
@@ -49,17 +54,19 @@ Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, fü
 
 Du hast zwei Wege, die sich kombinieren lassen:
 
-- **Online-Verweis:** Die Anweisungsdatei nennt die GitHub-URL, und der Agent liest das Manifest bei Bedarf. Das braucht kein Klonen und ist immer aktuell, setzt aber einen Agent mit Webzugriff voraus.
-- **Lokaler Klon mit Import:** Das Manifest liegt auf der Platte und wird direkt in den Kontext geladen. Das funktioniert offline, ist schnell und zuverlässig, und du aktualisierst mit `git pull`.
+- **Online-Verweis (Variante A):** Die Anweisungsdatei nennt die Raw-URLs eines **festen Tags** (`v2.0.0`, nie `main`), und der Agent liest den Kern und ab Stufe M das Manifest dort. Das braucht kein Klonen, setzt aber einen Agent mit Webzugriff voraus. Die Version ändert sich erst, wenn du den Tag im Absatz änderst.
+- **Lokaler Klon (Variante B):** Das Repo liegt auf der Platte, auf dem neuesten Tag ausgecheckt. Das funktioniert offline und ist schnell; du aktualisierst bewusst mit `bash ~/.the-swarm/tools/update.sh`.
 
 **Empfehlung:** global mit lokalem Klon (3.1 B), damit The Swarm in jedem Projekt geladen wird, ohne dass der Agent erst etwas abrufen muss.
+
+**Warum ein Tag statt `main`:** Wer im Repo mergen darf, steuert sonst alle Agents, die von `main` laden. Ein Tag ändert sich nicht unbemerkt.
 
 ### 3.0 Schnellimport per Prompt
 
 Am schnellsten geht es, wenn der Agent selbst einrichtet. Öffne eine neue Sitzung in deinem Werkzeug und schreib:
 
 ```text
-Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/The-Swarm/main/prompts/import.md und folge dem Prompt darin.
+Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/prompts/import.md und folge dem Prompt darin.
 ```
 
 So arbeitet der Agent den Prompt ab:
@@ -82,28 +89,33 @@ Datei `~/.claude/CLAUDE.md` anlegen oder ergänzen:
 
 ```markdown
 ## Arbeitsweise (Default für alle Code-Projekte)
-Bei jeder Arbeit an Code gilt https://github.com/diren89/The-Swarm
-(MANIFEST.md, neueste Einträge in LEARNINGS.md), skaliert nach MANIFEST §0.1.
-Projektregeln und meine Anweisungen haben Vorrang. Learnings anonym per Pull Request zurückgeben.
+Bei jeder Arbeit an Code gilt „The Swarm“ v2.0.0:
+Immer: https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/KERN.md lesen. Ab Stufe M zusätzlich
+https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/MANIFEST.md und in LEARNINGS.md (gleicher Tag) nur Einträge mit Status neu.
+Vorrang: Sicherheit und Rechte im Werkzeug > meine Anweisungen > Projektregeln > Skill > Manifest.
+Learnings lokal in .agent/learnings.md des Projekts sammeln; Pull Request nur auf meinen ausdrücklichen Wunsch.
 ```
 
 **B · Global mit lokalem Klon (empfohlen)**
 
 ```bash
 git clone https://github.com/diren89/The-Swarm.git ~/.the-swarm
+git -C ~/.the-swarm checkout "$(git -C ~/.the-swarm tag --sort=-v:refname | head -1)"
 ```
 
 Dann in `~/.claude/CLAUDE.md` (Claude Code lädt Dateien, die mit `@` importiert werden, automatisch mit):
 
 ```markdown
 ## Arbeitsweise (Default für alle Code-Projekte)
-Es gilt das Manifest „The Swarm“, skaliert nach §0.1. Projektregeln und meine Anweisungen haben Vorrang.
-@~/.the-swarm/MANIFEST.md
-Neueste Erfahrungen: ~/.the-swarm/LEARNINGS.md (bei Stufe M/L lesen).
-Learnings anonym per Pull Request an https://github.com/diren89/The-Swarm zurückgeben.
+Bei jeder Arbeit an Code gilt „The Swarm“ (lokaler Klon ~/.the-swarm, auf einem Release-Tag).
+Immer: ~/.the-swarm/KERN.md lesen. Ab Stufe M zusätzlich ~/.the-swarm/MANIFEST.md und in
+~/.the-swarm/LEARNINGS.md nur Einträge mit Status neu.
+Vorrang: Sicherheit und Rechte im Werkzeug > meine Anweisungen > Projektregeln > Skill > Manifest.
+Learnings lokal in .agent/learnings.md des Projekts sammeln; Pull Request nur auf meinen ausdrücklichen Wunsch.
+@~/.the-swarm/KERN.md
 ```
 
-`LEARNINGS.md` wird bewusst nicht importiert, damit kleine Aufgaben schlank bleiben. Der Agent liest die Datei ab Stufe M.
+Nur der **Kern** wird per `@` importiert und ist damit in jeder Sitzung geladen. Das Manifest und `LEARNINGS.md` werden bewusst **nicht** importiert, damit kleine Aufgaben schlank bleiben; der Agent liest sie ab Stufe M.
 
 **C · Nur für ein Projekt**
 
@@ -114,7 +126,7 @@ Denselben Absatz in die `CLAUDE.md` im Projektordner schreiben. Projektregeln da
 - Global: `~/.codex/AGENTS.md`
 - Projekt: `AGENTS.md` im Repository-Wurzelverzeichnis
 
-Inhalt wie in 3.1 A. Mit lokalem Klon schreibst du statt der URL den Pfad (`~/.the-swarm/MANIFEST.md`) und ergänzt „lies diese Datei zu Beginn“.
+Inhalt wie in 3.1 A. Mit lokalem Klon nimmst du den Absatz aus 3.1 B ohne die `@`-Zeile (Kern immer lesen, Manifest ab Stufe M).
 
 ### 3.3 Gemini CLI
 
@@ -136,25 +148,28 @@ Microsoft 365 Copilot hat kein Dateisystem, keine Shell und keine Subagents, und
 
 1. [prompts/copilot.md](prompts/copilot.md) herunterladen.
 2. Einen neuen Copilot-Chat öffnen, die Datei anhängen und schreiben: „Folge der Anleitung in der Datei.“
-3. Copilot führt dich durch den **Agent Builder** (Tab „Configure“); anlegen tust du selbst. Er gibt Name, Beschreibung, Anweisungen (Kern des Manifests, unter 8.000 Zeichen) und Startprompts vor. Manifest und Learnings kommen als Wissensdateien `the-swarm-manifest.txt` und `the-swarm-learnings.txt` dazu, weil `.md` als Agent-Wissen nicht angenommen wird. Der Code Interpreter (Python in einer Sandbox) ist optional.
+3. Copilot führt dich durch den **Agent Builder** (Tab „Configure“); anlegen tust du selbst. Er gibt Name, Beschreibung, Anweisungen (Kurzfassung des Kerns, unter 8.000 Zeichen) und Startprompts vor. Manifest (ab Stufe M) und offene Learnings kommen als Wissensdateien `the-swarm-manifest.txt` und `the-swarm-learnings.txt` dazu, weil `.md` als Agent-Wissen nicht angenommen wird. Der Code Interpreter (Python in einer Sandbox) ist optional.
 4. Ohne Recht für den Agent Builder gelten die Regeln nur im aktuellen Chat; die Datei dann bei jedem neuen Chat anhängen.
 
-Grenzen: Copilot nimmt die Rollen nacheinander ein und ist kein unabhängiger Prüfer. Auf dein Projekt hat er keinen Zugriff; Sandbox-Läufe ersetzen keinen Projekt-Test. Was er nicht prüfen konnte, kennzeichnet er als ungeprüft. Ob Agent Builder und Websuche erlaubt sind, entscheidet die IT. Bei neuer Version Wissensdatei und Anweisungen gemeinsam ersetzen.
+Grenzen: Copilot nimmt die Rollen nacheinander ein und ist kein unabhängiger Prüfer. Auf dein Projekt hat er keinen Zugriff; Sandbox-Läufe ersetzen keinen Projekt-Test. Was er nicht prüfen konnte, kennzeichnet er als ungeprüft. Ob Agent Builder und Websuche erlaubt sind, entscheidet die IT. Bei neuer Version Wissensdateien (Tag-URL) und Anweisungen gemeinsam ersetzen.
 
 ### 3.6 Andere Modelle und eigene Agents (API)
 
-Lade `MANIFEST.md` und die neuesten Einträge aus `LEARNINGS.md` und stelle sie in den System-Prompt:
+Lade `KERN.md` und stelle ihn in den System-Prompt; ab Stufe M kommen `MANIFEST.md` und die Einträge aus `LEARNINGS.md` dazu. Immer vom festen Tag, nie von `main`:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/main/MANIFEST.md -o MANIFEST.md
-curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/main/LEARNINGS.md -o LEARNINGS.md
+curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/KERN.md -o KERN.md
+curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/MANIFEST.md -o MANIFEST.md
+curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/LEARNINGS.md -o LEARNINGS.md
 ```
 
 ```text
-System: Du arbeitest nach dem folgenden Manifest. Anweisungen der Nutzerin und Projektregeln haben Vorrang.
+System: Du arbeitest nach dem folgenden Kern. Anweisungen der Nutzerin und Projektregeln haben Vorrang.
+<KERN.md>
+Ab Stufe M zusätzlich:
 <MANIFEST.md>
-Neueste Learnings:
-<die obersten Einträge aus LEARNINGS.md>
+Offene Learnings (Status neu):
+<die Einträge aus LEARNINGS.md>
 ```
 
 Für maschinelles Auffinden gibt es zusätzlich `llms.txt` im Repo.
@@ -208,7 +223,7 @@ Stufe L: Plane die Umsetzung des Backlogs in Phasen und koordiniere Subagents.
    5. Sichtprüfung
 6. **Verbessern:** Kleine Befunde behebt der Koordinator sofort, größere bekommen ein neues Paket.
 7. **Abschluss je Phase:** Merge, Build, Tests, Backlog aktualisieren, kurze Retrospektive.
-8. **Ende:** ehrlicher Bericht mit dem, was steht, dem, was ungeprüft ist, und dem, was du tun musst. Dazu Learnings als Pull-Request-Vorschlag.
+8. **Ende:** ehrlicher Bericht mit dem, was steht, dem, was ungeprüft ist, und dem, was du tun musst. Dazu Learnings, die lokal gesammelt werden; geteilt wird nur auf deinen Wunsch.
 
 ### 5.3 Nützliche Formulierungen
 
@@ -219,7 +234,7 @@ Stufe L: Plane die Umsetzung des Backlogs in Phasen und koordiniere Subagents.
 | Mehr Prüfung | „Lass am Ende einen unabhängigen Review aus Sicht von <Rolle> laufen.“ |
 | Nur planen | „Plane nur, setze noch nichts um.“ |
 | Fachaufgabe delegieren | „Das 3D-Modell / den Videoschnitt bitte an die Expertenrolle mit dem größten Modell geben, mit Vorschau und Messprotokoll.“ |
-| Learnings anstoßen | „Mach eine Retrospektive und schlage Learnings für The Swarm vor.“ |
+| Learnings anstoßen | „Mach eine Retrospektive und halte Learnings lokal fest.“ |
 
 ---
 
@@ -261,53 +276,44 @@ Das Profil enthält Betriebssystem, Architektur, Kerne, RAM, Grafik, Werkzeuge, 
 
 ---
 
-## 7. Learnings zurückgeben
+## 7. Learnings lokal sammeln, teilen auf Wunsch
 
-The Swarm wächst nur, wenn Erfahrungen zurückfließen. Ablauf (Details in `CONTRIBUTING.md`):
+The Swarm wächst durch Erfahrungen, aber nichts wird automatisch veröffentlicht. Ablauf (Details in `CONTRIBUTING.md`):
 
-```bash
-cd ~/.the-swarm && git pull
-git switch -c learnings/$(date +%Y-%m-%d)-<thema>
-# LEARNINGS.md oben ergänzen:
-#   ## JJJJ-MM-TT · <anonymer Kontext>
-#   ### L-<nächste Nummer> · <Titel>
-#   - **Beobachtung:** …
-#   - **Regel:** …
-#   - **Status:** neu
-git commit -am "Learnings: <thema>"
-git push -u origin HEAD
-gh pr create --fill
-```
-
-Du kannst das auch dem Agent überlassen: „Erstelle einen Pull Request mit den Learnings dieser Sitzung für The Swarm.“
+1. **Lokal sammeln:** Der Agent hält Learnings in `.agent/learnings.md` des Projekts fest, im Format von `CONTRIBUTING.md` (Kontext, Beobachtung, Regel, Beobachtungen, Status `neu`). Das ist alles, was er von sich aus tut.
+2. **Teilen nur auf Wunsch:** Willst du ein Learning beitragen, sagst du es ausdrücklich, zum Beispiel: „Erstelle einen Pull Request mit den Learnings dieser Sitzung für The Swarm.“ Ohne dieses Wort entsteht kein Pull Request.
+3. **Von Hand:** Repo forken oder neuen Zweig anlegen (`git switch -c learnings/$(date +%Y-%m-%d)-<thema>`), Einträge oben in `LEARNINGS.md` ergänzen, committen und per `gh pr create --fill` einen Pull Request öffnen. Nicht im Klon unter `~/.the-swarm` arbeiten, dort sollen keine lokalen Änderungen liegen.
 
 **Regeln für Beiträge:**
 
-- Anonym und allgemein: keine Namen, Projekte, Pfade, Gerätekennungen, Hardware-Beispiele oder Geheimnisse.
+- Anonym und allgemein: keine Namen, Projekte, Pfade, Gerätekennungen, Hardware-Beispiele oder Geheimnisse. Commits tragen nur das Konto-Pseudonym oder die noreply-Adresse des Hosting-Dienstes.
 - Ein Mensch prüft und merged. Modelle mergen nicht selbst in `main`.
-- Wird ein Learning zum zweiten Mal bestätigt, wird es eine Regel im Manifest. Dann steigt die Version, und der Changelog bekommt einen Eintrag.
+- Eine Regel entsteht erst bei zwei unabhängigen Beobachtungen. Ein `neu`-Learning ohne zweite Beobachtung verfällt nach 30 Tagen und wandert ins Archiv `learnings/archiv.md`.
+- Wird eine Regel übernommen, steigt die Version, und der Changelog bekommt einen Eintrag.
 
 ---
 
 ## 8. Versionen, Aktualisieren, Festpinnen
 
-- **Versionen:** semantisch, siehe `CHANGELOG.md`.
-  - neue Regel → Minor
-  - geänderte oder gestrichene Regel → Major
-  - Klarstellung → Patch
+- **Versionen:** semantisch, siehe `CHANGELOG.md`. Jede Version ist als Tag `v<Version>` abrufbar.
+  - Bedeutung geändert oder Regel gestrichen → Major
+  - neue Regel oder Verdichtung ohne Bedeutungsänderung → Minor
+  - Korrektur, Klarstellung → Patch
+- **Standard ist der neueste Tag**, nie `main`. Ein Major-Wechsel verdient einen genauen Blick, weil sich bestehende Arbeitsweisen ändern.
 - **Aktualisieren** beim lokalen Klon:
   ```bash
-  git -C ~/.the-swarm pull
+  bash ~/.the-swarm/tools/update.sh
   ```
-  Beim Online-Verweis ist automatisch `main` aktuell.
-- **Festpinnen,** wenn ein Team eine feste Fassung will:
-  ```bash
-  git -C ~/.the-swarm checkout v1.1.1
-  ```
-  Online pinnst du über die Tag-URL:
+  Das Skript holt die Tags, zeigt die neue Version und den Diff zu `KERN.md` und `MANIFEST.md` und wechselt erst nach deiner Bestätigung. Die Option `-y` überspringt die Bestätigung und ist nur für Skripte gedacht.
+- **Online** gilt die Tag-URL; ein Update ist der bewusste Wechsel des Tags im Absatz der Anweisungsdatei:
   ```text
-  https://raw.githubusercontent.com/diren89/The-Swarm/v1.1.1/MANIFEST.md
+  https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.0/KERN.md
   ```
+- **Festpinnen,** wenn ein Team eine feste Fassung will: auf einen Tag auschecken und `update.sh` nicht ausführen:
+  ```bash
+  git -C ~/.the-swarm checkout v2.0.0
+  ```
+- **Warnung:** Wer im Repo mergen darf, steuert sonst alle Agents, die von `main` laden. Darum lädt The Swarm nur getaggte Stände.
 
 ---
 
@@ -318,11 +324,11 @@ Du kannst das auch dem Agent überlassen: „Erstelle einen Pull Request mit den
 | Agent kennt The Swarm nicht | Anweisungsdatei nicht geladen oder Sitzung lief schon vorher | Neue Sitzung starten; Pfad prüfen (Abschnitt 3); in Claude Code mit `/memory` nachsehen |
 | Agent folgt dem Import-Prompt per URL nicht | Sicherheitsregel: Webinhalte gelten als Daten | vollständigen Prompt aus `prompts/import.md` direkt einfügen |
 | Agent kann die URL nicht abrufen | kein Webzugriff oder Netz gesperrt | lokalen Klon mit Import nutzen (3.1 B) oder Inhalt in den System-Prompt stellen (3.6); in Microsoft 365 Copilot `prompts/copilot.md` anhängen (3.5) |
-| Zu viel Aufwand bei Kleinigkeiten | Stufe zu hoch gewählt | Stufe S vorgeben; der Agent sollte sonst §0.1 beachten |
+| Zu viel Aufwand bei Kleinigkeiten | Stufe zu hoch gewählt | Stufe S vorgeben; der Agent sollte sonst den Abschnitt „Stufe wählen“ im Kern beachten |
 | Projektregel widerspricht dem Manifest | gewollt | Projektregel gilt, der Rest des Manifests bleibt aktiv |
 | Subagents scheitern mit Worktree-Fehler | Arbeitsverzeichnis liegt nicht im Git-Repo | Agent aus dem Repo heraus starten; Worktree-Ordner in `.gitignore` (LEARNINGS L-008) |
 | Maschine überlastet | zu viele parallele Builds | Parallelität senken und das Limit im lokalen Hardware-Profil notieren (L-004) |
-| Agent meldet „erledigt“, aber es funktioniert nicht | Exit-Code statt Wirkung geprüft | auf §6.2 verweisen: Wirkung prüfen und als ungeprüft markieren, was nicht geprüft wurde |
+| Agent meldet „erledigt“, aber es funktioniert nicht | Exit-Code statt Wirkung geprüft | auf den Kern verweisen (Abnahme, MANIFEST §5.4): Wirkung prüfen und als ungeprüft markieren, was nicht geprüft wurde |
 
 ---
 
@@ -345,7 +351,7 @@ Ja. Der Koordinator arbeitet die Pakete dann nacheinander ab. Planung, Prüfschi
 Je eindeutiger der Auftrag, desto kleiner das Modell, und je tiefer das nötige Fachwissen, desto größer (MANIFEST §5.1). Fachaufgaben wie 3D-Modellierung oder Videobearbeitung gehen an die **Expertenrolle** mit dem größten verfügbaren Modell (§5.1.1). Urteil, Integration und Fehlersuche bleiben beim stärksten Modell.
 
 **Gelangen meine Projektdaten nach GitHub?**
-Nur, wenn du einen Pull Request mit solchen Daten mergst. Die Beitragsregeln verbieten Namen, Projektdetails und Hardware-Beispiele, und vor dem Merge prüft ein Mensch.
+Nur, wenn du ausdrücklich einen Pull Request stellst und ein Mensch ihn mergt. Learnings werden zunächst nur lokal gesammelt, die Beitragsregeln verbieten Namen, Projektdetails und Hardware-Beispiele, und vor dem Merge prüft ein Mensch.
 
 **Darf ein Agent die globale Konfiguration selbst ändern?**
 Nur auf deinen ausdrücklichen Wunsch (MANIFEST §0.2).

@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 # Prüft die optionalen Beispiel-Rollen (beispiele/) auf Drift und Lesbarkeit.
+# Die Agent-Dateien und Koordinator-Ausschnitte sind ERZEUGT: ändern nur in beispiele/gemeinsam/rollen.md (Text) bzw.
+# beispiele/gemeinsam/koepfe/ (Kopf), dann `python3 tools/beispiele-bauen.py`. Dieses Skript schreibt nie.
 # Aufruf:  bash tools/beispiele-pruefen.sh [WURZEL]      (WURZEL = Repo-Ordner, Standard: Ordner über tools/)
 # Prüft:
+#   0. Erzeugt == eingecheckt: tools/beispiele-bauen.py wird im Speicher ausgeführt; jede abweichende oder fehlende
+#      Datei ergibt FAIL (Abhilfe: `python3 tools/beispiele-bauen.py`).
 #   1. Der Rollentext jeder Rolle aus beispiele/gemeinsam/rollen.md (Abschnitt `## <id>`) steht identisch im Rumpf
 #      jeder Werkzeugdatei (Markdown: Text nach dem YAML-Kopf; TOML: `developer_instructions`; Ausschnitte: Text
 #      zwischen den Markern). Der Koordinator-Text steht in den Ausschnitten von Claude Code und Codex.
@@ -31,6 +35,21 @@ def read(p):
 
 IDS = ["coordinator", "coordinator-code", "implementer", "reviewer", "researcher", "scout", "editor-lite"]
 SUB = [i for i in IDS if i != "coordinator"]
+
+# --- Erzeugt == eingecheckt (Vergleich im Speicher, nichts wird geschrieben) ---
+try:
+    import importlib.util; sys.dont_write_bytecode = True
+    spec = importlib.util.spec_from_file_location("beispiele_bauen", os.path.join(root, "tools", "beispiele-bauen.py"))
+    bauen = importlib.util.module_from_spec(spec); spec.loader.exec_module(bauen)
+    erzeugt = bauen.erzeuge(root)
+    for rel, inhalt in sorted(erzeugt.items()):
+        p = os.path.join(root, rel)
+        alt = read(p) if os.path.isfile(p) else None
+        res(alt == inhalt, f"erzeugt == eingecheckt: {rel}" + ("" if alt == inhalt else (" (fehlt)" if alt is None else " (weicht ab: python3 tools/beispiele-bauen.py)")))
+except SystemExit as e:
+    res(False, f"beispiele-bauen.py: {e}")
+except Exception as e:
+    res(False, f"beispiele-bauen.py nicht ausführbar ({e})")
 
 # --- Rollentexte ---
 roles, cur = {}, None
@@ -144,6 +163,7 @@ res(all(f'pattern=["git", "{c}"' in rt for c in ("push", "reset", "clean", "bran
 
 # --- Pflichtdateien ---
 need = ["README.md", "gemeinsam/skill-orchestrierung/SKILL.md", "probe/git-sperren.md", "opencode/README.md", "claude-code/README.md", "codex/README.md"]
+need += ["gemeinsam/skill-fremd-review/SKILL.md"]
 need += [f"gemeinsam/skill-orchestrierung/templates/{t}.md" for t in ("auftrag", "bericht", "korrektur-brief", "phasenplan")]
 miss = [n for n in need if not os.path.isfile(os.path.join(bd, n))]
 res(not miss, "Pflichtdateien vorhanden" + (f" (fehlt: {', '.join(miss)})" if miss else ""))
@@ -154,7 +174,7 @@ parts = [("lite", "llm"), ("fellen", "stein"), ("job", "rad"), ("/Us", "ers/"), 
          ("ter", "ra"), ("lu", "na"), ("23\\.11", "\\.2026")]
 pat = re.compile("|".join("".join(x) for x in parts), re.I)
 hits = []
-targets = [os.path.join(dp, f) for dp, _, fs in os.walk(bd) for f in fs] + [os.path.join(root, "tools", "beispiele-pruefen.sh")]
+targets = [os.path.join(dp, f) for dp, _, fs in os.walk(bd) for f in fs] + [os.path.join(root, "tools", n) for n in ("beispiele-pruefen.sh", "beispiele-bauen.py", "grundlast.sh", "update.sh")]
 for fp in targets:
     if os.path.isfile(fp):
         for n, line in enumerate(read(fp).split("\n"), 1):

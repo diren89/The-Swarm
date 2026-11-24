@@ -11,6 +11,7 @@ Optional, nur ein Beispiel. Überblick, Platzhalter und Grenzen: [../README.md](
 | `config.toml.ausschnitt` | optionale `[agents]`-Standardwerte in `~/.codex/config.toml` (nur nach Diff und Freigabe) |
 | `rules/the-swarm.rules` | `~/.codex/rules/the-swarm.rules` (oder `.codex/rules/`, nur vertrauenswürdig) |
 | `../gemeinsam/skill-orchestrierung/` | `~/.agents/skills/orchestrierung/` (oder `.agents/skills/orchestrierung/`) |
+| `../gemeinsam/skill-fremd-review/` (optional, nicht erprobt) | `~/.agents/skills/fremd-review/` (oder `.agents/skills/fremd-review/`) |
 
 Vorhandene Dateien gleichen Namens nicht überschreiben.
 
@@ -27,7 +28,7 @@ TOML mit `name`, `description`, `developer_instructions` (der Rollentext) und au
 
 ## Prüfer anderer Familie
 
-**Nicht erzwingbar.** Der Anbieter wird von der Hauptsitzung geerbt, nur Modelle innerhalb dieses Anbieters sind wählbar. Der Koordinator-Text weist die Nutzerin einmal darauf hin und nennt die Einschränkung im Plan. Möglicher Umweg, nicht fest eingebaut: den `reviewer` die Kommandozeile eines anderen Anbieters im Lesemodus über die Shell aufrufen lassen, falls installiert und gewollt; das ist dann kein nativer Codex-Subagent. Sonst prüft ein unabhängiger Prüfer derselben Familie, und der Plan nennt die Einschränkung.
+**Nicht erzwingbar.** Der Anbieter wird von der Hauptsitzung geerbt, nur Modelle innerhalb dieses Anbieters sind wählbar. Der Koordinator-Text weist die Nutzerin einmal darauf hin und nennt die Einschränkung im Plan. Möglicher Umweg, nicht fest eingebaut: den `reviewer` die Kommandozeile eines anderen Anbieters im Lesemodus über die Shell aufrufen lassen, falls installiert und gewollt; das ist dann kein nativer Codex-Subagent. Ablauf, Rechte und Kosten im optionalen Skill [`fremd-review`](../gemeinsam/skill-fremd-review/SKILL.md), nicht erprobt. Sonst prüft ein unabhängiger Prüfer derselben Familie, und der Plan nennt die Einschränkung.
 
 ## Prüfen
 

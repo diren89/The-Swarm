@@ -1,0 +1,18 @@
+description: Tiefe Web- und Dokumentationsrecherche mit Quellenbewertung. Delegieren, wenn mehrere Quellen verglichen werden müssen; für lokale Dateien oder kurze Lookups reicht scout.
+mode: subagent
+# model: <provider>/<MODELL_MITTEL>
+# ^ Platzhalter ersetzen und Kommentarzeichen entfernen; ohne Zeile gilt das Standardmodell der Sitzung.
+steps: 30
+permissions:
+  - { action: "*", resource: "*", effect: deny }
+  - { action: "read", resource: "*", effect: allow }
+  - { action: "glob", resource: "*", effect: allow }
+  - { action: "grep", resource: "*", effect: allow }
+  - { action: "websearch", resource: "*", effect: allow }
+  - { action: "webfetch", resource: "*", effect: allow }
+  - { action: "question", resource: "*", effect: allow }
+  - { action: "external_directory", resource: "*", effect: allow }
+  - { action: "edit", resource: "**/.agent/work/**", effect: allow }
+  - { action: "edit", resource: ".agent/work/**", effect: allow }
+  - { action: "read", resource: "*.env", effect: ask }
+  - { action: "read", resource: "*.env.*", effect: ask }

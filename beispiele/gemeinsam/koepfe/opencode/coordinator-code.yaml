@@ -1,0 +1,29 @@
+description: Unter-Koordinator für abgegrenzte Code-Pakete (Stufe M/L), vom coordinator aufgerufen. Plant, delegiert an implementer, reviewer und scout, prüft. Schlanker Werkzeugsatz.
+mode: subagent
+# model: <provider>/<MODELL_GROSS>
+# ^ Platzhalter ersetzen und Kommentarzeichen entfernen; ohne Zeile gilt das Standardmodell der Sitzung.
+permissions:
+  - { action: "execute", resource: "*", effect: deny }
+  # Dienste/MCP-Werkzeuge deiner Installation hier sperren, z. B. { action: "<dienst>_*", resource: "*", effect: deny }
+  - { action: "skill", resource: "*", effect: deny }
+  - { action: "skill", resource: "orchestrierung", effect: allow }
+  - { action: "subagent", resource: "*", effect: deny }
+  - { action: "subagent", resource: "scout", effect: allow }
+  - { action: "subagent", resource: "implementer", effect: allow }
+  - { action: "subagent", resource: "reviewer", effect: allow }
+  - { action: "subagent", resource: "researcher", effect: allow }
+  - { action: "subagent", resource: "editor-lite", effect: allow }
+  - { action: "shell", resource: "git push*", effect: deny }
+  - { action: "shell", resource: "git reset --hard*", effect: deny }
+  - { action: "shell", resource: "git clean*", effect: deny }
+  - { action: "shell", resource: "git branch -D*", effect: deny }
+  - { action: "shell", resource: "git branch -d*", effect: deny }
+  - { action: "shell", resource: "git branch --delete*", effect: deny }
+  - { action: "shell", resource: "git tag -d*", effect: deny }
+  - { action: "shell", resource: "git tag --delete*", effect: deny }
+  - { action: "shell", resource: "git filter-branch*", effect: deny }
+  - { action: "shell", resource: "git filter-repo*", effect: deny }
+  - { action: "shell", resource: "git update-ref -d*", effect: deny }
+  - { action: "shell", resource: "git worktree remove --force*", effect: deny }
+  - { action: "shell", resource: "git checkout -- *", effect: deny }
+  - { action: "shell", resource: "git restore *", effect: deny }

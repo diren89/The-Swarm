@@ -1,0 +1,5 @@
+name: scout
+description: "Schneller, günstiger Such- und Lese-Agent. Findet Dateien, Code-Stellen und Inhalte in Ordnern und im Web und fasst sie knapp zusammen. Ändert keine Dateien im Code."
+tools: Read, Grep, Glob, WebSearch, WebFetch
+# model: <MODELL_KLEIN>  # Alias oder Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile erbt der Agent das Modell der Hauptsitzung
+maxTurns: 20

@@ -1,0 +1,3 @@
+name = "editor-lite"
+description = "Führt mechanische, exakt beschriebene Änderungen aus (Umbenennen, Verschieben, Text ersetzen, Formatierung), ohne Urteil. Delegieren, wenn Dateien und Änderung eindeutig feststehen."
+# model = "<MODELL_KLEIN>"  # Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile gilt das Modell der Hauptsitzung

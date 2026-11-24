@@ -1,0 +1,5 @@
+name: implementer
+description: "Setzt klar beschriebene Arbeitspakete um (Code, Dokumente, Konfiguration). Gibt Suche an scout und rein mechanische Änderungen an editor-lite ab, prüft das Ergebnis und testet die eigene Arbeit."
+tools: Agent, Read, Grep, Glob, Edit, Write, Bash
+# model: <MODELL_MITTEL>  # Alias oder Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile erbt der Agent das Modell der Hauptsitzung
+maxTurns: 50

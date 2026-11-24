@@ -10,6 +10,7 @@ Optional, nur ein Beispiel. Überblick, Platzhalter und Grenzen: [../README.md](
 | `CLAUDE.md.ausschnitt` | Koordinator-Text: am Ende von `~/.claude/CLAUDE.md` bzw. der Projekt-`CLAUDE.md` ergänzen (der Koordinator ist die Hauptsitzung, kein Agent) |
 | `settings.json.ausschnitt` | Git-Sperren: in `~/.claude/settings.json` unter `permissions.deny` zusammenführen (nur nach Diff und Freigabe) |
 | `../gemeinsam/skill-orchestrierung/` | `~/.claude/skills/orchestrierung/` (oder `.claude/skills/orchestrierung/`) |
+| `../gemeinsam/skill-fremd-review/` (optional, nicht erprobt) | `~/.claude/skills/fremd-review/` (oder `.claude/skills/fremd-review/`) |
 
 Vorhandene Dateien gleichen Namens nicht überschreiben.
 
@@ -26,7 +27,7 @@ YAML-Kopf mit nur dokumentierten Feldern (`name`, `description`, `tools`, `disal
 
 ## Prüfer anderer Familie
 
-**Nicht erzwingbar.** Subagents nutzen nur Modelle des Anbieters der Hauptsitzung; ein Feld für einen anderen Anbieter gibt es nicht. Der Koordinator-Text weist die Nutzerin einmal darauf hin und nennt die Einschränkung im Plan. Möglicher Umweg, nicht fest eingebaut: den `reviewer` die Kommandozeile eines anderen Anbieters im Lesemodus per Bash aufrufen lassen (Befehl `<FREMD_CLI_PRUEFBEFEHL>`, falls installiert und gewollt). Ohne ihn prüft ein unabhängiger Prüfer derselben Familie, und der Plan nennt die Einschränkung.
+**Nicht erzwingbar.** Subagents nutzen nur Modelle des Anbieters der Hauptsitzung; ein Feld für einen anderen Anbieter gibt es nicht. Der Koordinator-Text weist die Nutzerin einmal darauf hin und nennt die Einschränkung im Plan. Möglicher Umweg, nicht fest eingebaut: den `reviewer` die Kommandozeile eines anderen Anbieters im Lesemodus per Bash aufrufen lassen (Befehl `<FREMD_CLI_PRUEFBEFEHL>`, falls installiert und gewollt; Ablauf, Rechte und Kosten im optionalen Skill [`fremd-review`](../gemeinsam/skill-fremd-review/SKILL.md), nicht erprobt). Ohne ihn prüft ein unabhängiger Prüfer derselben Familie, und der Plan nennt die Einschränkung.
 
 ## Prüfen
 

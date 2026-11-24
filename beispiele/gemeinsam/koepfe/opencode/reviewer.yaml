@@ -1,0 +1,46 @@
+description: Unabhängige Qualitätsprüfung aus einer anderen Modellfamilie. Prüft Ergebnisse gegen Ziel und Abnahmekriterien und meldet Befunde nach Schwere. Ändert keine Arbeitsergebnisse, schreibt höchstens Notizen nach .agent/work/.
+mode: subagent
+# model: <provider>/<MODELL_PRUEFER_ANDERE_FAMILIE>  # PFLICHT: Modell einer ANDEREN Familie als der Autor (siehe README)
+# ^ Platzhalter ersetzen und Kommentarzeichen entfernen; ohne Zeile gilt das Standardmodell der Sitzung.
+steps: 30
+permissions:
+  - { action: "*", resource: "*", effect: deny }
+  - { action: "read", resource: "*", effect: allow }
+  - { action: "glob", resource: "*", effect: allow }
+  - { action: "grep", resource: "*", effect: allow }
+  - { action: "question", resource: "*", effect: allow }
+  - { action: "external_directory", resource: "*", effect: allow }
+  - { action: "shell", resource: "*", effect: allow }
+  # Shell nur lesend: die folgenden Sperren sind eine Denylist, keine harte Grenze (andere Aufrufsyntax kann daran vorbeigehen)
+  - { action: "shell", resource: "rm *", effect: deny }
+  - { action: "shell", resource: "rmdir *", effect: deny }
+  - { action: "shell", resource: "mv *", effect: deny }
+  - { action: "shell", resource: "cp *", effect: deny }
+  - { action: "shell", resource: "git mv *", effect: deny }
+  - { action: "shell", resource: "git rm *", effect: deny }
+  - { action: "shell", resource: "git commit*", effect: deny }
+  - { action: "shell", resource: "git push*", effect: deny }
+  - { action: "shell", resource: "git reset*", effect: deny }
+  - { action: "shell", resource: "git checkout*", effect: deny }
+  - { action: "shell", resource: "git restore*", effect: deny }
+  - { action: "shell", resource: "git clean*", effect: deny }
+  - { action: "shell", resource: "git stash*", effect: deny }
+  - { action: "shell", resource: "chmod *", effect: deny }
+  - { action: "shell", resource: "sed -i*", effect: deny }
+  - { action: "shell", resource: "perl -i*", effect: deny }
+  - { action: "shell", resource: "*>*", effect: deny }
+  - { action: "shell", resource: "tee *", effect: deny }
+  - { action: "shell", resource: "curl *", effect: deny }
+  - { action: "shell", resource: "wget *", effect: deny }
+  - { action: "shell", resource: "*.config/opencode*", effect: deny }
+  - { action: "shell", resource: "npm install*", effect: deny }
+  - { action: "shell", resource: "pip install*", effect: deny }
+  - { action: "shell", resource: "brew *", effect: deny }
+  - { action: "shell", resource: "*--apply*", effect: deny }
+  - { action: "websearch", resource: "*", effect: allow }
+  - { action: "webfetch", resource: "*", effect: allow }
+  - { action: "subagent", resource: "scout", effect: allow }
+  - { action: "edit", resource: "**/.agent/work/**", effect: allow }
+  - { action: "edit", resource: ".agent/work/**", effect: allow }
+  - { action: "read", resource: "*.env", effect: ask }
+  - { action: "read", resource: "*.env.*", effect: ask }

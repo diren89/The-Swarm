@@ -33,7 +33,7 @@ Retrospektive (höchstens 10 Zeilen, nach playbooks/phase-retro.md von The Swarm
 - Teuerster Schritt: <…>
 - Gut / falsch: <je 1 Satz>
 - Brief-Delta: <Fallstrick für künftige Aufträge>
-- Regelvorschlag: <allgemein, anonym, oder –>
+- Learning (lokal, `.agent/learnings.md`): <allgemein, oder –>
 
 ## Phase 2: <Name>
 …
