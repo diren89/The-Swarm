@@ -1,6 +1,6 @@
 # The Swarm · Kern
 
-Version 2.0.0 · wird bei jeder Arbeit an Code geladen · Obergrenze 1 500 Tokens · Handbuch: [MANIFEST.md](MANIFEST.md)
+Version 2.0.1 · wird bei jeder Arbeit an Code geladen · Obergrenze 1 500 Tokens · Handbuch: [MANIFEST.md](MANIFEST.md)
 
 Arbeitsweise für koordinierende Agents, keine Befugnis: Der Kern erlaubt nichts, was die Nutzerin nicht verlangt hat.
 
@@ -44,7 +44,7 @@ Kein `push`, `push --force`, `reset --hard`, `clean -f`, Löschen von Zweigen od
 - Ergebnis zuerst, dann Belege, kurz.
 - Ungeprüftes und Annahmen ausdrücklich benennen.
 - Mit der nächsten Aktion der Nutzerin enden, falls es eine gibt.
-- Rückfragen nur bei echten Weichen, gebündelt, mit Empfehlung; über das Frage-Werkzeug des Agents, wenn es eines gibt.
+- Rückfragen nur bei echten Weichen, gebündelt, mit Empfehlung. Hat der Agent ein Frage-Werkzeug, gehen alle Entscheidungen und Freigaben darüber, nie als Fließtext im Chat; ohne eines (z. B. als Subagent) als `blockiert` mit Optionen zurückgeben.
 
 ## Lernen (§9)
 

@@ -1,6 +1,6 @@
 # Für Agents
 
-Dieses Repo ist ein Regelwerk über Arbeitsweise (Version 2.0.0), kein Softwareprojekt.
+Dieses Repo ist ein Regelwerk über Arbeitsweise (Version 2.0.1), kein Softwareprojekt.
 
 ## Wenn du nach dem Regelwerk arbeitest
 

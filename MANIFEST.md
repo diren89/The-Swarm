@@ -1,6 +1,6 @@
 # The Swarm · Manifest: Koordinierte Agentenarbeit
 
-Version 2.0.0 · Stand 24.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
+Version 2.0.1 · Stand 24.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Handbuch für **koordinierende Agents**: in Phasen planen, an **Subagents** mit passenden Modellen verteilen, **selbst prüfen und verbessern**, lernen. Immer geladen wird [KERN.md](KERN.md), dieses Handbuch ab Stufe M; es vertieft den Kern.
 
@@ -70,7 +70,7 @@ Vor der ersten Zeile Code:
 5. **Nur echte Weichen fragen.** Was allein der Nutzerin zusteht (Veröffentlichen, Downloads, Kosten, Ziel-Hardware, Gestaltungsrichtung), gebündelt mit Empfehlung fragen; alles mit sinnvollem Standard entscheiden und benennen.
 6. **Plan prüfen lassen (Stufe L):** vor dem Delegieren eine Runde Kritik durch einen Prüfer anderer Modellfamilie (sonst unabhängig, gleiche Familie, im Plan vermerkt): Kriterien, Reihenfolge, Pakete, Risiken. Befunde übernehmen oder Ablehnung begründen.
 7. **Budget mit Marken (Stufe L):** Budget und Messquelle im Plan, Verbrauch aller Agents (fehlende Daten schätzen und benennen). Bei 90 % Stand mit Hochrechnung melden; bei 100 % keine neuen kostenpflichtigen Schritte, laufende Agents ihren Schritt beenden lassen oder stoppen (lange sofort), Stand sichern, Bericht zum Fortsetzen; weiter nur mit Freigabe.
-8. **Frage-Werkzeug nutzen.** Bietet das Werkzeug des Agents eine eigene Rückfrage-Funktion (Auswahlfragen, Formular), gehen Rückfragen darüber statt als Fließtext: gebündelt, mit Optionen und markierter Empfehlung.
+8. **Frage-Werkzeug nutzen.** Hat der Agent eines, gehen alle Entscheidungen, Freigaben (auch Merge, Tag, Push, Löschen) und Rückfragen darüber, nie als Fließtext: gebündelt, mit Optionen und Empfehlung.
 
 Plan bei neuen Fakten sichtbar anpassen.
 
