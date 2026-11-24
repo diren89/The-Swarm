@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.1 · 2026-11-24
+
+Keine Regeländerung.
+
+- Neu `beispiele/`: Rollen nach §5.1/§5.1.2 (coordinator, coordinator-code, implementer, reviewer, researcher, scout, editor-lite) und Skill „orchestrierung“ für OpenCode, Claude Code und Codex CLI; Rollentexte einmal in `beispiele/gemeinsam/`, Modelle als Platzhalter. Rechte nach §5.5 je Werkzeug, Grenzen benannt (Prüfer anderer Familie nur in OpenCode erzwingbar; Codex ohne Rechte je Agent). Probe `beispiele/probe/git-sperren.md`.
+- Neu `tools/beispiele-pruefen.sh`: gleiche Rollentexte in allen Varianten, Formate parsebar, Anonymität.
+- Import-Prompt: Frage 2c und Schritt 6a für Beispiel-Rollen; ANLEITUNG §6.4.
+
 ## 1.5.0 · 2026-11-24
 
 Nur Ergänzungen, keine bestehende Regel inhaltlich umformuliert. §5.2 Punkt 7 verweist für den Status je Kriterium jetzt auf §5.4 (Klarstellung).
