@@ -1,0 +1,9 @@
+# Beispiel-Ausschnitt für ~/.codex/config.toml (UNGEPRÜFT, Schlüsselnamen nach der Codex-Dokumentation, Stand Nov. 2026).
+# Nur einfügen, was du brauchst; vorhandene [agents]-Einträge nicht doppelt anlegen.
+[agents]
+# Standardmodell für Subagents, falls die Agentdatei keins setzt (Platzhalter ersetzen):
+# default_subagent_model = "<MODELL_MITTEL>"
+# Zahl gleichzeitig laufender Subagent-Threads an die Maschine anpassen (MANIFEST §8):
+# max_concurrent_threads_per_session = 3
+# Die Agentdateien in agents/ können Anbieter, Sandbox, Freigaberichtlinie und MCP-Server NICHT überschreiben;
+# diese erbt jeder Subagent von der Hauptsitzung. Sie gehören nicht in die Agentdateien.

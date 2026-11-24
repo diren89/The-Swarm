@@ -251,6 +251,14 @@ Das Profil enthält Betriebssystem, Architektur, Kerne, RAM, Grafik, Werkzeuge, 
 
 `*.local.md` ist per `.gitignore` ausgeschlossen. Hardware-Details werden nie veröffentlicht, nur allgemeine Regeln.
 
+### 6.4 Beispiel-Rollen (optional)
+
+`beispiele/` enthält eine fertige Rollenaufteilung nach MANIFEST §5.1 für **OpenCode**, **Claude Code** und **Codex CLI**: Koordinator, Unter-Koordinator, Umsetzer, Prüfer, Recherche, Suche und mechanische Änderungen, dazu ein Skill „orchestrierung“ mit Vorlagen. Modelle stehen als Platzhalter drin.
+
+- Einrichten: im Import-Prompt Frage 2c mit „ja“ beantworten oder nach `beispiele/<werkzeug>/README.md` von Hand kopieren.
+- Wichtigster Unterschied: Nur OpenCode kann dem Prüfer ein Modell einer anderen Familie fest zuweisen. In Claude Code und Codex nutzen Subagents die Familie bzw. den Anbieter der Hauptsitzung; dort ist die Familienregel nur ein Hinweis.
+- Stand: OpenCode erprobt, Claude Code Git-Sperren erprobt, Codex ungeprüft. Details in [beispiele/README.md](beispiele/README.md).
+
 ---
 
 ## 7. Learnings zurückgeben
