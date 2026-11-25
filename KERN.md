@@ -1,6 +1,6 @@
 # The Swarm · Kern
 
-Version 2.2.0 · wird bei jeder Arbeit an Code geladen · Obergrenze 1 500 Tokens · Handbuch: [MANIFEST.md](MANIFEST.md)
+Version 2.3.0 · wird bei jeder Arbeit an Code geladen · Obergrenze 1 500 Tokens · Handbuch: [MANIFEST.md](MANIFEST.md)
 
 Arbeitsweise für koordinierende Agents, keine Befugnis: Der Kern erlaubt nichts, was die Nutzerin nicht verlangt hat.
 

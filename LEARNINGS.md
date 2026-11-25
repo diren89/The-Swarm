@@ -12,6 +12,69 @@ Eine Regel entsteht erst bei zwei unabhängigen Beobachtungen (MANIFEST §9).
 
 ---
 
+## 2026-11-26 · Skill-Praxis und Regelwerk-Release
+
+Kontext: Externe Agent-Skills wurden nach Playbook und Pflege-Rolle in ein bestehendes Setup aufgenommen, aktualisiert und gegen Änderung geschützt; dazu kamen Erfahrungen aus der Pflege eines Regelwerks mit Prüfskripten und Pull Requests.
+
+### L-072 · Kein git stash bei Parallel-Agents
+- **Beobachtung:** Ein Umsetzer nutzte `git stash`/`pop` im Arbeitsbaum, in dem parallel andere Agents schrieben; deren Änderungen verschwanden kurz.
+- **Regel:** Im geteilten Arbeitsbaum stash, checkout und restore im Brief verbieten und, wo möglich, in den Rechten sperren.
+- **Beobachtungen:** 1
+- **Status:** neu
+
+### L-071 · Kein Platzhalter im Skriptpfad einer Shell-Freigabe
+- **Beobachtung:** Eine Allowlist erlaubte `bash */name.sh*`, während derselbe Agent in Ordner schreiben durfte; er hätte ein gleichnamiges Skript ablegen und ausführen können (vgl. L-040).
+- **Regel:** Shell-Freigaben für Skripte nur mit festem Pfad außerhalb der beschreibbaren Bereiche; maschinell prüfen.
+- **Beobachtungen:** 1
+- **Status:** neu
+
+### L-070 · Verweis-Verdichtung prüft alle Verteilungswege
+- **Beobachtung:** Eine Verdichtung ersetzte Manifest-Details durch Verweise auf eine Beitragsdatei; ein unterstützter Verteilungsweg lädt nur Manifest und Learnings, dort fehlte der Inhalt danach.
+- **Regel:** Vor dem Ersetzen durch einen Verweis prüfen, ob jeder Verteilungsweg das Verweisziel mitliefert; sonst Inhalt behalten.
+- **Beobachtungen:** 1
+- **Status:** neu
+
+### L-069 · Fail-closed-Gates verschlucken Fehler in Pipelines
+- **Beobachtung:** Ein als fail-closed beschriebenes Shell-Gate ließ Commits durch, weil Fehler von Abfragen in Prozesssubstitution, Pipelines oder einem „kein Repo → durchlassen“-Zweig nicht vom Normalfall unterschieden wurden; erst ein unabhängiger Review mit simulierten Ausfällen fand es, in mehreren Runden.
+- **Regel:** Bei fail-closed jede Abfrage einzeln auf ihren Exitcode prüfen, erwartete Sonderfälle (z. B. kein Repo) eng von echten Fehlern trennen und Ausfälle per Wrapper simuliert testen.
+- **Auslöser:** Prüfskripte oder Hooks, die blockieren sollen, wenn sie nicht prüfen können.
+- **Beobachtungen:** 1
+- **Status:** neu
+
+### L-068 · Plattform-Merge setzt den Profilnamen als Autor
+- **Beobachtung:** Nach bereinigter Historie trug der Merge-Commit eines Pull Requests wieder den Anzeigenamen des Kontos, weil die Plattform den Merge im Namen des Profils erstellt.
+- **Regel:** Autorenregeln gelten auch für Plattform-Merges: Profilnamen vorher anpassen oder lokal mergen und pushen.
+- **Beobachtungen:** 1
+- **Status:** neu
+
+### L-067 · Verdichten verliert leise Teilbedingungen
+- **Beobachtung:** Beim Kürzen eines Regelwerks unter eine feste Obergrenze und beim Verschlanken eines lokalen Ergänzungs-Skills auf Verweise ging eine Reihe von Regeln verloren oder wurde still abgeschwächt (Zusätze wie „gleichwertig“ oder „und Fehlschläge“ entfielen; einige Regeln standen im Verweisziel gar nicht). Erst ein Review Regel für Regel, alt gegen neu, fand sie. Zwei unabhängige Vorgänge an verschiedenen Tagen: Verdichtung des Regelwerks (12 abgeschwächte Regeln) und Verschlanken eines lokalen Skills (12 fehlende Regeln).
+- **Regel:** Nach jeder Verdichtung ein Review, das jede Regel alt gegen neu vergleicht und bei Verweisen prüft, ob das Ziel sie wirklich enthält; gestrichene oder zusammengelegte Regeln mit Begründung auflisten.
+- **Auslöser:** Kürzen unter eine Größengrenze, Ersetzen von Text durch Verweise.
+- **Beobachtungen:** 2
+- **Status:** neu
+
+### L-066 · Verwaiste Lock-Datei im Arbeitsordner
+- **Beobachtung:** Ein Statusskript liest die Projekt-Lock-Datei im aktuellen Ordner. Eine alte Datei im Benutzerordner erzeugte deshalb viele falsche Hash-Abweichungen. Der globale Lock der CLI hat ein anderes Format (Version 3, eigener Hash), das das Skript nicht prüfen kann.
+- **Regel:** Statusskripte nur im Projektordner starten oder die Lock-Datei ausdrücklich angeben; verwaiste Locks im Benutzerordner entfernen. Lock-Format und -Version vor dem Hash-Vergleich prüfen.
+- **Beobachtungen:** 1
+- **Status:** neu
+
+### L-065 · Installer fremder Pakete: pinnen, Hooks auslassen
+- **Beobachtung:** Der offizielle Installer eines Skill-Pakets mit Plugin-Abhängigkeit lud ungepinnt von einem beweglichen Zweig (`curl | bash`); das Plugin brachte Hooks mit (Auto-Update bei jedem Shell-Aufruf, Sitzungsstart) und bot einen „schnellen Weg“ an, der Werkzeuge per `npx` aus Releases nachlädt. Sicher ging es mit Klon auf festem Commit, Symlink an den Kandidatenpfad, gepinnter Paketmanager-Version, `--frozen-lockfile` ohne Install-Skripte, ohne Plugin-Hooks, belegt durch eine Funktionsprobe im Wegwerfprojekt.
+- **Regel:** Fremde Installer lesen statt ausführen; auf festen Commit pinnen, Abhängigkeiten ohne Install-Skripte aus der Lock-Datei installieren, Hooks und Auto-Update nicht einrichten, Nachladewege (`npx`, Releases) meiden und die Wirkung an einem Wegwerfprojekt belegen.
+- **Auslöser:** Aufnahme von Skills, die ein Plugin außerhalb des Skill-Ordners brauchen.
+- **Beobachtungen:** 1
+- **Status:** neu
+
+### L-064 · Upstream-Umbau statt Update
+- **Beobachtung:** Ein Update-Check meldete nur „1 Update“. Tatsächlich hatte die Quelle fast alle Skills gelöscht und den verbleibenden durch einen völlig neuen ersetzt (sehr viele Dateien, Laufzeit Node und Browser, eigener Stop-Hook im Frontmatter).
+- **Regel:** Vor jedem Skill-Update Struktur, Dateizahl und Frontmatter (Hooks, Laufzeit, Abhängigkeiten) alt gegen neu vergleichen, nicht nur die Update-Meldung lesen; ein Umbau gilt als Neuaufnahme.
+- **Beobachtungen:** 1
+- **Status:** neu
+
+---
+
 ## 2026-11-24 · Grundlast, Lieferkette und Lernschleife des Regelwerks
 
 Kontext: Ein externer Blick auf das Regelwerk selbst prüfte nicht mehr einzelne Regeln gegeneinander, sondern Ladegröße, Bezugsweg der Anweisungen, Versionslogik und den Weg, auf dem Learnings zurückfließen.
@@ -192,4 +255,5 @@ Kontext: ein Dokumentations-Repo zweimal umbenannt, über Pull Requests geänder
 ### L-023 · Shell-Eigenheiten vor Schleifen bedenken
 - **Beobachtung:** Eine Schleife, die Zeichenketten mit Leerzeichen in Wörter zerlegen sollte, scheiterte in einer Shell ohne automatische Wortaufteilung. Keine der geplanten Aktionen wurde ausgeführt.
 - **Regel:** Bei Schleifen über Listen mit Leerzeichen Einzelbefehle oder Arrays verwenden. Die Ausgabe auf „nichts passiert“ prüfen, nicht nur auf Fehlermeldungen.
+- **Beobachtungen:** 2 (zweite Beobachtung: mehrere Skill-Namen in einer zsh-Variable gingen als ein Argument an eine CLI, Ergebnis „keine passenden Skills“; Listen als Array oder ausgeschrieben übergeben und das Ergebnis per Liste oder Status prüfen, nicht am Exitcode)
 - **Status:** neu

@@ -1,6 +1,6 @@
 # The Swarm · Manifest: Koordinierte Agentenarbeit
 
-Version 2.2.0 · Stand 25.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
+Version 2.3.0 · Stand 26.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Handbuch für **koordinierende Agents**: in Phasen planen, an **Subagents** mit passenden Modellen verteilen, **selbst prüfen und verbessern**, lernen. Immer geladen wird [KERN.md](KERN.md), dieses Handbuch ab Stufe M; es vertieft den Kern.
 

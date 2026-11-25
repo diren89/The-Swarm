@@ -1,3 +1,4 @@
 name = "skill-master"
 description = "Pflege externer Skills (aufnehmen, prüfen, festpinnen, aktualisieren, Katalog). Nur auf Wunsch der Nutzerin oder in Phase 0 bei Stufe L, nicht je Aufgabe."
 # model = "<MODELL_MITTEL>"  # Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile gilt das Modell der Hauptsitzung
+# Schutzliste (<GESCHÜTZTE_SKILLS>): nur über den Rollentext (Anweisung) und ein rules-Präfix (experimentell, UNGEPRÜFT); Rechte je Agent und Pfadsperren gibt es in Codex nicht, siehe codex/README.md

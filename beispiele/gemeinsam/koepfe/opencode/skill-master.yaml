@@ -62,3 +62,18 @@ permissions:
   - { action: "shell", resource: "*>*", effect: deny }
   - { action: "read", resource: "*.env", effect: ask }
   - { action: "read", resource: "*.env.*", effect: ask }
+  # Schutzliste (<GESCHÜTZTE_SKILLS>): Platzhalter ersetzen und Kommentarzeichen entfernen. Muss GANZ AM ENDE stehen (die letzte passende Regel gewinnt), hinter allen Freigaben oben. Probe: beispiele/probe/skill-schutz.md
+  # - { action: "edit", resource: "<Pfad zu The Swarm>/**", effect: deny }
+  # - { action: "edit", resource: "<Skill-Ort>/<GESCHÜTZTER_SKILL>/**", effect: deny }
+  # ^ je geschütztem Skill und je Skill-Ort (global und Projekt, alle von OpenCode gelesenen Orte); statt Einzelordnern geht auch der ganze Skill-Ort, dann ist der Pfleger dort nur lesend
+  # - { action: "shell", resource: "*skills remove*<GESCHÜTZTER_SKILL>*", effect: deny }
+  # - { action: "shell", resource: "*skills update*<GESCHÜTZTER_SKILL>*", effect: deny }
+  # Sammelbefehle ohne Namen treffen auch Geschütztes; einmal, nicht je Skill. deny gilt nur für diese Schreibweisen; andere fallen je nach Schreibweise unter eine allgemeine ask- oder deny-Regel oben: Rückfrage ablehnen
+  # - { action: "shell", resource: "*skills remove*--all*", effect: deny }
+  # - { action: "shell", resource: '*skills remove*\**', effect: deny }   # einfache Anführungszeichen: Backslash wörtlich
+  # - { action: "shell", resource: "skills update", effect: deny }
+  # - { action: "shell", resource: "npx skills update", effect: deny }
+  # - { action: "shell", resource: "*skills update -g", effect: deny }
+  # - { action: "shell", resource: "*skills update -g -y", effect: deny }
+  # - { action: "shell", resource: "*skills update -y", effect: deny }
+  # - { action: "shell", resource: "*skills update -y -g", effect: deny }

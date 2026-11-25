@@ -3,3 +3,4 @@ description: "Pflege externer Skills (aufnehmen, prüfen, festpinnen, aktualisie
 tools: Read, Grep, Glob, Edit, Write, Bash, WebFetch
 # model: <MODELL_MITTEL>  # Alias oder Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile erbt der Agent das Modell der Hauptsitzung
 maxTurns: 40
+# Schutzliste (<GESCHÜTZTE_SKILLS>): in diesem Kopf nicht möglich, Rechte je Agent gibt es dort nicht. Sperren stehen in den Settings (permissions.deny, gelten für alle Agents): "Edit(//<absoluter Pfad>/**)" bzw. "Edit(~/<Pfad>/**)" je geschütztem Skill-Ordner und für den Klon von The Swarm, "Bash(*skills remove*<id>*)". Ausschnitt: beispiele/claude-code/settings.json.ausschnitt
