@@ -4,6 +4,16 @@ Vorlage zur Wirksamkeitsmessung. Sie vergleicht dieselben Aufgaben mit und ohne 
 
 **Stand: Noch keine Ergebnisse.** Dieses Playbook beschreibt nur das Verfahren. Es wurde bisher nicht durchgeführt; nichts in diesem Dokument ist ein Messwert. Ergebnisse dürfen erst eingetragen werden, wenn die Läufe tatsächlich stattgefunden haben.
 
+## Vorab-Prüfungen und Ausgangswert
+
+Gilt für jede Änderung, die an einer Messung oder einem Vergleich hängt, auch für Regeländerungen an The Swarm selbst.
+
+- **Vor der Umsetzung festlegen:** Fähigkeitsprüfungen (das neue Verhalten funktioniert) und Regressionsprüfungen (Bestehendes bleibt erhalten). Bei Regeländerungen an The Swarm z. B. `tools/grundlast.sh`, `tools/beispiele-pruefen.sh` und der Selbsttest als Regressionsprüfungen.
+- **Ausgangswert messen,** bevor etwas geändert wird, und mit Befehl und Stand festhalten.
+- **Nach der Änderung dieselben Prüfungen** auf dieselbe Weise ausführen und mit dem Ausgangswert vergleichen.
+- **Fehlschläge mitprotokollieren,** auch behobene und auch bei der Vorab-Messung; sie sind Teil des Ergebnisses.
+- **Nicht auf bekannte Beispiele optimieren:** Prüfungen, die der Umsetzung vorab bekannt sind, belegen nur diese Fälle. Eine Zahl ist nicht Qualität; sie wird zusammen mit den Kriterien gelesen.
+
 ## Aufbau
 
 - **Übungsrepo:** ein frei wählbares, öffentliches Repo mit Tests und Build, klein genug für eine Sitzung (etwa 1 000 bis 10 000 Zeilen), in einer Sprache, die das Modell gut beherrscht.

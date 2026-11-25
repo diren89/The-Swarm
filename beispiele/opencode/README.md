@@ -39,3 +39,10 @@ Pflicht. `reviewer` und Plankritik brauchen ein Modell anderer Familie als der A
 1. `# model:`-Zeilen und Dienst-Sperren anpassen, Dateien kopieren.
 2. [Probe `git-sperren.md`](../probe/git-sperren.md) mit dem `implementer`: erwartet 1 Befehl ausgeführt, 4 abgelehnt, Repo danach unverändert.
 3. Rechte nach jeder Änderung mit einem echten Lauf je Rolle prüfen, nicht nur in der Datei lesen (§5.5).
+
+## Hooks
+
+**Kein Beispiel im Ordner: In OpenCode gibt es die zwei Gates (Geheimnis-Scan vor Commit, Prüfung bei Sitzungsende) nicht als deklarative Konfiguration im dokumentierten Format.** Die Dokumentation kennt Hooks nur als Funktionen in **Plugins (Code, TypeScript/JavaScript)**, z. B. `ctx.tool.hook("execute.before", …)` und `execute.after`, `ctx.shell.hook("create.before", …)`, `ctx.permission.hook("evaluate", …)`, `ctx.session.hook(…)`. Ein Plugin läuft im OpenCode-Server mit den Rechten der Nutzerin; es ist Fremdcode im Sinne des Manifests, wenn man es installiert. Ein solches Plugin ist deshalb nicht im Beispiel; wer die Gates will, schreibt oder prüft ein eigenes (Lese- und Freigabepflicht wie für jeden Code).
+Stand der Prüfung: gelesen, nichts ausgeführt (UNGEPRÜFT). Als dokumentierte Ersatzgrenze bleibt `permissions` in den Agentdateien (Shell-Muster, siehe oben) und die Veröffentlichungsprüfung ([playbooks/sicherheit.md](../../playbooks/sicherheit.md)).
+Quellen (abgerufen 2026-11-25): https://opencode.ai/docs/plugins/ (Plugins laden und steuern), https://opencode.ai/docs/build/plugins/server (Abschnitt „Hooks“); installierte Version bei der Durchsicht: 2.4.1.
+Die Claude-Code-Beispiele ([../claude-code/README.md](../claude-code/README.md#optionale-hooks)) lassen sich nicht übernehmen.

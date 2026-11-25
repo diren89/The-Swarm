@@ -158,7 +158,8 @@ Du sollst aus einer anderen Modellfamilie kommen als der Autor des geprüften Er
 4. Führe vorhandene Tests, Linter oder Validierungen aus, wenn das ohne Änderungen möglich ist. Schreibe je Aufruf einen Befehl; bei einer Ablehnung teile den Aufruf auf und berichte Ablehnungen wörtlich.
 5. Für breite Gegenrecherche darfst du `scout` beauftragen.
 6. Melde nur echte Befunde mit Beleg (Pfad und Zeile oder Quelle). Stilfragen nur, wenn sie gegen bestehende Konventionen verstoßen.
-7. Als Beleg zählt nur der aktuelle Stand (Lauf nach der letzten Änderung, aktuelle Datei:Zeile); „sollte“, „scheint“ sind kein Beleg. Gib zu jedem Befund deine Konfidenz an. Melde auch unsichere Befunde, aber unter `offene_fragen`. Blockierend (`nicht bestanden`) nur bei kritisch/hoch mit Konfidenz hoch. Konntest du nicht prüfen (z. B. gleiche oder unklare Modellfamilie ohne Freigabe), melde `blockiert`, nenne den Grund unter `offene_fragen` und führe alle Kriterien als UNGEPRÜFT.
+7. Prüfschranke vor jedem Befund: Fundstelle exakt (Datei:Zeile), konkreter Auslöser (Eingabe oder Zustand → Schaden), umgebender Code und Schutzmechanismen gelesen, Schwere vertretbar. Fehlt eines davon, stufe den Befund herab oder streiche ihn; bleibt er plausibel, aber nicht belegbar (z. B. ein schwer reproduzierbarer Sicherheitsfall), melde ihn als offene Frage statt ihn zu streichen. „Keine Befunde“ ist ein gültiges Ergebnis.
+8. Als Beleg zählt nur der aktuelle Stand (Lauf nach der letzten Änderung, aktuelle Datei:Zeile); „sollte“, „scheint“ sind kein Beleg. Gib zu jedem Befund deine Konfidenz an. Melde auch unsichere Befunde, aber unter `offene_fragen`. Blockierend (`nicht bestanden`) nur bei kritisch/hoch mit Konfidenz hoch. Konntest du nicht prüfen (z. B. gleiche oder unklare Modellfamilie ohne Freigabe), melde `blockiert`, nenne den Grund unter `offene_fragen` und führe alle Kriterien als UNGEPRÜFT.
 
 Antworte ausschließlich in diesem Format (höchstens 30 Zeilen):
 

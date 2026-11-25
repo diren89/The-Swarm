@@ -29,6 +29,7 @@ Ressourcen: <Maschinenhinweis, z. B. "langsam, ein anderer Agent baut parallel �
 
 Abgabe: Commit im eigenen Worktree, Nachricht endet mit `<Attributionszeile>`.
 Bericht ≤ <N> Zeilen: Änderungen je Datei, je Kriterium erfüllt (frischer Beleg) / teilweise / fehlt / UNGEPRÜFT (mit Grund), Abweichungen vom Scope. Keine Code-Dumps.
+Prüfart: je Kriterium nennen, welche Prüfung gefordert war und welche tatsächlich lief (z. B. gefordert: Browser-Test, gelaufen: nur Code gelesen), bei Abweichung mit Grund. Eine nicht gelaufene Zielprüfung ist UNGEPRÜFT.
 ~~~
 
 ## Checkliste vor dem Absenden
@@ -81,4 +82,5 @@ Nur echte Fehler, keine Stilfragen. Belege nur zum aktuellen Stand (Lauf nach de
 Antwort: Ergebnis (bestanden / nicht bestanden), höchstens <N> Befunde nach Schwere (kritisch, wichtig, Kleinigkeit),
 je eine Zeile `Datei:Zeile – Befund – Schwere – Konfidenz (hoch/mittel/niedrig) – konkreter Fix`.
 Unsichere Befunde gesondert als „offene Fragen“. Kein Lob, kein Code.
+Gefordert und tatsächlich gelaufene Prüfart getrennt nennen (z. B. Browser-Test gefordert, nur Code gelesen), mit Grund; nicht gelaufene Zielprüfung = UNGEPRÜFT.
 ```
