@@ -11,7 +11,7 @@ Dieses Repo soll Erfahrungen **dauerhaft zwischen verschiedenen Instanzen und Mo
 **Schnellimport:** In einer neuen Agent-Sitzung schreiben:
 
 ```text
-Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/prompts/import.md und folge dem Prompt darin.
+Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/The-Swarm/v2.3.0/prompts/import.md und folge dem Prompt darin.
 ```
 
 Ohne Webzugriff den vollständigen Prompt aus [prompts/import.md](prompts/import.md) einfügen.
@@ -25,9 +25,9 @@ Ohne Webzugriff den vollständigen Prompt aus [prompts/import.md](prompts/import
 Immer den Kern lesen, ab Stufe M zusätzlich Manifest und Learnings. Nur über Tag-URLs, nie über `main`:
 
 ```text
-https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/KERN.md
-https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/MANIFEST.md
-https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/LEARNINGS.md
+https://raw.githubusercontent.com/diren89/The-Swarm/v2.3.0/KERN.md
+https://raw.githubusercontent.com/diren89/The-Swarm/v2.3.0/MANIFEST.md
+https://raw.githubusercontent.com/diren89/The-Swarm/v2.3.0/LEARNINGS.md
 ```
 
 `LEARNINGS.md` enthält nur Einträge mit Status `neu`; Abgeschlossenes liegt in `learnings/archiv.md` und wird nicht geladen. Bei Bedarf zusätzlich die Vorlagen unter `playbooks/` und die Umgebungs-Probe `tools/probe-env.sh`.
@@ -36,9 +36,9 @@ Als Default verankern: einmal in der **globalen** Agenten-Konfiguration (z. B. b
 
 ```markdown
 ## Arbeitsweise (Default für alle Code-Projekte)
-Bei jeder Arbeit an Code gilt „The Swarm“ v2.2.0:
-Immer: https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/KERN.md lesen. Ab Stufe M zusätzlich
-https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/MANIFEST.md und in LEARNINGS.md (gleicher Tag) nur Einträge mit Status neu.
+Bei jeder Arbeit an Code gilt „The Swarm“ v2.3.0:
+Immer: https://raw.githubusercontent.com/diren89/The-Swarm/v2.3.0/KERN.md lesen. Ab Stufe M zusätzlich
+https://raw.githubusercontent.com/diren89/The-Swarm/v2.3.0/MANIFEST.md und in LEARNINGS.md (gleicher Tag) nur Einträge mit Status neu.
 Vorrang: Sicherheit und Rechte im Werkzeug > meine Anweisungen > Projektregeln > Skill > Manifest.
 Learnings lokal in .agent/learnings.md des Projekts sammeln; Pull Request nur auf meinen ausdrücklichen Wunsch.
 ```
@@ -61,7 +61,7 @@ Mit lokalem Klon (`~/.the-swarm`, auf den neuesten Tag ausgecheckt, Update per `
 | [playbooks/benchmark.md](playbooks/benchmark.md) | Wirksamkeitsmessung mit und ohne The Swarm (Verfahren, noch keine Ergebnisse); Vorab-Prüfungen und Ausgangswert |
 | [playbooks/sicherheit.md](playbooks/sicherheit.md) | Fremde Inhalte als Daten, Veröffentlichungsprüfung, Lieferkette |
 | [playbooks/schleife.md](playbooks/schleife.md) | Grenzen für Läufe ohne Aufsicht: Fortschrittsmarken, Budget, Stopp, Rückweg |
-| [playbooks/skills.md](playbooks/skills.md) | Externe Skills aufnehmen, festpinnen, aktualisieren, ausblenden; Skill-Katalog; Mechanismen je Werkzeug |
+| [playbooks/skills.md](playbooks/skills.md) | Externe Skills aufnehmen, festpinnen, aktualisieren, ausblenden, schützen; Herkunft ermitteln; Plugin-Abhängigkeiten; Skill-Katalog; Mechanismen je Werkzeug |
 | [tools/probe-env.sh](tools/probe-env.sh) | read-only Umgebungsprobe, Ausgabe bleibt lokal |
 | [tools/grundlast.sh](tools/grundlast.sh) | Prüft die Ladegröße: Kern höchstens 1 500, Manifest höchstens 6 000 Tokens |
 | [tools/update.sh](tools/update.sh) | Aktualisiert den lokalen Klon auf den neuesten Tag, zeigt vorher den Diff |
@@ -73,7 +73,7 @@ Mit lokalem Klon (`~/.the-swarm`, auf den neuesten Tag ausgecheckt, Update per `
 
 ## Version
 
-Aktuelle Version: **2.2.0** · Änderungen: [CHANGELOG.md](CHANGELOG.md)
+Aktuelle Version: **2.3.0** · Änderungen: [CHANGELOG.md](CHANGELOG.md)
 
 ## Grundsätze in einem Satz
 

@@ -14,3 +14,7 @@ prefix_rule(pattern=["git", "filter-branch"], decision="forbidden", justificatio
 prefix_rule(pattern=["git", "filter-repo"], decision="forbidden", justification="Schreibt die Historie um.")
 prefix_rule(pattern=["git", "update-ref", "-d"], decision="forbidden", justification="Löscht Referenzen.")
 prefix_rule(pattern=["git", "worktree", "remove", "--force"], decision="forbidden", justification="Verwirft ungesicherte Änderungen im Arbeitsbaum.")
+
+# Skills: Löschen über die skills-CLI nur durch die Nutzerin (Schutzliste, playbooks/skills.md). Kein ID-Filter möglich (argv-Präfix).
+prefix_rule(pattern=["skills", "remove"], decision="forbidden", justification="Skills entfernt nur die Nutzerin (Schutzliste).")
+prefix_rule(pattern=["npx", "skills", "remove"], decision="forbidden", justification="Skills entfernt nur die Nutzerin (Schutzliste).")

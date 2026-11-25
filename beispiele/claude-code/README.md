@@ -34,6 +34,18 @@ Quelle: https://code.claude.com/docs/en/skills (abgerufen 2026-11-25). Skill-Ord
 - **Rechte:** Permission-Regeln `Skill(name)` bzw. `Skill(name *)` in den Settings (`allow`, `ask`, `deny`); `deny` sperrt. Sie gelten für Haupt- und Subagents gemeinsam, **nicht je Agent**. Das Agent-Feld `skills` lädt Skills vorab in den Kontext; der `skill-master` setzt es nicht (er liest Skills als Dateien).
 - **Neu laden:** Änderungen an einer `SKILL.md` werden live erkannt; fehlt ein neuer Skill, hilft `/reload-skills`.
 - **Grenze:** Pfadgrenzen und Netz des `skill-master` sind nur vereinbart. Wer sie durchsetzen will, nutzt Sandbox oder einen Hook (siehe unten); das Beispiel enthält keinen.
+- **Schutzliste (`<GESCHÜTZTE_SKILLS>`):** nur global in `settings.json`, nicht je Agent: in `permissions.deny` je Schutzlisten-Pfad (ein einzelner führender Schrägstrich ist relativ zur Settings-Quelle, deshalb `//` bzw. `~/`). Beispiel für alle Pfade der Liste:
+  ```json
+  "deny": [
+    "Edit(~/.claude/agents/**)",
+    "Edit(~/.claude/CLAUDE.md)",
+    "Edit(//<absoluter Pfad zu The Swarm>/**)",
+    "Edit(~/.claude/skills/<id>/**)",
+    "Bash(*skills remove*<id>*)",
+    "Bash(*skills update*<id>*)"
+  ]
+  ```
+  Agent-Dateien (`Edit(~/.claude/agents/**)`; Projekt: `Edit(.claude/agents/**)`), globale Anweisungsdatei, Regelwerk-Klon und jeder geschützte Skill-Ordner (je Skill-Ort) stehen so einzeln gesperrt; Skills im Projekt analog mit `Edit(.claude/skills/<id>/**)`. `Edit`-Regeln gelten für alle Bearbeitungswerkzeuge; `deny` hat Vorrang vor `allow`. Syntax nach https://code.claude.com/docs/en/permissions (Abschnitt „Read and Edit“, abgerufen 2026-11-26); nicht in der laufenden Einrichtung erprobt (UNGEPRÜFT, [Probe](../probe/skill-schutz.md)). Folge: Die Sperre gilt für die Hauptsitzung mit. **Shell-Zugriffe sind davon nur teilweise erfasst:** erkannte Ausgabe-Umleitungen und `tee` prüft Claude Code gegen `Edit`, nicht aber `rm -rf`, Skripte oder Programme, die selbst Dateien schreiben: dafür `Bash(rm *)` (greift nicht bei `/bin/rm` oder `bash -c`) bzw. die Sandbox mit `sandbox.filesystem.denyWrite` auf dieselben Pfade; auch ein Elternordner, den der Agent beschreiben darf, lässt Umbenennen oder Ersetzen zu (siehe Playbook „Stärkere Grenze“). Das Settings-Beispiel enthält die Zeilen nicht, weil Pfade und IDs je Installation verschieden sind.
 
 ## Prüfer anderer Familie
 

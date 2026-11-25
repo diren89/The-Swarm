@@ -33,6 +33,7 @@ Quelle: https://developers.openai.com/codex/skills (abgerufen 2026-11-25). Skill
 
 - **Ausblenden:** im Skill eine Datei `agents/openai.yaml` mit `policy:` / `allow_implicit_invocation: false`: Codex wählt den Skill dann nicht von sich aus, die Nutzerin ruft ihn weiter mit `$skill` auf. Ob die Beschreibung dann aus der Liste fällt (Grundlast), ist nicht dokumentiert; `tools/skills-status.sh` zählt sie deshalb mit. Abschalten ganz: in `~/.codex/config.toml` `[[skills.config]]` mit `path = "…"` und `enabled = false` (Neustart nötig).
 - **Rechte:** Skill-Rechte je Agent sind in der gelesenen Dokumentation **nicht dokumentiert** (UNGEPRÜFT). Der `skill-master` ist deshalb nur über seinen Text begrenzt.
+- **Schutzliste (`<GESCHÜTZTE_SKILLS>`):** nur Anweisung im Rollentext und, experimentell, ein `prefix_rule` in `rules/the-swarm.rules` mit `decision="forbidden"` für `skills remove` (UNGEPRÜFT; argv-Präfix, greift nur ohne Zwischenoptionen). Pfadsperren für Bearbeiten gibt es nicht; die Sandbox der Sitzung begrenzt Schreibzugriffe nur grob. Wer Geschütztes technisch sperren will, braucht ein anderes Werkzeug oder ein Dateisystem mit Schreibschutz (z. B. Nur-Lese-Rechte des Betriebssystems für den Ordner). Probe: [skill-schutz.md](../probe/skill-schutz.md).
 
 ## Prüfer anderer Familie
 

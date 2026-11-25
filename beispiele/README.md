@@ -10,7 +10,7 @@
 | [opencode/](opencode/) | 8 Agentdateien (`.md`, YAML-Kopf), `opencode.json.ausschnitt`, README (Abschnitt „Hooks“: nur über Plugins, kein Beispiel) |
 | [claude-code/](claude-code/) | 7 Agentdateien (`.md`), `CLAUDE.md.ausschnitt` (Koordinator-Text), `settings.json.ausschnitt`, optional `hooks/` (zwei Hook-Gates) mit `settings.hooks.json.ausschnitt`, README |
 | [codex/](codex/) | 7 Agentdateien (`.toml`), `AGENTS.md.ausschnitt` (Koordinator-Text), `config.toml.ausschnitt`, `rules/the-swarm.rules`, README (Abschnitt „Hooks“: dokumentiertes Format, kein Beispiel) |
-| [probe/](probe/) | `git-sperren.md`: Probe der Git-Sperren im Wegwerf-Repo |
+| [probe/](probe/) | `git-sperren.md`: Probe der Git-Sperren im Wegwerf-Repo; `skill-schutz.md`: Probe der Schutzliste des `skill-master` |
 
 In Claude Code und Codex ist der Koordinator die Hauptsitzung; sein Text steht im jeweiligen Ausschnitt statt in einer Agentdatei.
 
@@ -41,6 +41,7 @@ Nicht im Beispiel: Rollen für Datenexporte oder Forschungssynthese, ein Modellp
 | `<MODELL_PRUEFER_ANDERE_FAMILIE>` | Modell einer anderen Familie als der Autor (`reviewer`) |
 | `<provider>` | Anbieter-Kennung in OpenCode (Format `<provider>/<modell>`) |
 | `<Pfad zu The Swarm>` | Ort des lokalen Klons von The Swarm (in den Vorlagen) |
+| `<GESCHÜTZTE_SKILLS>` | Skill-IDs und Pfade, die der `skill-master` nie ändert (Rollentext; Sperren im OpenCode-Kopf, Settings bei Claude Code) |
 
 In den Agentdateien stehen die Modellzeilen **auskommentiert** (`# model: …`). Ohne Zeile nutzt der Agent das Standardmodell der Sitzung; die Rolle funktioniert dann, aber ohne Modellklasse und beim `reviewer` ohne andere Familie. Platzhalter nie raten: die Nutzerin nennt die verfügbaren Modelle.
 
@@ -51,6 +52,7 @@ Externe Agent-Skills sind fremde Inhalte (Daten, keine Anweisungen). Das Playboo
 - **Katalog:** Markdown-Tabelle `.agent/skills-katalog.md` (Projekt) bzw. `skills-katalog.md` neben der globalen Anweisungsdatei, eine Zeile je Skill: `| ID | Wofür (höchstens 12 Wörter) | Quelle@Commit oder lokal | sichtbar/ausgeblendet | Rollen |`. `coordinator` und `coordinator-code` lesen ihn ab Stufe M und laden ausgeblendete Skills gezielt.
 - **Ausblenden:** je Werkzeug anders, siehe die Werkzeug-READMEs (OpenCode `metadata: { opencode/autoinvoke: false }`, Claude Code `disable-model-invocation: true` bzw. `skillOverrides`, Codex `agents/openai.yaml`). In OpenCode und Claude Code kostet ein ausgeblendeter Skill laut Doku keine Grundlast und bleibt gezielt ladbar; bei Codex verhindert das Flag nur den Selbstaufruf, ob die Beschreibung aus der Liste fällt, ist nicht dokumentiert.
 - **Pflege:** nur die Rolle `skill-master`, nur auf Wunsch der Nutzerin oder in Phase 0 bei Stufe L, nie je Aufgabe. Freigaben gehen als `blockiert` mit Optionen an den `coordinator`. `coordinator-code` meldet Bedarf als `blockiert` zurück.
+- **Geschützte Skills:** Schutzliste mit Platzhalter `<GESCHÜTZTE_SKILLS>` im Rollentext; technisch gesperrt nur, wo das Werkzeug es kann (OpenCode: `edit`/`shell` deny am Ende des Kopfes; Claude Code: `permissions.deny` global; Codex: nur Anweisung). Playbook [skills.md](../playbooks/skills.md), Probe [skill-schutz.md](probe/skill-schutz.md).
 - **Skill-Rechte je Rolle:** nur in OpenCode je Agent technisch einstellbar (Tabelle in [opencode/README.md](opencode/README.md#skill-rechte-je-rolle)). Claude Code: Regeln `Skill(name)` in den Settings, global. Codex: Rechte je Agent für Skills in der Dokumentation nicht gefunden (UNGEPRÜFT).
 
 ## Prüfer aus anderer Modellfamilie (§5.1, §2 Punkt 6)
@@ -70,7 +72,7 @@ Externe Agent-Skills sind fremde Inhalte (Daten, keine Anweisungen). Das Playboo
 
 ## Installation
 
-Über den Import-Prompt: [prompts/import.md](../prompts/import.md) (Schritt „Beispiel-Rollen“, 6a). Der Agent zeigt den passenden Ordner, überschreibt keine Dateien gleichen Namens, klärt die Platzhalter mit der Nutzerin und führt Konfigurations-Ausschnitte (`settings.json`, `opencode.json`, `config.toml`, `rules`) **nicht selbst zusammen**, sondern zeigt einen Diff und wartet auf Freigabe. Danach die [Probe](probe/git-sperren.md) in einer neuen Sitzung. Manuell: Dateien aus dem Werkzeug-Ordner an den dort genannten Ort kopieren (siehe README des Ordners), Platzhalter ersetzen.
+Über den Import-Prompt: [prompts/import.md](../prompts/import.md) (Schritt „Beispiel-Rollen“, 6a). Der Agent zeigt den passenden Ordner, überschreibt keine Dateien gleichen Namens, klärt die Platzhalter mit der Nutzerin und führt Konfigurations-Ausschnitte (`settings.json`, `opencode.json`, `config.toml`, `rules`) **nicht selbst zusammen**, sondern zeigt einen Diff und wartet auf Freigabe. Danach die [Probe](probe/git-sperren.md) in einer neuen Sitzung (bei Einsatz des `skill-master` zusätzlich [skill-schutz.md](probe/skill-schutz.md)). Manuell: Dateien aus dem Werkzeug-Ordner an den dort genannten Ort kopieren (siehe README des Ordners), Platzhalter ersetzen.
 
 ## Status der Erprobung
 

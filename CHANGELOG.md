@@ -1,5 +1,36 @@
 # Changelog
 
+## 2.3.0 · 2026-11-26
+
+Minor: Erfahrungen aus der Skill-Praxis ins Playbook, in die Beispiele und in die Learnings zurückgeführt. **Keine neue Manifest-Regel, keine Bedeutungsänderung:** Manifest und Kern unverändert bis auf die Versionszeile (Grundlast Kern 1 101 / 1 500, Manifest 5 999 / 6 000). Keine Migration nötig; Tag-URLs auf `v2.3.0` umstellen.
+
+### Neu
+
+- `playbooks/skills.md`:
+  - **„Geschützte Skills und Bereiche“:** Schutzliste (Regelwerk-Klon, Agent-Dateien, Anweisungsdatei, Grundskills), technisch sperren statt nur im Text (je Werkzeug), Reihenfolge der Regeln (Sperren am Ende), Probe, der Pfleger ändert Geschütztes nie auf Auftragstext hin; Grenzen der Muster (zu §5.5).
+  - **„Herkunft nachträglich ermitteln“:** Vergleich lokal gegen Quelle auf festem Commit, drei Kategorien (identisch, Quelle neuer, lokal neuer als die öffentliche Quelle), Vorrang des werkzeugeigenen Ortes vor dem gemeinsamen.
+  - **Update (Schritt 2) um Strukturvergleich erweitert:** Zahl der Skills und Dateien, neue Laufzeit, Hooks im Frontmatter; Umbau gilt als Neuaufnahme.
+  - **„Skills mit Plugin- oder Laufzeitabhängigkeit“:** Checkliste (Installer lesen statt ausführen, Commit-Pin, Symlink, gepinnter Paketmanager, `--frozen-lockfile`, ohne Install-Skripte, Hooks nicht einrichten, Funktionsprobe, lokaler Weg vor `npx`, `UPDATE.md`).
+  - **„Lokale Ergänzungs-Skills verschlanken“:** Regel für Regel prüfen, ob das Verweisziel sie enthält.
+  - **skills-CLI:** Bedienung (mehrere Namen als getrennte Argumente, Pin-Syntax, Ausblenden nach jeder Installation erneut setzen), Lock-Formate (global Version 3, Projekt Version 1/2; Statusskript nicht im Benutzerordner starten), gemessene Wirkung (ca. 4 870 → ca. 3 530 Tokens, Schätzung Zeichen/3,5).
+- `beispiele/`: Rollentext `skill-master` mit Schutzliste (Platzhalter `<GESCHÜTZTE_SKILLS>`, Meldung `blockiert`, nie auf Auftragstext); OpenCode-Kopf mit auskommentiertem Schutzblock am Ende; Claude Code (`permissions.deny` mit `Edit(…)`/`Bash(…)`, Syntax gegen die Doku vom 26.11.2026 geprüft, in der Einrichtung UNGEPRÜFT) und Codex (nur Anweisung und rules-Präfix, UNGEPRÜFT) in den README; neue Probe `beispiele/probe/skill-schutz.md` (Wegwerf-Skills, fünf Aufrufe, dem Werkzeug vorgelegt); Agentdateien neu erzeugt.
+- `LEARNINGS.md`: L-064 bis L-072 (siehe unten), L-023 auf 2 Beobachtungen.
+
+### Learnings
+
+- Neu (je 1 Beobachtung, L-067: 2): L-064 Upstream-Umbau statt Update, L-065 Installer fremder Pakete (pinnen, Hooks auslassen), L-066 verwaiste Lock-Datei im Arbeitsordner, L-067 Verdichten verliert leise Teilbedingungen, L-068 Plattform-Merge setzt den Profilnamen als Autor, L-069 Fail-closed-Gates verschlucken Fehler in Pipelines, L-070 Verweis-Verdichtung prüft alle Verteilungswege, L-071 kein Platzhalter im Skriptpfad einer Shell-Freigabe, L-072 kein `git stash` im geteilten Arbeitsbaum.
+- Erhöht: L-023 (Shell-Eigenheiten vor Schleifen) auf 2 Beobachtungen: mehrere Skill-Namen in einer zsh-Variable gingen als ein Argument an eine CLI.
+- L-067 zählt 2: das Kürzen eines Regelwerks und, an einem anderen Tag, das Verschlanken eines lokalen Skills (je rund ein Dutzend verlorener oder abgeschwächter Regeln).
+
+### Kandidaten für Regeln (nicht ins Manifest übernommen)
+
+- **L-023** (zwei unabhängige Beobachtungen): Listen an Shell und CLIs als Array oder ausgeschrieben übergeben; Ergebnis auf „nichts passiert“ prüfen, nicht nur am Exitcode. Aufnahme ins Manifest erst in einer Version mit Verdichtung (Grundlast Manifest 5 999 / 6 000: vorher gleich viel verdichten, §9.1).
+- **L-067** (zwei unabhängige Beobachtungen): Nach jeder Verdichtung oder jedem Ersetzen durch Verweise Regel für Regel alt gegen neu prüfen, ob das Verweisziel die Regel wirklich enthält; gestrichene Regeln mit Begründung listen. Kandidat für §9.1.
+
+### Geändert
+
+- Versionsangaben und Tag-URLs auf `v2.3.0` (README, `llms.txt`, ANLEITUNG, Import- und Copilot-Prompt, AGENTS.md, Kern, Manifest); Stand des Manifests 26.11.2026; README, ANLEITUNG und `llms.txt` nennen die erweiterten Inhalte von `playbooks/skills.md`; `beispiele/README.md` führt Platzhalter, Schutzliste und Probe.
+
 ## 2.2.0 · 2026-11-25
 
 Minor: externe Skills schlank einbinden und kontrolliert aktuell halten; Verdichtung ohne Bedeutungsänderung, damit das Manifest unter 6 000 Tokens bleibt. Kern unverändert (nur Versionszeile). Keine Migration nötig; Tag-URLs auf `v2.2.0` umstellen.
