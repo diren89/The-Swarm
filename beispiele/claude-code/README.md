@@ -6,7 +6,7 @@ Optional, nur ein Beispiel. Überblick, Platzhalter und Grenzen: [../README.md](
 
 | Datei hier | Ziel |
 |---|---|
-| `agents/<id>.md` (6) | `~/.claude/agents/<id>.md` (global) oder `.claude/agents/<id>.md` (Projekt) |
+| `agents/<id>.md` (7) | `~/.claude/agents/<id>.md` (global) oder `.claude/agents/<id>.md` (Projekt) |
 | `CLAUDE.md.ausschnitt` | Koordinator-Text: am Ende von `~/.claude/CLAUDE.md` bzw. der Projekt-`CLAUDE.md` ergänzen (der Koordinator ist die Hauptsitzung, kein Agent) |
 | `settings.json.ausschnitt` | Git-Sperren: in `~/.claude/settings.json` unter `permissions.deny` zusammenführen (nur nach Diff und Freigabe) |
 | `settings.hooks.json.ausschnitt` + `hooks/*.sh` (optional) | zwei Hook-Gates, siehe [Optionale Hooks](#optionale-hooks): Ausschnitt in `.claude/settings.json` des Projekts (oder `~/.claude/settings.json`) unter `hooks` zusammenführen, Skripte nach `.claude/hooks/` kopieren |
@@ -20,11 +20,20 @@ Vorhandene Dateien gleichen Namens nicht überschreiben.
 YAML-Kopf mit nur dokumentierten Feldern (`name`, `description`, `tools`, `disallowedTools`, `model`, `maxTurns`, `skills`), darunter der Rollentext. Claude Code **ignoriert unbekannte Felder still**; deshalb keine Felder wie `mode`, `steps`, `permissions`, `color`.
 
 - **Modell:** `# model:` auskommentiert; ohne Zeile erbt der Agent das Modell der Hauptsitzung. Alias oder Modell-ID einsetzen.
-- **Werkzeuge (`tools`, Allowlist):** `Agent` steht **nur** bei `coordinator-code` und `implementer`; so können nur diese weitere Subagents starten. `reviewer`: `Read, Grep, Glob, Bash, WebSearch, WebFetch` plus `disallowedTools: Edit, Write`. `researcher`, `scout`: ohne `Bash`, ohne Schreibwerkzeuge. `editor-lite`: `Edit` und `Bash`.
-- **Schrittlimit:** `maxTurns` (`implementer` 50, `reviewer` 30, `researcher` 30, `scout` 20, `editor-lite` 25).
+- **Werkzeuge (`tools`, Allowlist):** `Agent` steht **nur** bei `coordinator-code` und `implementer`; so können nur diese weitere Subagents starten. `reviewer`: `Read, Grep, Glob, Bash, WebSearch, WebFetch` plus `disallowedTools: Edit, Write`. `researcher`, `scout`: ohne `Bash`, ohne Schreibwerkzeuge. `editor-lite`: `Edit` und `Bash`. `skill-master`: `Read, Grep, Glob, Edit, Write, Bash, WebFetch`, kein `Agent`; **die Pfadgrenzen (nur Skill-Ordner, Katalog, Lock, `.agent/work/`) und die Beschränkung auf Skills-CLI, Statusskript und lesendes Git sind nur vereinbart (Anweisung), nicht gesperrt.**
+- **Schrittlimit:** `maxTurns` (`implementer` 50, `skill-master` 40, `reviewer` 30, `researcher` 30, `scout` 20, `editor-lite` 25).
 - **Git-Sperren: global, nicht je Agent.** `disallowedTools` mit einem Bash-Muster (`Bash(git push *)`) würde Bash ganz entziehen. Deshalb steht `permissions.deny` in `settings.json` und gilt für Haupt- und Subagents; `deny` hat Vorrang vor `ask` und `allow`. Folge: Auch die Hauptsitzung kann nicht pushen, bis die Zeile entfernt wird. Wer das nicht will, setzt die Muster in `ask` um.
 - **Grenzen:** Bash-Muster sind keine harte Grenze (z. B. `git -C <ordner> push`); stärker durchsetzen mit Sandbox oder Hook. Der Schreibschutz des `reviewer` sperrt `Edit` und `Write`, nicht Schreiben per Shell. Das nennt der Plan als „nur vereinbart“.
 - **Tiefe:** nicht per Feld einstellbar; Claude Code begrenzt sie zur Laufzeit. Die Kette vor dem ersten Einsatz mit einem Probeauftrag durchlaufen.
+
+## Skills
+
+Quelle: https://code.claude.com/docs/en/skills (abgerufen 2026-11-25). Skill-Ordner: global `~/.claude/skills/<name>/`, Projekt `.claude/skills/<name>/` (auch in Elternordnern bis zur Repo-Wurzel).
+
+- **Ausblenden:** im Kopf der `SKILL.md` `disable-model-invocation: true`: die Beschreibung steht dann nicht im Kontext, der Skill wird erst geladen, wenn die Nutzerin `/name` aufruft. Alternativ `skillOverrides` in den Settings (z. B. `"user-invocable-only"`, `"off"`), ohne die Datei zu ändern. `description` und `when_to_use` werden im Listing auf 1 536 Zeichen gekürzt.
+- **Rechte:** Permission-Regeln `Skill(name)` bzw. `Skill(name *)` in den Settings (`allow`, `ask`, `deny`); `deny` sperrt. Sie gelten für Haupt- und Subagents gemeinsam, **nicht je Agent**. Das Agent-Feld `skills` lädt Skills vorab in den Kontext; der `skill-master` setzt es nicht (er liest Skills als Dateien).
+- **Neu laden:** Änderungen an einer `SKILL.md` werden live erkannt; fehlt ein neuer Skill, hilft `/reload-skills`.
+- **Grenze:** Pfadgrenzen und Netz des `skill-master` sind nur vereinbart. Wer sie durchsetzen will, nutzt Sandbox oder einen Hook (siehe unten); das Beispiel enthält keinen.
 
 ## Prüfer anderer Familie
 

@@ -79,4 +79,6 @@ if command -v git >/dev/null 2>&1; then
 else
   echo "UNGEPRÜFT update.sh (git fehlt)"
 fi
+# --- skills-status.sh (eigener Selbsttest mit Wegwerf-Ordnern) ---
+bash "$(dirname "$0")/test-skills-status.sh" >/dev/null 2>&1; chk "31 skills-status Selbsttest" "$?" 0
 echo "Selbsttest: $pass/$total"; rm -rf "$T"; [ $pass -eq $total ]

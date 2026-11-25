@@ -10,6 +10,9 @@ permissions:
   - { action: "subagent", resource: "researcher", effect: allow }
   - { action: "subagent", resource: "editor-lite", effect: allow }
   - { action: "subagent", resource: "coordinator-code", effect: allow }
+  - { action: "subagent", resource: "skill-master", effect: allow }
+  # Skills: alle erlaubt. Selten genutzte im Skill ausblenden (`metadata: { opencode/autoinvoke: false }`) und über den Skill-Katalog laden (`@id`); für Fremd-Skills statt `allow` bei Bedarf `ask`
+  - { action: "skill", resource: "*", effect: allow }
   # Zerstörende Git-Befehle nur nach Rückfrage (Aufräumen gemergter Worktrees und Zweige nach dem Phasen-Gate: `git branch -d`, `git worktree remove` ohne --force bleiben frei)
   - { action: "shell", resource: "git push*", effect: ask }
   - { action: "shell", resource: "git reset --hard*", effect: ask }

@@ -1,31 +1,33 @@
 # The Swarm
 
-> Default-Arbeitsweise für alle Code-Projekte (Version 2.1.0), skaliert nach Aufgabengröße (Kern immer, Handbuch ab Stufe M). Regelwerk für KI-Agents, die Software-Aufgaben koordiniert in Phasen umsetzen: Planung vor Umsetzung, Subagents mit passenden Modellen, Qualität/Effizienz/Tokens, fünf Prüfschichten, Anpassung an die Hardware, Lernschleife über Instanzen hinweg. Sprache Deutsch.
+> Default-Arbeitsweise für alle Code-Projekte (Version 2.2.0), skaliert nach Aufgabengröße (Kern immer, Handbuch ab Stufe M). Regelwerk für KI-Agents, die Software-Aufgaben koordiniert in Phasen umsetzen: Planung vor Umsetzung, Subagents mit passenden Modellen, Qualität/Effizienz/Tokens, fünf Prüfschichten, Anpassung an die Hardware, Lernschleife über Instanzen hinweg. Sprache Deutsch.
 
 ## Einlesen
-- [KERN.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/KERN.md): Kern der Arbeitsweise (immer lesen)
-- [MANIFEST.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/MANIFEST.md): Handbuch (ab Stufe M lesen)
-- [LEARNINGS.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/LEARNINGS.md): offene Erfahrungen mit Status neu (ab Stufe M lesen)
-- [learnings/archiv.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/learnings/archiv.md): Archiv abgeschlossener Learnings (nur zum Nachschlagen)
+- [KERN.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/KERN.md): Kern der Arbeitsweise (immer lesen)
+- [MANIFEST.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/MANIFEST.md): Handbuch (ab Stufe M lesen)
+- [LEARNINGS.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/LEARNINGS.md): offene Erfahrungen mit Status neu (ab Stufe M lesen)
+- [learnings/archiv.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/learnings/archiv.md): Archiv abgeschlossener Learnings (nur zum Nachschlagen)
 
 ## Import
-- [prompts/import.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/prompts/import.md): Prompt, mit dem ein Agent The Swarm selbst einrichtet
-- [prompts/copilot.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/prompts/copilot.md): Microsoft 365 Copilot baut damit einen eigenen Agent (ohne Dateizugriff)
+- [prompts/import.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/prompts/import.md): Prompt, mit dem ein Agent The Swarm selbst einrichtet
+- [prompts/copilot.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/prompts/copilot.md): Microsoft 365 Copilot baut damit einen eigenen Agent (ohne Dateizugriff)
 
 ## Anleitung
-- [ANLEITUNG.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/ANLEITUNG.md): Installation und Nutzung für verschiedene Werkzeuge
+- [ANLEITUNG.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/ANLEITUNG.md): Installation und Nutzung für verschiedene Werkzeuge
 
 ## Vorlagen
-- [playbooks/agent-brief.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/playbooks/agent-brief.md): Auftrag an Umsetzer und Prüfer
-- [playbooks/phase-retro.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/playbooks/phase-retro.md): Retrospektive
-- [playbooks/korrektur-brief.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/playbooks/korrektur-brief.md): Übergabe einer Korrekturrunde
-- [playbooks/benchmark.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/playbooks/benchmark.md): Wirksamkeitsmessung mit und ohne The Swarm (Verfahren, noch keine Ergebnisse); Vorab-Prüfungen und Ausgangswert
-- [playbooks/sicherheit.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/playbooks/sicherheit.md): Fremde Inhalte als Daten, Veröffentlichungsprüfung, Lieferkette
-- [playbooks/schleife.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/playbooks/schleife.md): Grenzen für Läufe ohne Aufsicht
-- [tools/probe-env.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/tools/probe-env.sh): Umgebungsprobe (read-only)
-- [tools/pruefen.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/tools/pruefen.sh): Prüfläufe mit Testzahl und Warnungen
-- [tools/grundlast.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/tools/grundlast.sh): Prüft die Ladegröße von Kern und Manifest
-- [tools/update.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/tools/update.sh): Aktualisiert den lokalen Klon auf den neuesten Tag, mit Diff und Bestätigung
+- [playbooks/agent-brief.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/playbooks/agent-brief.md): Auftrag an Umsetzer und Prüfer
+- [playbooks/phase-retro.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/playbooks/phase-retro.md): Retrospektive
+- [playbooks/korrektur-brief.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/playbooks/korrektur-brief.md): Übergabe einer Korrekturrunde
+- [playbooks/benchmark.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/playbooks/benchmark.md): Wirksamkeitsmessung mit und ohne The Swarm (Verfahren, noch keine Ergebnisse); Vorab-Prüfungen und Ausgangswert
+- [playbooks/sicherheit.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/playbooks/sicherheit.md): Fremde Inhalte als Daten, Veröffentlichungsprüfung, Lieferkette
+- [playbooks/schleife.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/playbooks/schleife.md): Grenzen für Läufe ohne Aufsicht
+- [playbooks/skills.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/playbooks/skills.md): Externe Skills aufnehmen, festpinnen, aktualisieren, Skill-Katalog
+- [tools/probe-env.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/tools/probe-env.sh): Umgebungsprobe (read-only)
+- [tools/pruefen.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/tools/pruefen.sh): Prüfläufe mit Testzahl und Warnungen
+- [tools/grundlast.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/tools/grundlast.sh): Prüft die Ladegröße von Kern und Manifest
+- [tools/update.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/tools/update.sh): Aktualisiert den lokalen Klon auf den neuesten Tag, mit Diff und Bestätigung
+- [tools/skills-status.sh](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/tools/skills-status.sh): Installierte Skills, Beschreibungs-Tokens, Hash-Abgleich (read-only)
 
 ## Beitragen
-- [CONTRIBUTING.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/CONTRIBUTING.md): lokal sammeln, anonym, allgemein, Pull Request nur auf ausdrücklichen Wunsch
+- [CONTRIBUTING.md](https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/CONTRIBUTING.md): lokal sammeln, anonym, allgemein, Pull Request nur auf ausdrücklichen Wunsch

@@ -1,0 +1,5 @@
+name: skill-master
+description: "Pflege externer Skills (aufnehmen, prüfen, festpinnen, aktualisieren, Katalog). Nur auf Wunsch der Nutzerin oder in Phase 0 bei Stufe L, nicht je Aufgabe."
+tools: Read, Grep, Glob, Edit, Write, Bash, WebFetch
+# model: <MODELL_MITTEL>  # Alias oder Modell-ID einsetzen und Kommentarzeichen entfernen; ohne Zeile erbt der Agent das Modell der Hauptsitzung
+maxTurns: 40
