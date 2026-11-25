@@ -22,6 +22,15 @@ Learnings werden zunächst lokal gesammelt, z. B. in `.agent/learnings.md` des P
 - **Status:** neu
 ```
 
+Optional sind zwei weitere Felder, direkt vor `Beobachtungen`:
+
+```markdown
+- **Auslöser:** <Situation, in der die Regel greift>
+- **Widerspruch:** <Gegenbeobachtung, kurz>
+```
+
+Eine Gegenbeobachtung wird eingetragen, nicht übergangen, und kann den Status senken: Der Eintrag braucht dann weitere Beobachtungen, bevor er Regel werden kann, oder wird nach dem Abschnitt „Pflege“ auf `verworfen: <Grund>` gesetzt. Die Hürde für eine Regel bleibt unverändert.
+
 `Beobachtungen` zählt die unabhängigen Beobachtungen; fehlt das Feld (ältere Einträge), gilt 1. Wird ein Learning in einem anderen Zusammenhang bestätigt, steigt die Zahl, und der Eintrag nennt die neue Beobachtung kurz.
 
 Neue Learnings unter einer Datums-Überschrift oben einfügen (`## JJJJ-MM-TT · <anonymer Kontext>`). Nummern laufen fortlaufend weiter, auch über Datumsblöcke hinweg, und Nummern im Archiv zählen mit.
@@ -51,8 +60,9 @@ Commits tragen als Autor nur das Konto-Pseudonym oder die noreply-Adresse des Ho
    ```
    Der Kern darf höchstens 1 500 Tokens haben, das Manifest höchstens 6 000 (Schätzung Zeichen/3,5). Wird die Grenze überschritten, wird verdichtet statt die Grenze angehoben.
 4. Bei jeder neuen Version die [README.md](README.md) pflegen: Sie zeigt nur die aktuelle Version und verweist auf [CHANGELOG.md](CHANGELOG.md). Keine Versionstabelle in der README; Neuerungen stehen nur im Changelog.
-5. Pull Request mit kurzer Begründung öffnen. Ein Mensch prüft und merged. Modelle mergen nicht selbst in `main`.
-6. **Jede Version wird getaggt:** Nach dem Merge setzt der Mensch, der merged, den Tag `v<Version>` auf den Merge-Commit (oder beauftragt ausdrücklich ein Modell damit). Nutzerinnen laden nur getaggte Stände, nie `main`.
+5. Vor dem Pull Request die Veröffentlichungsprüfung nach [playbooks/sicherheit.md](playbooks/sicherheit.md) (read-only: Arbeitsbaum und Historie, Geheimnisse, Binärdateien, Autorenangaben, Lieferkette); ein unvollständiger Scan ist kein Bestanden.
+6. Pull Request mit kurzer Begründung öffnen. Ein Mensch prüft und merged. Modelle mergen nicht selbst in `main`.
+7. **Jede Version wird getaggt:** Nach dem Merge setzt der Mensch, der merged, den Tag `v<Version>` auf den Merge-Commit (oder beauftragt ausdrücklich ein Modell damit). Nutzerinnen laden nur getaggte Stände, nie `main`.
 
 ## Pflege
 

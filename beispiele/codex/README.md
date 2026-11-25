@@ -35,3 +35,10 @@ TOML mit `name`, `description`, `developer_instructions` (der Rollentext) und au
 1. Modellzeilen anpassen, Dateien kopieren, Konfigurationsdiff freigeben.
 2. [Probe `git-sperren.md`](../probe/git-sperren.md) mit dem `implementer`.
 3. Bis ein Probelauf vorliegt: UNGEPRÜFT.
+
+## Hooks
+
+**Kein Beispiel im Ordner, aber ein dokumentiertes deklaratives Format.** Codex liest Hooks aus `hooks.json` (System, Nutzer `~/.codex/hooks.json`, vertrauenswürdiges Projekt `.codex/hooks.json`) oder aus `[hooks]`-Tabellen in `config.toml`. Aufbau wie bei Claude Code: Ereignis (`PreToolUse`, `Stop`, …) → Matcher-Gruppe (`matcher` als Regex, bei `Stop` ohne Wirkung) → Handler `{"type": "command", "command": …, "timeout": …}`; Eingabe als JSON auf stdin (`tool_input.command` bei `Bash`, `stop_hook_active` bei `Stop`); **Exit 2 mit Begründung auf stderr blockiert** bei `PreToolUse`. Nicht verwaltete Hooks müssen in `/hooks` geprüft und freigegeben werden, bevor sie laufen. Die Dokumentation nennt Hooks selbst „a useful guardrail, not a complete enforcement boundary“; sie decken nicht jeden Werkzeugpfad ab.
+
+Die zwei Gates ließen sich damit voraussichtlich abbilden (Gate A als `PreToolUse` mit Matcher `^Bash$`, Gate B als `Stop`; die Skripte aus [../claude-code/hooks/](../claude-code/hooks/) lesen nur stdin und sind werkzeugneutral geschrieben). **Das ist nicht erprobt (UNGEPRÜFT: Codex war nicht installiert)** und deshalb nicht als Datei beigelegt. Offen: `Stop` erwartet bei Exit 0 laut Dokumentation JSON auf stdout oder keine Ausgabe (Gate B gibt `{"systemMessage": …}` oder nichts aus, ob das passt, ist ungeprüft); `onFailure` (fail-closed bei Ausfall des Hooks) steht in der Dokumentation nicht, ein abgestürztes Gate A würde also voraussichtlich durchlassen; Windows verhält sich laut offenem Fehlerbericht anders. Wer das Format nutzt: Skripte lesen, in einem Wegwerf-Repo mit Negativ- und Positivfall prüfen.
+Quelle (abgerufen 2026-11-25): https://developers.openai.com/codex/hooks (Abschnitte „Where Codex looks for hooks“, „Config shape“, „PreToolUse“, „Stop“).

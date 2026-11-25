@@ -26,13 +26,15 @@ Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, fü
 
 | Datei | Wofür |
 | --- | --- |
-| `KERN.md` | Der Kern (höchstens 1 500 Tokens): Vorrang, Stufen S/M/L, Grundsätze, Abnahme, Ausgabe an den Menschen. Wird **immer** geladen |
+| `KERN.md` | Der Kern (höchstens 1 500 Tokens): Vorrang, Stufen S/M/L, Grundsätze, Abnahme, Prüfschranke für Befunde, fremde Inhalte, Ausgabe an den Menschen. Wird **immer** geladen |
 | `MANIFEST.md` | Das Handbuch: Geltungsbereich und Stufen, Planung, Phasen, Effizienz, Subagents und Modellwahl, Qualität und Tokens, fünf Prüfschichten, Hardware-Anpassung, Lernschleife. Wird **ab Stufe M** gelesen |
 | `LEARNINGS.md` | Offene Erfahrungen mit Status `neu`; wird ab Stufe M gelesen |
 | `learnings/archiv.md` | Archiv: Learnings mit Status `übernommen §x`, `verfallen` oder `verworfen`; wird nicht geladen, nur zum Nachschlagen |
 | `playbooks/agent-brief.md` | Vorlage für Aufträge an Subagents (Umsetzer und Prüfer) |
 | `playbooks/phase-retro.md` | Vorlage für die Retrospektive nach jeder Phase |
-| `playbooks/benchmark.md` | Verfahren, um die Wirksamkeit mit und ohne The Swarm zu messen (noch ohne Ergebnisse) |
+| `playbooks/benchmark.md` | Verfahren, um die Wirksamkeit mit und ohne The Swarm zu messen (noch ohne Ergebnisse); Vorab-Prüfungen und Ausgangswert |
+| `playbooks/sicherheit.md` | Fremde Inhalte als Daten, Veröffentlichungsprüfung, Lieferkette |
+| `playbooks/schleife.md` | Grenzen für Läufe ohne Aufsicht |
 | `tools/probe-env.sh` | Untersucht die Maschine und schreibt ein lokales Profil, ändert nichts |
 | `tools/grundlast.sh` | Prüft die Ladegröße: Kern höchstens 1 500, Manifest höchstens 6 000 Tokens |
 | `tools/update.sh` | Aktualisiert den lokalen Klon auf den neuesten Tag, zeigt vorher den Diff |
@@ -54,7 +56,7 @@ Diese Anleitung erklärt, wie du The Swarm einrichtest (global, pro Projekt, fü
 
 Du hast zwei Wege, die sich kombinieren lassen:
 
-- **Online-Verweis (Variante A):** Die Anweisungsdatei nennt die Raw-URLs eines **festen Tags** (`v2.0.1`, nie `main`), und der Agent liest den Kern und ab Stufe M das Manifest dort. Das braucht kein Klonen, setzt aber einen Agent mit Webzugriff voraus. Die Version ändert sich erst, wenn du den Tag im Absatz änderst.
+- **Online-Verweis (Variante A):** Die Anweisungsdatei nennt die Raw-URLs eines **festen Tags** (`v2.1.0`, nie `main`), und der Agent liest den Kern und ab Stufe M das Manifest dort. Das braucht kein Klonen, setzt aber einen Agent mit Webzugriff voraus. Die Version ändert sich erst, wenn du den Tag im Absatz änderst.
 - **Lokaler Klon (Variante B):** Das Repo liegt auf der Platte, auf dem neuesten Tag ausgecheckt. Das funktioniert offline und ist schnell; du aktualisierst bewusst mit `bash ~/.the-swarm/tools/update.sh`.
 
 **Empfehlung:** global mit lokalem Klon (3.1 B), damit The Swarm in jedem Projekt geladen wird, ohne dass der Agent erst etwas abrufen muss.
@@ -66,7 +68,7 @@ Du hast zwei Wege, die sich kombinieren lassen:
 Am schnellsten geht es, wenn der Agent selbst einrichtet. Öffne eine neue Sitzung in deinem Werkzeug und schreib:
 
 ```text
-Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.1/prompts/import.md und folge dem Prompt darin.
+Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/prompts/import.md und folge dem Prompt darin.
 ```
 
 So arbeitet der Agent den Prompt ab:
@@ -89,9 +91,9 @@ Datei `~/.claude/CLAUDE.md` anlegen oder ergänzen:
 
 ```markdown
 ## Arbeitsweise (Default für alle Code-Projekte)
-Bei jeder Arbeit an Code gilt „The Swarm“ v2.0.1:
-Immer: https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.1/KERN.md lesen. Ab Stufe M zusätzlich
-https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.1/MANIFEST.md und in LEARNINGS.md (gleicher Tag) nur Einträge mit Status neu.
+Bei jeder Arbeit an Code gilt „The Swarm“ v2.1.0:
+Immer: https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/KERN.md lesen. Ab Stufe M zusätzlich
+https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/MANIFEST.md und in LEARNINGS.md (gleicher Tag) nur Einträge mit Status neu.
 Vorrang: Sicherheit und Rechte im Werkzeug > meine Anweisungen > Projektregeln > Skill > Manifest.
 Learnings lokal in .agent/learnings.md des Projekts sammeln; Pull Request nur auf meinen ausdrücklichen Wunsch.
 ```
@@ -158,9 +160,9 @@ Grenzen: Copilot nimmt die Rollen nacheinander ein und ist kein unabhängiger Pr
 Lade `KERN.md` und stelle ihn in den System-Prompt; ab Stufe M kommen `MANIFEST.md` und die Einträge aus `LEARNINGS.md` dazu. Immer vom festen Tag, nie von `main`:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.1/KERN.md -o KERN.md
-curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.1/MANIFEST.md -o MANIFEST.md
-curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.1/LEARNINGS.md -o LEARNINGS.md
+curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/KERN.md -o KERN.md
+curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/MANIFEST.md -o MANIFEST.md
+curl -fsSL https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/LEARNINGS.md -o LEARNINGS.md
 ```
 
 ```text
@@ -307,11 +309,11 @@ The Swarm wächst durch Erfahrungen, aber nichts wird automatisch veröffentlich
   Das Skript holt die Tags, zeigt die neue Version und den Diff zu `KERN.md` und `MANIFEST.md` und wechselt erst nach deiner Bestätigung. Die Option `-y` überspringt die Bestätigung und ist nur für Skripte gedacht.
 - **Online** gilt die Tag-URL; ein Update ist der bewusste Wechsel des Tags im Absatz der Anweisungsdatei:
   ```text
-  https://raw.githubusercontent.com/diren89/The-Swarm/v2.0.1/KERN.md
+  https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/KERN.md
   ```
 - **Festpinnen,** wenn ein Team eine feste Fassung will: auf einen Tag auschecken und `update.sh` nicht ausführen:
   ```bash
-  git -C ~/.the-swarm checkout v2.0.1
+  git -C ~/.the-swarm checkout v2.1.0
   ```
 - **Warnung:** Wer im Repo mergen darf, steuert sonst alle Agents, die von `main` laden. Darum lädt The Swarm nur getaggte Stände.
 

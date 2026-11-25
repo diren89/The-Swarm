@@ -1,0 +1,29 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/geheimnis-scan-vor-commit.sh\"",
+            "timeout": 30,
+            "onFailure": "block",
+            "statusMessage": "Geheimnis-Scan vor Commit"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/pruefung-bei-sitzungsende.sh\"",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}

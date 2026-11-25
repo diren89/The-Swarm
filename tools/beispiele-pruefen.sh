@@ -12,6 +12,7 @@
 #   2. YAML-Köpfe parsen (PyYAML, sonst Ruby), TOML parst (python3 tomllib), JSON-Ausschnitte parsen.
 #   3. Nur dokumentierte Felder (Claude Code: Frontmatter; Codex: TOML-Schlüssel); `Agent` nur bei coordinator-code
 #      und implementer; Git-Sperren in settings.json und the-swarm.rules vorhanden.
+#      Optionale Hooks (Claude Code): settings.hooks.json.ausschnitt parst, nur dokumentierte Felder, Skripte da und `bash -n` sauber.
 #   4. Anonymität: keine Namen, Firmen, Benutzerpfade, Gateway-, Dienst- oder Modellnamen.
 # Ausgabe je Prüfung `OK|FAIL <Text>`, zum Schluss `OK|FAIL: n OK, m FAIL`. Exit 0 nur ohne FAIL.
 # Ein Grün sagt nichts über das Laufzeitverhalten der Werkzeuge (siehe beispiele/README.md, Status).
@@ -151,6 +152,34 @@ for rel in ("opencode/opencode.json.ausschnitt", "claude-code/settings.json.auss
         deny = j.get("permissions", {}).get("deny", [])
         need = ["Bash(git push *)", "Bash(git reset --hard *)", "Bash(git clean *)", "Bash(git branch -D *)"]
         res(all(n in deny for n in need), f"{rel}: permissions.deny enthält die Git-Sperren")
+# Optionale Hooks (Claude Code): Ausschnitt parsebar, nur dokumentierte Felder, Skripte vorhanden und syntaktisch ok
+try:
+    hj = json.loads(read(os.path.join(bd, "claude-code", "settings.hooks.json.ausschnitt")))
+    res(True, "claude-code/settings.hooks.json.ausschnitt: JSON parsebar")
+except Exception as e:
+    hj = None; res(False, f"claude-code/settings.hooks.json.ausschnitt: JSON nicht parsebar ({e})")
+if hj is not None:
+    HOOK_EVENTS = {"PreToolUse": "Bash", "Stop": None}
+    HANDLER_FIELDS = {"type", "command", "args", "timeout", "statusMessage", "onFailure", "if", "async", "shell"}
+    h = hj.get("hooks", {}) if isinstance(hj, dict) else {}
+    good = set(hj) == {"hooks"} and set(h) == set(HOOK_EVENTS)
+    for ev, m in HOOK_EVENTS.items():
+        for grp in h.get(ev, []) if isinstance(h.get(ev), list) else []:
+            good = good and set(grp) <= {"matcher", "hooks"} and (grp.get("matcher") == m)
+            for hd in grp.get("hooks", []):
+                good = good and hd.get("type") == "command" and set(hd) <= HANDLER_FIELDS and ".claude/hooks/" in hd.get("command", "")
+                scr = re.search(r"\.claude/hooks/([A-Za-z0-9._-]+\.sh)", hd.get("command", ""))
+                good = good and bool(scr) and os.path.isfile(os.path.join(bd, "claude-code", "hooks", scr.group(1)))
+    res(bool(good), "claude-code/settings.hooks.json.ausschnitt: Ereignisse PreToolUse (Matcher Bash) und Stop, nur dokumentierte Felder, Skripte vorhanden")
+    stop_hd = [hd for g in h.get("Stop", []) for hd in g.get("hooks", [])] if isinstance(h.get("Stop"), list) else []
+    res(bool(stop_hd) and all(hd.get("onFailure") != "block" for hd in stop_hd), "claude-code/settings.hooks.json.ausschnitt: Stop-Hook blockiert nie bei Ausfall (kein onFailure block)")
+hdir = os.path.join(bd, "claude-code", "hooks")
+for sc in ("geheimnis-scan-vor-commit.sh", "pruefung-bei-sitzungsende.sh"):
+    fp = os.path.join(hdir, sc)
+    if not os.path.isfile(fp): res(False, f"claude-code/hooks/{sc} fehlt"); continue
+    r = subprocess.run(["bash", "-n", fp], capture_output=True, text=True)
+    res(r.returncode == 0, f"claude-code/hooks/{sc}: bash -n" + ("" if r.returncode == 0 else f" ({r.stderr.strip()[:100]})"))
+    res(os.access(fp, os.X_OK), f"claude-code/hooks/{sc}: ausführbar")
 try:
     with open(os.path.join(bd, "codex", "config.toml.ausschnitt"), "rb") as f: tomllib.load(f)
     res(True, "codex/config.toml.ausschnitt: TOML parsebar")
@@ -164,6 +193,7 @@ res(all(f'pattern=["git", "{c}"' in rt for c in ("push", "reset", "clean", "bran
 # --- Pflichtdateien ---
 need = ["README.md", "gemeinsam/skill-orchestrierung/SKILL.md", "probe/git-sperren.md", "opencode/README.md", "claude-code/README.md", "codex/README.md"]
 need += ["gemeinsam/skill-fremd-review/SKILL.md"]
+need += ["claude-code/settings.hooks.json.ausschnitt", "claude-code/hooks/geheimnis-scan-vor-commit.sh", "claude-code/hooks/pruefung-bei-sitzungsende.sh"]
 need += [f"gemeinsam/skill-orchestrierung/templates/{t}.md" for t in ("auftrag", "bericht", "korrektur-brief", "phasenplan")]
 miss = [n for n in need if not os.path.isfile(os.path.join(bd, n))]
 res(not miss, "Pflichtdateien vorhanden" + (f" (fehlt: {', '.join(miss)})" if miss else ""))

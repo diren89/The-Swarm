@@ -7,9 +7,9 @@
 | Ordner | Inhalt |
 |---|---|
 | [gemeinsam/](gemeinsam/) | `rollen.md` (Rollentexte, eine Quelle für alle Werkzeuge), `koepfe/` (YAML-/TOML-Kopf je Werkzeug und Rolle), Skill `orchestrierung` mit Vorlagen (`auftrag`, `bericht`, `korrektur-brief`, `phasenplan`), optionaler Skill `fremd-review` (Review über die Kommandozeile eines anderen Anbieters, nicht erprobt) |
-| [opencode/](opencode/) | 7 Agentdateien (`.md`, YAML-Kopf), `opencode.json.ausschnitt`, README |
-| [claude-code/](claude-code/) | 6 Agentdateien (`.md`), `CLAUDE.md.ausschnitt` (Koordinator-Text), `settings.json.ausschnitt`, README |
-| [codex/](codex/) | 6 Agentdateien (`.toml`), `AGENTS.md.ausschnitt` (Koordinator-Text), `config.toml.ausschnitt`, `rules/the-swarm.rules`, README |
+| [opencode/](opencode/) | 7 Agentdateien (`.md`, YAML-Kopf), `opencode.json.ausschnitt`, README (Abschnitt „Hooks“: nur über Plugins, kein Beispiel) |
+| [claude-code/](claude-code/) | 6 Agentdateien (`.md`), `CLAUDE.md.ausschnitt` (Koordinator-Text), `settings.json.ausschnitt`, optional `hooks/` (zwei Hook-Gates) mit `settings.hooks.json.ausschnitt`, README |
+| [codex/](codex/) | 6 Agentdateien (`.toml`), `AGENTS.md.ausschnitt` (Koordinator-Text), `config.toml.ausschnitt`, `rules/the-swarm.rules`, README (Abschnitt „Hooks“: dokumentiertes Format, kein Beispiel) |
 | [probe/](probe/) | `git-sperren.md`: Probe der Git-Sperren im Wegwerf-Repo |
 
 In Claude Code und Codex ist der Koordinator die Hauptsitzung; sein Text steht im jeweiligen Ausschnitt statt in einer Agentdatei.
@@ -68,6 +68,7 @@ In den Agentdateien stehen die Modellzeilen **auskommentiert** (`# model: …`).
 |---|---|
 | OpenCode | erprobt an der lokalen Vorlage, aus der diese Dateien abgeleitet sind (Rechte-Probe: gesperrte Git-Befehle abgelehnt; Kette `coordinator` → `coordinator-code` → `scout`). Die anonymisierten Dateien hier selbst: Probe über `probe/git-sperren.md`, Ergebnis trägt der Koordinator nach. |
 | Claude Code | teilweise erprobt: Git-Sperren erprobt (Claude Code 2.1.285, Projektordner mit diesen Agent-Dateien und `settings.json`): Subagent `implementer` lief, `git status` ausgeführt, `reset --hard`, `clean -fd`, `branch -D`, `push` vom Werkzeug abgelehnt, auch bei allgemein erlaubtem `Bash`; Repo danach unverändert. Übrige Rollen und Modellzuweisung nicht einzeln geprüft. |
+| Hooks (optional, nur Claude Code) | Gate A (Geheimnis-Scan vor Commit) und Gate B (Prüfung bei Sitzungsende) in Claude Code 2.1.285 in einem Wegwerf-Repo erprobt, Skripte zusätzlich mit simuliertem stdin-JSON; `onFailure` nicht erprobt (Version zu alt). OpenCode: Hooks nur über Plugins (Code), nicht im Beispiel. Codex: Format dokumentiert, UNGEPRÜFT, nicht im Beispiel. Details: [claude-code/README.md](claude-code/README.md#optionale-hooks). |
 | Codex | UNGEPRÜFT (nicht installiert und nicht gelaufen; Formate nach der Produktdokumentation, Stand Nov. 2026) |
 
 ## Konsistenz

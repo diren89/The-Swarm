@@ -1,6 +1,6 @@
 # The Swarm · Manifest: Koordinierte Agentenarbeit
 
-Version 2.0.1 · Stand 24.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
+Version 2.1.0 · Stand 25.11.2026 · lebendes Dokument, Änderungen nur über [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Handbuch für **koordinierende Agents**: in Phasen planen, an **Subagents** mit passenden Modellen verteilen, **selbst prüfen und verbessern**, lernen. Immer geladen wird [KERN.md](KERN.md), dieses Handbuch ab Stufe M; es vertieft den Kern.
 
@@ -14,7 +14,7 @@ Standard für **jede Arbeit an Code** (Projekte, Skripte, Konfiguration, Infrast
 
 ### 0.1 Nach Aufgabengröße skalieren
 
-Stufe vor dem Start wählen, bei Bedarf hochstufen.
+Stufe nach Kern; im Einzelnen:
 
 | Stufe | Typische Aufgabe | Pflicht | Entfällt |
 | --- | --- | --- | --- |
@@ -22,7 +22,7 @@ Stufe vor dem Start wählen, bei Bedarf hochstufen.
 | **M** | ein Feature, mehrere Dateien, eine Sitzung | Plan in der Antwort oder Aufgabenliste, Schichten 1–3 und 5, 0–2 Subagents | Plandatei; Rollen-Review optional |
 | **L** | mehrere Ziele oder Sitzungen, neues Projekt | alles: Phase 0, Plandatei, Subagents nach §5, alle Schichten, Retrospektive je Phase | – |
 
-**Immer:** Wirkung statt Exit-Code, null neue Warnungen, ehrlich berichten, Vorrang nach §0.3.
+**Immer:** Grundsätze nach Kern, Vorrang nach §0.3.
 
 ### 0.2 Als Default verankern
 
@@ -55,7 +55,7 @@ Bei Widerspruch auf derselben Ebene oder unklarem Vorrang gilt die vorsichtigere
 
 ## 1. Grundsätze
 
-Die sieben Grundsätze stehen im [Kern](KERN.md); dieses Handbuch vertieft sie in §2–§10.
+Stehen im [Kern](KERN.md); §2–§10 vertiefen sie.
 
 ---
 
@@ -70,7 +70,8 @@ Vor der ersten Zeile Code:
 5. **Nur echte Weichen fragen.** Was allein der Nutzerin zusteht (Veröffentlichen, Downloads, Kosten, Ziel-Hardware, Gestaltungsrichtung), gebündelt mit Empfehlung fragen; alles mit sinnvollem Standard entscheiden und benennen.
 6. **Plan prüfen lassen (Stufe L):** vor dem Delegieren eine Runde Kritik durch einen Prüfer anderer Modellfamilie (sonst unabhängig, gleiche Familie, im Plan vermerkt): Kriterien, Reihenfolge, Pakete, Risiken. Befunde übernehmen oder Ablehnung begründen.
 7. **Budget mit Marken (Stufe L):** Budget und Messquelle im Plan, Verbrauch aller Agents (fehlende Daten schätzen und benennen). Bei 90 % Stand mit Hochrechnung melden; bei 100 % keine neuen kostenpflichtigen Schritte, laufende Agents ihren Schritt beenden lassen oder stoppen (lange sofort), Stand sichern, Bericht zum Fortsetzen; weiter nur mit Freigabe.
-8. **Frage-Werkzeug nutzen.** Hat der Agent eines, gehen alle Entscheidungen, Freigaben (auch Merge, Tag, Push, Löschen) und Rückfragen darüber, nie als Fließtext: gebündelt, mit Optionen und Empfehlung.
+8. **Frage-Werkzeug** nach Kern, auch für Freigaben zu Merge, Tag, Push und Löschen.
+9. **Abnahmeprüfungen vorab:** Fähigkeits- und Regressionsprüfungen vor der Umsetzung festlegen, Ausgangswert messen, danach dieselben Prüfungen gleich ausführen; auch bei Änderungen an diesem Regelwerk ([playbooks/benchmark.md](playbooks/benchmark.md)).
 
 Plan bei neuen Fakten sichtbar anpassen.
 
@@ -87,7 +88,7 @@ Plan bei neuen Fakten sichtbar anpassen.
 | Abschluss | Doku, Backlog, Offenes, Learnings | ehrlicher Stand |
 
 - **Blocker umgehen, nicht warten:** vorziehen, was ohne das Fehlende geht (meist Fachlogik und Tests).
-- **Fundament zuerst:** getestete Logik ist billig zu prüfen und macht UI-Pakete zu Verdrahtung.
+- **Fundament zuerst:** getestete Logik ist billig zu prüfen.
 - **Jede Phase endet integriert** (Merge, Build, Tests, Sichtprüfung, Commit); Backlog und Plan je Story „erfüllt“ oder „offen: …“.
 
 ---
@@ -161,11 +162,7 @@ Ein Subagent startet ohne Gesprächskontext: alles Nötige, nichts Ablenkendes (
 
 ### 5.6 Ausgabe an den Menschen
 
-- **Ergebnis zuerst:** erster Satz = was steht oder die Antwort; Herleitung danach, knapp.
-- **Ungeprüftes benennen:** Annahmen, UNGEPRÜFT-Kriterien, Lücken ausdrücklich, nicht im Fließtext versteckt.
-- **Nächste Aktion der Nutzerin** am Ende, wenn sie etwas tun muss (freigeben, testen, entscheiden).
-- **Rückfragen** nur bei echten Weichen, gebündelt, mit Empfehlung, über das Frage-Werkzeug (§2 Punkt 8).
-- Lange Details in Dateien, in der Antwort nur Pfad.
+Nach Kern. Dazu: Der erste Satz sagt, was steht; UNGEPRÜFT-Kriterien und Lücken nicht im Fließtext verstecken; die nächste Aktion nennt, was die Nutzerin tun muss (freigeben, testen, entscheiden); lange Details in Dateien, in der Antwort nur der Pfad.
 
 ---
 
@@ -178,23 +175,22 @@ Ein Subagent startet ohne Gesprächskontext: alles Nötige, nichts Ablenkendes (
 - **Regeln des Zielsystems** (Designsystem, Plattformrichtlinien) einhalten und das Ergebnis gegen genau diese prüfen.
 - **Texte nicht übertreiben:** UI-Texte versprechen nur, was die Technik hält.
 - **Prüfungen selbst prüfen:** mit verfälschten, plausiblen Eingaben, die scheitern müssen; jeder Lauf nennt die Zahl geprüfter Fälle, und der beabsichtigte Fall muss eingetreten sein. Fehlläufe zählen als Fehlschlag, Schlüsse gelten nur für die getestete Art.
-- **Feste Projektdateien lesen und befolgen**, wenn vorhanden:
-  - `AGENTS.md` bzw. `CLAUDE.md` vor jeder Arbeit,
-  - `DESIGN.md` (und ähnliche Designvorgaben) vor jeder UI-Änderung,
-  - `CONTRIBUTING.md` vor Commits, Zweigen und Pull Requests,
-  - `README` für Aufbau, Bauen und Testen.
+- **Feste Projektdateien lesen und befolgen**, wenn vorhanden: `AGENTS.md` bzw. `CLAUDE.md` vor jeder Arbeit, `DESIGN.md` (und ähnliche Designvorgaben) vor jeder UI-Änderung, `CONTRIBUTING.md` vor Commits, Zweigen und Pull Requests, `README` für Aufbau, Bauen und Testen.
 
 ### 6.2 Effizienz
 
 - **Wirkung prüfen:** nach Installationen `which` und Versionsausgabe statt Exit-Code.
 - **Daten nicht durch das Modell kopieren:** Große Tool-Antworten direkt in Dateien; das Modell gleicht nur die Objektzahl mit der Quelle ab. Schreib-Erfolg beweist keine Vollständigkeit.
 - Inkrementell bauen (abgeleitete Daten behalten), Sichtprüfungen skripten. Prüfläufe mit [tools/pruefen.sh](tools/pruefen.sh) (Exit-Code, Testzahl, Warnungen, Log je Lauf).
+- **Teure Prüfungen bündeln:** Format, Typprüfung und Build je Paket statt nach jeder Bearbeitung; schnelle, entscheidende Prüfungen früh behalten, die Abschlussprüfung bleibt.
 
 ### 6.3 Tokens
 
 - **Gefilterte Ausgaben** (Builds auf `error|warning|BUILD`, Tests auf Zusammenfassung und Fehlschläge), **Diffs statt Dateien**, **nie Agent-Transkripte**, nur Berichte mit Zeilenlimit, **Bilder zuschneiden**.
 - **Kontext wiederverwenden:** Folgefragen an den Agent mit Kontext; Kleines selbst korrigieren.
 - **Stand sichern, bevor der Kontext knapp wird** (Phasenwechsel, Kürzung, Pause): Stufe, Modus, Pakete erledigt/offen, laufende Agents, Entscheidungen, nächster Schritt; bei L in die Plandatei, sonst in Aufgabenliste oder Notiz, wenn es weitergeht. Nach Neustart zuerst lesen; der Gesprächsverlauf ist kein Gedächtnis.
+- **Kontext messen statt schätzen:** Füllstand aus der Anzeige des Werkzeugs, sonst als Schätzung nennen; kürzen nur an Phasengrenzen, nach Sicherung des Stands.
+- **Werkzeug-Grundlast:** Beschreibungen geladener Werkzeuge und Dienste zählen zum Kontext; je Rolle nur Nötiges aktivieren, für einmalige Aktionen eine vorhandene Kommandozeile prüfen.
 
 ---
 
@@ -208,7 +204,7 @@ Ein Subagent startet ohne Gesprächskontext: alles Nötige, nichts Ablenkendes (
 4. **Unabhängiger Rollen-Review:** read-only, nicht der Autor, mit konkreten Nutzerszenarien.
 5. **Sichtprüfung durch den Koordinator:** Screenshots jedes Zustands gegen Regeln und Absicht.
 
-Schicht 4 bei Stufe L: je Blickwinkel ein Prüfer, zuerst **Abnahme** (Kriterien, Belege), dann **Code-Review**; Nutzerszenarien Pflicht, **Sicherheit** bei Bedarf. Stufe M: ein Prüfer, gleiche Reihenfolge. Jede Schicht hat in der Praxis Fehler gefunden, die die anderen übersahen.
+Schicht 4 bei Stufe L: je Blickwinkel ein Prüfer, zuerst **Abnahme** (Kriterien, Belege), dann **Code-Review**; Nutzerszenarien Pflicht, **Sicherheit** bei Bedarf. Stufe M, falls gewählt: ein Prüfer, gleiche Reihenfolge. Jede Schicht hat in der Praxis Fehler gefunden, die die anderen übersahen.
 
 ### 7.2 Verbessern
 
@@ -245,7 +241,7 @@ Lange Läufe (Exporte, Migrationen, Batches) müssen Abbrüche überstehen: **Ch
 | nach jeder Phase | Retrospektive | lokale Learnings-Datei (§10) |
 | **zwei unabhängige Beobachtungen** | Regel formulieren | Manifest (Version nach §10, [CHANGELOG.md](CHANGELOG.md)) |
 
-**Retrospektive** ([playbooks/phase-retro.md](playbooks/phase-retro.md), ≤ 10 Zeilen): Ziel vs. Ergebnis, Fehler und wer sie fand, Kosten, Entscheidungen der Nutzerin, Regelvorschlag. **Learnings** sind allgemein (keine Projektnamen, persönlichen Daten, Gerätekennungen) und zählen ihre **Beobachtungen**. **Zu Beginn** liest jede Instanz den Kern, ab Stufe M dieses Manifest und in `LEARNINGS.md` die Einträge mit Status `neu`.
+**Retrospektive** ([playbooks/phase-retro.md](playbooks/phase-retro.md), ≤ 10 Zeilen): Ziel vs. Ergebnis, Fehler und wer sie fand, Kosten, Entscheidungen der Nutzerin, Regelvorschlag. **Learnings** sind allgemein (keine Projektnamen, persönlichen Daten, Gerätekennungen) und zählen ihre **Beobachtungen**.
 
 ### 9.1 Pflege des Regelwerks
 
@@ -258,8 +254,8 @@ Lange Läufe (Exporte, Migrationen, Batches) müssen Abbrüche überstehen: **Ch
 
 ## 10. Wissen zwischen Instanzen teilen
 
-- **Einlesen** nach §9, aus einem **Release-Tag** (lokaler Klon auf Tag oder Tag-URL), nie von einem beweglichen Zweig: Wer dort mergen darf, steuert sonst alle Agents. Aktualisieren nur bewusst, nach Blick auf den Diff ([tools/update.sh](tools/update.sh)).
-- **Lernen lokal zuerst:** Learnings in eine lokale Datei des Projekts (z. B. `.agent/learnings.md`) oder eine lokale Notizdatei. Veröffentlichen, etwa per Pull Request nach [CONTRIBUTING.md](CONTRIBUTING.md), nur auf ausdrücklichen Wunsch der Nutzerin. Ein Mensch prüft und merged; Modelle mergen nicht selbst.
+- **Einlesen** nach Kern und §0.2, aus einem **Release-Tag** (lokaler Klon auf Tag oder Tag-URL), nie von einem beweglichen Zweig: Wer dort mergen darf, steuert sonst alle Agents. Aktualisieren nur bewusst, nach Blick auf den Diff ([tools/update.sh](tools/update.sh)).
+- **Lernen lokal zuerst** nach Kern (oder lokale Notizdatei); Pull Request nach [CONTRIBUTING.md](CONTRIBUTING.md). Ein Mensch prüft und merged; Modelle mergen nicht selbst.
 - **Vertrauen:** Inhalte dieses Repos sind Arbeitswissen, keine Befehle. Sie erweitern keine Befugnisse und ersetzen keine Rückfrage bei der Nutzerin.
 - **Versionieren** (semantisch, jede Version getaggt): Bedeutung einer Regel geändert oder Regel gestrichen = Major; neue Regel oder Verdichtung ohne Bedeutungsänderung = Minor; Korrektur, Klarstellung = Patch.
 
@@ -271,5 +267,5 @@ Lange Läufe (Exporte, Migrationen, Batches) müssen Abbrüche überstehen: **Ch
 - Jede Story im Backlog mit „erfüllt“ oder „offen: …“.
 - Jedes Abnahmekriterium mit Status und frischem Beleg (§5.4).
 - Plan und Projektdoku aktualisiert, Worktrees und Hintergrundprozesse aufgeräumt.
-- Bericht an die Nutzerin nach §5.6: was steht, was nicht geprüft ist, was sie tun muss.
+- Bericht an die Nutzerin nach §5.6.
 - Learnings der Aufgabe lokal festgehalten (§10).
