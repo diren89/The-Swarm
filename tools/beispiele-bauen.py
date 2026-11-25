@@ -21,7 +21,7 @@ import os
 import re
 import sys
 
-IDS = ["coordinator", "coordinator-code", "implementer", "reviewer", "researcher", "scout", "editor-lite"]
+IDS = ["coordinator", "coordinator-code", "implementer", "reviewer", "researcher", "scout", "editor-lite", "skill-master"]
 SUB = [i for i in IDS if i != "coordinator"]
 START = "<!-- the-swarm:coordinator:start -->\n"
 ENDE = "\n<!-- the-swarm:coordinator:ende -->"

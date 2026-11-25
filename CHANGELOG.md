@@ -1,5 +1,30 @@
 # Changelog
 
+## 2.2.0 · 2026-11-25
+
+Minor: externe Skills schlank einbinden und kontrolliert aktuell halten; Verdichtung ohne Bedeutungsänderung, damit das Manifest unter 6 000 Tokens bleibt. Kern unverändert (nur Versionszeile). Keine Migration nötig; Tag-URLs auf `v2.2.0` umstellen.
+
+### Neu
+
+- **§5.5 „Skills sind fremde Inhalte“:** vor Aufnahme und jedem Update den Diff lesen, nie automatisch aktualisieren, per Lock-Datei auf Commit und Inhalts-Hash festpinnen, je Rolle freigeben; Verweis auf Kern „Fremde Inhalte“ und `playbooks/skills.md`.
+- **§6.3 „Werkzeug-Grundlast“ erweitert:** Skill-Beschreibungen zählen zur Grundlast; global nur überall gebrauchte Skills, seltene ausblenden und über einen Skill-Katalog auffindbar halten, den der Koordinator ab Stufe M liest.
+- `playbooks/skills.md`: Grundsätze (keine Kopien fremder Skills ins Swarm-Repo), Aufnahme, Update (check → Diff → Freigabe → Update → Hash), Entfernen (nur selbst Angelegtes, nach Freigabe), Katalog-Format (`.agent/skills-katalog.md` bzw. global), Projekt-Skills bei Stufe L (in Phase 0 anlegen, im Plan listen, am Ende nur Gelistetes entfernen), Mechanismen je Werkzeug mit Quellen, Grenzen (Skill-Liste mitten in der Sitzung nicht ändern: Annahme, nicht gemessen).
+- `tools/skills-status.sh` (read-only) mit Selbsttest `tools/test-skills-status.sh` (in `tools/test-pruefen.sh` eingebunden): Skills je Ort, Herkunft aus Lock-Datei, Beschreibungs-Tokens, ausgeblendet, Hash-Abgleich nach dem Verfahren der skills-CLI; Summe sichtbarer Tokens, `--max N`, `--hash`, optional `--check` über eine installierte skills-CLI.
+- `beispiele/`: Pflege-Rolle `skill-master` (Rollentext, Köpfe für OpenCode, Claude Code, Codex; schreibt nur in Skill-Ordner, Lock und Katalog, keine Git-Zerstörer, Entfernen nur nach Freigabe); Koordinator-Texte lesen den Katalog ab Stufe M, `coordinator` darf `skill-master` aufrufen; OpenCode-Köpfe mit bewusster `skill`-Regel je Rolle; `tools/beispiele-pruefen.sh` prüft die neuen Rechte; READMEs mit Ausblend-Mechanismus und Skill-Rechten je Werkzeug.
+
+### Verdichtung (§9.1, ohne Bedeutungsänderung)
+
+- §6.2: Klammer „(Exit-Code, Testzahl, Warnungen, Log je Lauf)“ hinter `tools/pruefen.sh` gestrichen; beschreibt das Werkzeug, keine Regel (steht im Werkzeug und in der README).
+- §7.1: Satz „Jede Schicht hat in der Praxis Fehler gefunden, die die anderen übersahen.“ gestrichen; Begründung, keine Regel. Die Pflicht „alle, in dieser Reihenfolge“ bleibt.
+- §9 / §9.1: „Regelhürde“ (Regel erst aus zwei unabhängigen Beobachtungen) aus §9.1 in die Tabelle §9 gezogen („**erst bei** zwei unabhängigen Beobachtungen“); steht zusätzlich in Kern §1 Punkt 7 und CONTRIBUTING „Was beitragen“.
+- §9.1: „Verfall“ sprachlich gekürzt (Frist 30 Tage, Archiv für verfallene und übernommene, `LEARNINGS.md` nur `neu` bleiben); Link auf die Archivdatei entfällt, sie steht in CONTRIBUTING „Pflege“ und README.
+- §10: „Versionieren“ sprachlich gestrafft, Stufen Major/Minor/Patch unverändert.
+- §4: Begründung „wenige Zeilen sind billiger als ein neuer Agent“ gestrichen; die Regel „Kleines selbst erledigen“ bleibt wörtlich.
+
+### Geändert
+
+- Versionsangaben und Tag-URLs auf `v2.2.0` (README, `llms.txt`, ANLEITUNG, Import- und Copilot-Prompt, AGENTS.md, Kern, Manifest); README, ANLEITUNG (§1, §8) und `llms.txt` führen `playbooks/skills.md` und `tools/skills-status.sh`.
+
 ## 2.1.0 · 2026-11-25
 
 Minor: neue Regeln zu Prüfschranke, fremden Inhalten, Vorab-Prüfungen und Tokens; Verdichtung ohne Bedeutungsänderung, damit das Manifest unter 6 000 Tokens bleibt. Keine Migration nötig; Tag-URLs auf `v2.1.0` umstellen.

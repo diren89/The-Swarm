@@ -10,6 +10,9 @@
 #      jeder Werkzeugdatei (Markdown: Text nach dem YAML-Kopf; TOML: `developer_instructions`; Ausschnitte: Text
 #      zwischen den Markern). Der Koordinator-Text steht in den Ausschnitten von Claude Code und Codex.
 #   2. YAML-Köpfe parsen (PyYAML, sonst Ruby), TOML parst (python3 tomllib), JSON-Ausschnitte parsen.
+#      OpenCode: jeder Kopf hat `* * deny` oder eine `skill`-Regel; `skill-master` ist eine Allowlist (`* * deny` zuerst, edit nur auf
+#      Skill-Ordner, Katalog, Lock und .agent/work, Git-Sperren nach den Freigaben, `skill * deny`, kein subagent allow);
+#      `coordinator` darf `skill-master` aufrufen und hat eine explizite `skill`-Regel.
 #   3. Nur dokumentierte Felder (Claude Code: Frontmatter; Codex: TOML-Schlüssel); `Agent` nur bei coordinator-code
 #      und implementer; Git-Sperren in settings.json und the-swarm.rules vorhanden.
 #      Optionale Hooks (Claude Code): settings.hooks.json.ausschnitt parst, nur dokumentierte Felder, Skripte da und `bash -n` sauber.
@@ -34,7 +37,7 @@ def res(good, text):
 def read(p):
     with open(p, encoding="utf-8") as f: return f.read()
 
-IDS = ["coordinator", "coordinator-code", "implementer", "reviewer", "researcher", "scout", "editor-lite"]
+IDS = ["coordinator", "coordinator-code", "implementer", "reviewer", "researcher", "scout", "editor-lite", "skill-master"]
 SUB = [i for i in IDS if i != "coordinator"]
 
 # --- Erzeugt == eingecheckt (Vergleich im Speicher, nichts wird geschrieben) ---
@@ -103,6 +106,32 @@ for r in IDS:
         if r == "reviewer":
             res(not any(x["action"] == "edit" and x["effect"] == "allow" and not ".agent/work" in x["resource"] for x in y["permissions"]),
                 "opencode/reviewer.md: edit nur unter .agent/work erlaubt")
+        pm = y["permissions"]
+        # Skill-Regel bewusst gesetzt: Allowlist (`* * deny`) oder eigene `skill`-Regel
+        res(any(x["action"] == "skill" for x in pm) or (pm[0]["action"] == "*" and pm[0]["resource"] == "*" and pm[0]["effect"] == "deny"),
+            f"opencode/{r}.md: Skill-Rechte bewusst gesetzt (`* * deny` oder `skill`-Regel)")
+        if r == "coordinator":
+            res(any(x["action"] == "subagent" and x["resource"] == "skill-master" and x["effect"] == "allow" for x in pm),
+                "opencode/coordinator.md: subagent skill-master allow")
+            res(any(x["action"] == "skill" for x in pm), "opencode/coordinator.md: explizite skill-Regel")
+        if r == "skill-master":
+            res(pm[0] == {"action": "*", "resource": "*", "effect": "deny"}, "opencode/skill-master.md: erste Regel `* * deny` (Allowlist)")
+            edits = [x["resource"] for x in pm if x["action"] == "edit" and x["effect"] == "allow"]
+            res(bool(edits) and all(any(k in e for k in ("skills", "skills-katalog.md", "skills-lock.json", ".agent/work")) for e in edits),
+                "opencode/skill-master.md: edit nur auf Skill-Ordner, Katalog, Lock und .agent/work")
+            deny = [x["resource"] for x in pm if x["action"] == "shell" and x["effect"] == "deny"]
+            res(all(n in deny for n in ["git push*", "git reset --hard*", "git clean*", "git branch -D*"]), "opencode/skill-master.md: Git-Sperren (deny) vorhanden")
+            last = lambda a: [x["effect"] for x in pm if x["action"] == a and x["resource"] == "*"]
+            res(last("skill")[-1:] == ["deny"], "opencode/skill-master.md: skill * deny (Skills werden nicht geladen)")
+            res(not any(x["action"] == "subagent" and x["effect"] != "deny" for x in pm) and last("subagent")[-1:] == ["deny"],
+                "opencode/skill-master.md: kein subagent allow")
+            # Reihenfolge (letzte passende Regel gewinnt): Git-Sperren stehen nach allen Shell-Freigaben
+            idx = lambda f: [i for i, x in enumerate(pm) if x["action"] == "shell" and f(x)]
+            ia, id_ = idx(lambda x: x["effect"] in ("allow", "ask")), idx(lambda x: x["effect"] == "deny" and x["resource"] in ("git push*", "rm *", "*>*"))
+            res(bool(ia) and bool(id_) and max(ia) < min(id_), "opencode/skill-master.md: Shell-Sperren stehen nach den Shell-Freigaben (letzte Regel gewinnt)")
+            # Skripte nur über festen Pfad: kein `*` vor `.sh` in einer Shell-Freigabe (sonst ausführbar aus beschreibbaren Skill-Ordnern)
+            res(not any(x["action"] == "shell" and x["effect"] == "allow" and ".sh" in x["resource"] and "*" in x["resource"].split(".sh")[0] for x in pm),
+                "opencode/skill-master.md: Skript-Freigaben ohne Platzhalter im Pfad")
     except Exception as e:
         res(False, f"opencode/{r}.md: YAML-Kopf nicht parsebar ({e})")
 
@@ -193,6 +222,7 @@ res(all(f'pattern=["git", "{c}"' in rt for c in ("push", "reset", "clean", "bran
 # --- Pflichtdateien ---
 need = ["README.md", "gemeinsam/skill-orchestrierung/SKILL.md", "probe/git-sperren.md", "opencode/README.md", "claude-code/README.md", "codex/README.md"]
 need += ["gemeinsam/skill-fremd-review/SKILL.md"]
+need += [f"gemeinsam/koepfe/{w}/skill-master.{e}" for w, e in (("opencode", "yaml"), ("claude-code", "yaml"), ("codex", "toml"))]
 need += ["claude-code/settings.hooks.json.ausschnitt", "claude-code/hooks/geheimnis-scan-vor-commit.sh", "claude-code/hooks/pruefung-bei-sitzungsende.sh"]
 need += [f"gemeinsam/skill-orchestrierung/templates/{t}.md" for t in ("auftrag", "bericht", "korrektur-brief", "phasenplan")]
 miss = [n for n in need if not os.path.isfile(os.path.join(bd, n))]

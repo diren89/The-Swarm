@@ -5,7 +5,7 @@ Diesen Prompt in eine neue Sitzung eines KI-Coding-Agents kopieren (Claude Code,
 Kurzform für Agents mit Webzugriff:
 
 ```text
-Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/prompts/import.md und folge dem Prompt darin.
+Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/prompts/import.md und folge dem Prompt darin.
 ```
 
 ---
@@ -14,7 +14,7 @@ Richte The Swarm für mich ein: Lies https://raw.githubusercontent.com/diren89/T
 
 ~~~text
 Richte für mich „The Swarm“ ein, ein Regelwerk für die Arbeitsweise von KI-Agents bei Code-Arbeit
-(Repo: https://github.com/diren89/The-Swarm, Version 2.1.0: kurzer Kern immer, Manifest ab Stufe M). Gehe so vor und halte dich an die Regeln am Ende.
+(Repo: https://github.com/diren89/The-Swarm, Version 2.2.0: kurzer Kern immer, Manifest ab Stufe M). Gehe so vor und halte dich an die Regeln am Ende.
 
 1. Werkzeug erkennen
    Stelle fest, in welchem Werkzeug du läufst, und nimm die passende Anweisungsdatei:
@@ -27,12 +27,12 @@ Richte für mich „The Swarm“ ein, ein Regelwerk für die Arbeitsweise von KI
    | GitHub Copilot | –                          | .github/copilot-instructions.md     |
    Weichen deine Doku-Pfade davon ab, gilt deine Doku. Ohne Anweisungsdatei: Schritt 7 (Variante C).
    Bist du Microsoft 365 Copilot oder ein anderer Chat ohne Dateien und Shell: Brich hier ab und bitte mich,
-   https://github.com/diren89/The-Swarm/blob/v2.1.0/prompts/copilot.md herunterzuladen und anzuhängen.
+   https://github.com/diren89/The-Swarm/blob/v2.2.0/prompts/copilot.md herunterzuladen und anzuhängen.
 
 2. Mich fragen (eine gebündelte Frage, mit Empfehlung)
    a) Geltungsbereich: global für alle Projekte (empfohlen) oder nur dieses Projekt?
    b) Variante:
-      - A „Online-Verweis“: nur ein Absatz mit den Raw-URLs eines festen Tags (v2.1.0, nie main);
+      - A „Online-Verweis“: nur ein Absatz mit den Raw-URLs eines festen Tags (v2.2.0, nie main);
         braucht Webzugriff, die Version ändert sich nur, wenn du den Tag im Absatz änderst.
       - B „Lokaler Klon“ (empfohlen, wenn git vorhanden): Repo nach ~/.the-swarm klonen und den
         neuesten Tag auschecken; schnell, offline, Update bewusst per tools/update.sh (zeigt Diff).
@@ -58,9 +58,9 @@ Richte für mich „The Swarm“ ein, ein Regelwerk für die Arbeitsweise von KI
 4. Absatz eintragen (am Ende der Datei, mit Leerzeile davor)
    Variante A (fester Tag, nie main):
      ## Arbeitsweise (Default für alle Code-Projekte)
-     Bei jeder Arbeit an Code gilt „The Swarm“ v2.1.0:
-     Immer: https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/KERN.md lesen. Ab Stufe M zusätzlich
-     https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/MANIFEST.md und in LEARNINGS.md (gleicher Tag) nur Einträge mit Status neu.
+     Bei jeder Arbeit an Code gilt „The Swarm“ v2.2.0:
+     Immer: https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/KERN.md lesen. Ab Stufe M zusätzlich
+     https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/MANIFEST.md und in LEARNINGS.md (gleicher Tag) nur Einträge mit Status neu.
      Vorrang: Sicherheit und Rechte im Werkzeug > meine Anweisungen > Projektregeln > Skill > Manifest.
      Learnings lokal in .agent/learnings.md des Projekts sammeln; Pull Request nur auf meinen ausdrücklichen Wunsch.
    Variante B (lokaler Klon, auf Tag ausgecheckt):
@@ -98,7 +98,7 @@ Richte für mich „The Swarm“ ein, ein Regelwerk für die Arbeitsweise von KI
 
 7. Ohne Anweisungsdatei (Variante C)
    Hat dein Werkzeug keine Anweisungsdatei, lade KERN.md, bei Stufe M oder L zusätzlich MANIFEST.md und die
-   Einträge mit Status neu aus LEARNINGS.md (Raw-URLs unter https://raw.githubusercontent.com/diren89/The-Swarm/v2.1.0/)
+   Einträge mit Status neu aus LEARNINGS.md (Raw-URLs unter https://raw.githubusercontent.com/diren89/The-Swarm/v2.2.0/)
    und sag mir, wie ich sie als System-Prompt oder Projektanweisung hinterlege. Nichts eigenmächtig einrichten.
 
 Regeln
